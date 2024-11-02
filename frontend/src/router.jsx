@@ -9,6 +9,7 @@ import Login from './page/login';
 import Logout from './component/logout';
 import Dashboard from './page/dashboard';
 import Deck from './page/deck';
+import Landingpage from './page/landingpage';
 
 // const Homepage = <>a</>;
 
@@ -27,7 +28,7 @@ function Router() {
       if (token && ['/login', '/register'].includes(location.pathname)) {
         navigate('/dashboard');
       } else if (!token && !['/login', '/register'].includes(location.pathname)) {
-        navigate('/login');
+        navigate('/');
       }
   }, [token, location.pathname])
 
@@ -48,7 +49,7 @@ function Router() {
           )}
         </div>
         <Routes>
-          <Route path="/" element={<Navigate to="register" />} />
+          <Route path="/" element={<Landingpage />} />
           <Route path="/dashboard" element={<Dashboard token={token} />} />
           <Route path="/deck/:deckid" element={<Deck />} />
           <Route path="/register" element={<Register token={token} handleSuccess={handleNewToken}/>} />
