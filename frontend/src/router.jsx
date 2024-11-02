@@ -35,16 +35,10 @@ function Router() {
   return (
     <>
         <div>
-          {token ? (
+          {token && (
             <>
               <Link to='/dashboard'>Dashboard</Link>
               <Logout token={token} setToken={setToken} />
-            </>
-          ) : (
-            <>
-              {/* <Link to='/register'>Register</Link> */}
-              {/* &nbsp;|&nbsp;
-              <Link to='/login'>Login</Link> */}
             </>
           )}
         </div>

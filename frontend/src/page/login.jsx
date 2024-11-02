@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
-import { Box, Background } from '../styles/styledComponents';
+import { Box, Background, GlobalBodyStyle } from '../styles/styledComponents';
 
 
 function Login({ token, handleSuccess }) {
@@ -28,6 +28,7 @@ function Login({ token, handleSuccess }) {
 
   return (
     <>
+      <GlobalBodyStyle/>
       <Background>
         <Box>
           <h2>Login</h2>

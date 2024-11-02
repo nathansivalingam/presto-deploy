@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
 
 export const Box = styled.div(() => ({
@@ -11,6 +11,7 @@ export const Box = styled.div(() => ({
     flexDirection:'column',
     gap: '3px',
     marginTop: '100px',
+    fontFamily: 'Arial',
 }));
 
 export const Background = styled.div(() => ({
@@ -22,5 +23,13 @@ export const Background = styled.div(() => ({
     width: '100vw',
     height: '100vh',
 }));
+
+
+export const GlobalBodyStyle = createGlobalStyle`
+    body{
+        margin: 0px;
+    }
+`;
+
 
 // export default LoginRegisterBox;
