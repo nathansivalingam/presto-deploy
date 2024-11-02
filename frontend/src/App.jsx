@@ -4,9 +4,9 @@ import { BrowserRouter, Navigate, Routes, Route, Link } from 'react-router-dom';
 import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import Register from './page/register';
+import Login from './page/login';
 
 const Homepage = <>a</>;
-const Login = <>b</>;
 const Dashboard = <>dashboard</>;
 
 function App() {
@@ -24,7 +24,7 @@ function App() {
           <Route path="/" element={<Navigate to="register" />} />
           <Route path="/dashboard" element={Dashboard} />
           <Route path="/register" element={<Register />} />
-          <Route path="/login" element={Login} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </BrowserRouter>
     </>
