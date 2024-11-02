@@ -2,7 +2,7 @@ import styled, { createGlobalStyle } from 'styled-components';
 
 
 export const Box = styled.div(() => ({
-    maxWidth: '400px',
+    width: '400px',
     maxHeight: '300px',
     backgroundColor: 'white',
     borderRadius: '10px',
@@ -24,6 +24,11 @@ export const Background = styled.div(() => ({
     height: '100vh',
 }));
 
+
+export const InputForLogReg = styled.input(() => ({
+    width: '100%',
+
+}));
 
 export const GlobalBodyStyle = createGlobalStyle`
     body{
