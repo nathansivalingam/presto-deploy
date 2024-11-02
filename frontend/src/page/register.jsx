@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
+import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+
 
 function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
+
+  const navigate = useNavigate();
 
   const register = () => {
     console.log(email, password, name);
@@ -18,6 +20,7 @@ function Register() {
     })
     .then( (response) => {
       localStorage.setItem('token', response.token);
+      navigate('/dashboard');
     })
     .catch( (error) => {
       console.log(error.response.data.error);
