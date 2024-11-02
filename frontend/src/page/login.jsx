@@ -4,22 +4,17 @@ import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 
 
-function Login({ setTokenFn }) {
+function Login({ handleSuccess }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const navigate = useNavigate();
-
   const login = () => {
-    console.log(email, password);
     axios.post('http://localhost:5005/admin/auth/login', {
       email: email,
       password: password,
     })
     .then( (response) => {
-      localStorage.setItem('token', response.data.token);
-      setTokenFn(response.data.token);
-      navigate('/dashboard');
+      handleSuccess(response.data.token);
     })
     .catch( (error) => {
       console.log(error.response.data.error);
