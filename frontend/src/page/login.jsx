@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 
 
-function Login({ handleSuccess }) {
+function Login({ token, handleSuccess }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 

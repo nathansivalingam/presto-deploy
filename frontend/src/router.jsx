@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Navigate, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Navigate, useLocation, Routes, Route, Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 // import reactLogo from './assets/react.svg';
 // import viteLogo from '/vite.svg';
+
 import Register from './page/register';
 import Login from './page/login';
 import Logout from './component/logout';
+import Dashboard from './page/dashboard';
 
-const Homepage = <>a</>;
-const Dashboard = <>dashboard</>;
+// const Homepage = <>a</>;
 
 function Router() {
-
   const [token, setToken] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation();
 
   React.useEffect(() => {
     if (localStorage.getItem('token') != null) {
@@ -27,7 +28,13 @@ function Router() {
     navigate('/dashboard');
   }
 
-  if (token && )
+  React.useEffect(() => {
+      if (token && ['/login', '/register'].includes(location.pathname)) {
+        navigate('/dashboard');
+      } else if (!token && !['/login', '/register'].includes(location.pathname)) {
+        navigate('/login');
+      }
+  }, [token, location.pathname])
 
   return (
     <>
@@ -47,9 +54,10 @@ function Router() {
         </div>
         <Routes>
           <Route path="/" element={<Navigate to="register" />} />
-          <Route path="/dashboard" element={Dashboard} />
-          <Route path="/register" element={<Register handleSuccess={handleNewToken}/>} />
-          <Route path="/login" element={<Login handleSuccess={handleNewToken}/>} />
+          <Route path="/dashboard" element={<Dashboard token={token} />} />
+          <Route path="/deck/:deckid" element={<Deck />} />
+          <Route path="/register" element={<Register token={token} handleSuccess={handleNewToken}/>} />
+          <Route path="/login" element={<Login token={token} handleSuccess={handleNewToken}/>} />
         </Routes>
     </>
   )
