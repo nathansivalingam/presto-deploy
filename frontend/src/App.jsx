@@ -9,7 +9,7 @@ function App() {
 
   return (
     <>
-      <h2>Register</h2>a
+      <h2>Register</h2>
       Email: <input type="text" value={email} onClick={e => setEmail(e.target.value)} /><br />
       Password: <input type="text" value={password} onClick={e => setPassword(e.target.value)} /><br />
       Name: <input type="text" value={name} onClick={e => setName(e.target.value)} /><br />
