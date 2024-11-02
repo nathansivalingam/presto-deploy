@@ -2,6 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
+import { Box, Background } from '../styles/styledComponents';
 
 function Register({ token, handleSuccess }) {
   const [email, setEmail] = useState('');
@@ -33,13 +34,22 @@ function Register({ token, handleSuccess }) {
 
   return (
     <>
-      <h2>Register</h2>
-      Email: <input type="text" value={email} onChange={e => setEmail(e.target.value)} /><br />
-      Password: <input type="text" value={password} onChange={e => setPassword(e.target.value)} /><br />
-      Confirm Password: <input type="text" value={confPassword} onChange={e => setConfPassword(e.target.value)} /><br />
-      Name: <input type="text" value={name} onChange={e => setName(e.target.value)} /><br />
-      {error && <div style={{color: 'red'}}>Error: {error} </div>}
-      <button onClick={register}>Register</button>
+      <Background>
+        <Box>
+          <h2>Register</h2>
+          <div>Email:</div>
+          <div><input type="text" value={email} onChange={e => setEmail(e.target.value)} /><br /></div>
+          <div>Password: </div>
+          <div><input type="text" value={password} onChange={e => setPassword(e.target.value)} /><br /></div>
+          <div>Confirm Password:</div>
+          <div><input type="text" value={confPassword} onChange={e => setConfPassword(e.target.value)} /><br /></div>
+          <div>Name: </div>
+          <div><input type="text" value={name} onChange={e => setName(e.target.value)} /><br /></div>
+          <div>{error && <div style={{color: 'red'}}>Error: {error} </div>}</div>
+          <div><button onClick={register}>Register</button></div>
+          <Link to='/login'>Login</Link>
+        </Box>
+      </Background>
     </>
   )
 }

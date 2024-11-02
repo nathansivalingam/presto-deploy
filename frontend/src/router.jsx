@@ -42,9 +42,9 @@ function Router() {
             </>
           ) : (
             <>
-              <Link to='/register'>Register</Link>
-              &nbsp;|&nbsp;
-              <Link to='/login'>Login</Link>
+              {/* <Link to='/register'>Register</Link> */}
+              {/* &nbsp;|&nbsp;
+              <Link to='/login'>Login</Link> */}
             </>
           )}
         </div>

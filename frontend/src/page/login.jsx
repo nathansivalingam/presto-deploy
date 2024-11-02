@@ -37,6 +37,7 @@ function Login({ token, handleSuccess }) {
           <div><input type="text" value={password} onChange={e => setPassword(e.target.value)} /><br /></div>
           <div>{error && <div style={{color: 'red'}}>Error: {error} </div>}</div>
           <div><button onClick={login}>Login</button></div>
+          <Link to='/register'>Register</Link>
         </Box>
       </Background>
     </>

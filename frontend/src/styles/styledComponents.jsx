@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export const Box = styled.div(() => ({
     maxWidth: '400px',
-    maxHeight: '200px',
+    maxHeight: '300px',
     backgroundColor: 'white',
     borderRadius: '10px',
     padding: '20px',
@@ -20,7 +20,7 @@ export const Background = styled.div(() => ({
     display: 'flex',
     justifyContent: 'center',
     width: '100vw',
-    height: '100vw',
+    height: '100vh',
 }));
 
 // export default LoginRegisterBox;
