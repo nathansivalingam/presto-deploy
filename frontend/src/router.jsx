@@ -8,19 +8,14 @@ import Register from './page/register';
 import Login from './page/login';
 import Logout from './component/logout';
 import Dashboard from './page/dashboard';
+import Deck from './page/deck';
 
 // const Homepage = <>a</>;
 
 function Router() {
-  const [token, setToken] = useState(null);
+  const [token, setToken] = useState(localStorage.getItem('token'));
   const navigate = useNavigate();
   const location = useLocation();
-
-  React.useEffect(() => {
-    if (localStorage.getItem('token') != null) {
-      setToken(localStorage.getItem('token'));
-    }
-  }, []);
 
   const handleNewToken = (newToken) => {
     localStorage.setItem('token', newToken);
