@@ -4,7 +4,7 @@ import axios from 'axios';
 const LandingPage = function({ token }) {
 
     return <>
-       LANDINGPAGE!!
+       <h2>Welcome To Presto</h2>
     </>;
 };
 
