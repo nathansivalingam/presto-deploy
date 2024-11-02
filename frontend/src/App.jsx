@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { axios } from 'axios';
-// import reactLogo from './assets/react.svg';
-// import viteLogo from '/vite.svg';
+import axios from 'axios';
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import reactLogo from './assets/react.svg';
+import viteLogo from '/vite.svg';
 
 function App() {
   const [email, setEmail] = useState('');
@@ -10,15 +11,16 @@ function App() {
 
   const register = () => {
     console.log(email, password, name);
-    axios.post('/user', {
-      firstName: 'Fred',
-      lastName: 'Flintstone'
+    axios.post('http://localhost:5005/admin/auth/register', {
+      email: email,
+      password: password,
+      name: name,
     })
-    .then(function (response) {
-      console.log(response);
+    .then( (response) => {
+      localStorage.setItem('token', response.token);
     })
-    .catch(function (error) {
-      console.log(error);
+    .catch( (error) => {
+      console.log(error.response.data.error);
     });
   }
 
