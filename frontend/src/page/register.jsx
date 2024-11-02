@@ -7,6 +7,7 @@ function Register({ token, handleSuccess }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
+  const [error, setError] = useState(null);
 
   const register = () => {
     console.log(email, password, name);
@@ -17,9 +18,11 @@ function Register({ token, handleSuccess }) {
     })
     .then( (response) => {
       handleSuccess(response.data.token);
+      setError(null);
     })
     .catch( (error) => {
       console.log(error.response.data.error);
+      setError(error.response.data.error);
     });
   }
 
@@ -29,7 +32,7 @@ function Register({ token, handleSuccess }) {
       Email: <input type="text" value={email} onChange={e => setEmail(e.target.value)} /><br />
       Password: <input type="text" value={password} onChange={e => setPassword(e.target.value)} /><br />
       Name: <input type="text" value={name} onChange={e => setName(e.target.value)} /><br />
-
+      {error && <div style={{color: 'red'}}>Error: {error} </div>}
       <button onClick={register}>Register</button>
     </>
   )
