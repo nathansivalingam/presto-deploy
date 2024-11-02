@@ -30,6 +30,3 @@ export const GlobalBodyStyle = createGlobalStyle`
         margin: 0px;
     }
 `;
-
-
-// export default LoginRegisterBox;
