@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 
 
-function Login() {
+function Login({ setTokenFn }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -17,7 +17,8 @@ function Login() {
       password: password,
     })
     .then( (response) => {
-      localStorage.setItem('token', response.token);
+      localStorage.setItem('token', response.data.token);
+      setTokenFn(response.data.token);
       navigate('/dashboard');
     })
     .catch( (error) => {

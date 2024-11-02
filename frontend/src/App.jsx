@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { BrowserRouter, Navigate, Routes, Route, Link } from 'react-router-dom';
 import reactLogo from './assets/react.svg';
@@ -14,15 +14,25 @@ function App() {
   const [token, setToken] = useState(null);
   console.log(token);
 
+  React.useEffect(() => {
+    setToken(localStorage.getItem('token'));
+  }, []);
+
   return (
     <>
       <BrowserRouter>
         <div>
-          <Link to='/register'>Register</Link>
-          &nbsp;|&nbsp;
-          <Link to='/login'>Login</Link>
-          &nbsp;|&nbsp;
-          <Link to='/dashboard'>Dashboard</Link>
+          {token ? (
+            <>
+              <Link to='/dashboard'>Dashboard</Link>
+            </>
+          ) : (
+            <>
+              <Link to='/register'>Register</Link>
+              &nbsp;|&nbsp;
+              <Link to='/login'>Login</Link>
+            </>
+          )}
         </div>
         <Routes>
           <Route path="/" element={<Navigate to="register" />} />
