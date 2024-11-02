@@ -6,7 +6,7 @@ export const Box = styled.div(() => ({
     maxHeight: '300px',
     backgroundColor: 'white',
     borderRadius: '10px',
-    padding: '20px',
+    padding: '35px',
     display:'flex',
     flexDirection:'column',
     gap: '3px',
@@ -28,6 +28,10 @@ export const Background = styled.div(() => ({
 export const InputForLogReg = styled.input(() => ({
     width: '100%',
 
+}));
+
+export const LabelsForLogReg = styled.div(() => ({
+    textAlign: 'left',
 }));
 
 export const GlobalBodyStyle = createGlobalStyle`

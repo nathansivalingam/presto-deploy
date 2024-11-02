@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
-import { Box, Background, GlobalBodyStyle, InputForLogReg } from '../styles/styledComponents';
+import { Box, Background, GlobalBodyStyle, InputForLogReg, LabelsForLogReg } from '../styles/styledComponents';
 
 
 function Login({ token, handleSuccess }) {
@@ -32,9 +32,9 @@ function Login({ token, handleSuccess }) {
       <Background>
         <Box>
           <h2>Login</h2>
-          <div>Email: </div>
+          <LabelsForLogReg>Email: </LabelsForLogReg>
           <div><InputForLogReg type="text" value={email} onChange={e => setEmail(e.target.value)} /><br /></div>
-          <div>Password: </div>
+          <LabelsForLogReg>Password: </LabelsForLogReg>
           <div><InputForLogReg type="text" value={password} onChange={e => setPassword(e.target.value)} /><br /></div>
           <div>{error && <div style={{color: 'red'}}>Error: {error} </div>}</div>
           <div><button onClick={login}>Login</button></div>
