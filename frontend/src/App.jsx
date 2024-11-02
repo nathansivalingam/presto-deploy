@@ -10,6 +10,10 @@ const Homepage = <>a</>;
 const Dashboard = <>dashboard</>;
 
 function App() {
+
+  const [token, setToken] = useState(null);
+  console.log(token);
+
   return (
     <>
       <BrowserRouter>
@@ -23,8 +27,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to="register" />} />
           <Route path="/dashboard" element={Dashboard} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register setTokenFn={setToken}/>} />
+          <Route path="/login" element={<Login setTokenFn={setToken}/>} />
         </Routes>
       </BrowserRouter>
     </>

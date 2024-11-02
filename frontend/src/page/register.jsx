@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 
 
-function Register() {
+function Register({ setTokenFn }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
@@ -19,7 +19,8 @@ function Register() {
       name: name,
     })
     .then( (response) => {
-      localStorage.setItem('token', response.token);
+      localStorage.setItem('token', response.data.token);
+      setTokenFn(response.data.token);
       navigate('/dashboard');
     })
     .catch( (error) => {
