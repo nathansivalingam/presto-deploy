@@ -2,6 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
+import { Box, Background } from '../styles/styledComponents';
 
 
 function Login({ token, handleSuccess }) {
@@ -27,12 +28,17 @@ function Login({ token, handleSuccess }) {
 
   return (
     <>
-      <h2>Login</h2>
-      Email: <input type="text" value={email} onChange={e => setEmail(e.target.value)} /><br />
-      Password: <input type="text" value={password} onChange={e => setPassword(e.target.value)} /><br />
-      {error && <div style={{color: 'red'}}>Error: {error} </div>}
-
-      <button onClick={login}>Login</button>
+      <Background>
+        <Box>
+          <h2>Login</h2>
+          <div>Email: </div>
+          <div><input type="text" value={email} onChange={e => setEmail(e.target.value)} /><br /></div>
+          <div>Password: </div>
+          <div><input type="text" value={password} onChange={e => setPassword(e.target.value)} /><br /></div>
+          <div>{error && <div style={{color: 'red'}}>Error: {error} </div>}</div>
+          <div><button onClick={login}>Login</button></div>
+        </Box>
+      </Background>
     </>
   )
 }
