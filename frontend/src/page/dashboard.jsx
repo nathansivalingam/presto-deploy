@@ -42,12 +42,19 @@ const Dashboard = function({ token }) {
     const newPres = () => {
         setNewPresPopup(!newPresPopup);
         const newStore = {...store};
-        if (!('decks' in newStore)) {
-            newStore['decks'] = [];
+        if (!('allPres' in newStore)) {
+            newStore['allPres'] = {};
         }
-        newStore['decks'].push({
-            title: newPresName,
-        })
+
+        newStore['allPres'][Object.keys(newStore['allPres']).length] = {
+                "title": newPresName,
+                "thumbnail": '',
+                "description": '',
+                "numSlides": 1,
+                "Slides": {
+                    "0": {},
+                }
+        };
         setStoreAll(newStore);
     }
 
