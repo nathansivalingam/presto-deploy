@@ -58,6 +58,16 @@ const Dashboard = function({ token }) {
         setStoreAll(newStore);
     }
 
+    const showPresentations = (presentations) => {
+        console.log(presentations)
+        return presentations.map((presentation, index) => (
+            <div key={index}>
+                <h2>{presentation.title}</h2>
+                <p>{presentation.description}</p>
+            </div>
+        ));
+    }
+
     return <>
         {newPresPopup ? (
             <>
@@ -68,7 +78,7 @@ const Dashboard = function({ token }) {
             <>
                 All Presentations<br />
                 <button onClick={() => setNewPresPopup(!newPresPopup)}>New Pesentation</button>
-                {JSON.stringify(store)}
+                {showPresentations(store['allPres'])}
             </>
           )}
     </>;
