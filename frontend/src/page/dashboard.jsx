@@ -60,8 +60,12 @@ const Dashboard = function({ token }) {
 
     const showPresentations = (presentations) => {
         console.log(presentations)
-        return presentations.map((presentation, index) => (
-            <div key={index}>
+        if (!presentations || Object.keys(presentations).length === 0) {
+            return <p>No presentations available.</p>; // Handle empty or undefined dictionary
+        }
+    
+        return Object.entries(presentations).map(([key, presentation]) => (
+            <div key={key} style={{ border: "1px solid #ddd", padding: "10px", marginBottom: "10px" }}>
                 <h2>{presentation.title}</h2>
                 <p>{presentation.description}</p>
             </div>
