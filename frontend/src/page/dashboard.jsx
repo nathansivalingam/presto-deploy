@@ -61,7 +61,7 @@ const Dashboard = function({ token }) {
     const showPresentations = (presentations) => {
         console.log(presentations)
         if (!presentations || Object.keys(presentations).length === 0) {
-            return <p>No presentations available.</p>; // Handle empty or undefined dictionary
+            return <p>No presentations available.</p>; 
         }
     
         return Object.entries(presentations).map(([key, presentation]) => (
