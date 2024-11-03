@@ -4,7 +4,9 @@ import axios from 'axios';
 const Dashboard = function({ token }) {
     
     const [store, setStore] = React.useState({});
-    
+    const [newPresPopup, setNewPresPopup] = React.useState(false);
+    const [newPresName, setNewPresName] = React.useState('');
+
     const setStoreAll = (newStore) => {
         axios.put(
             'http://localhost:5005/store',
@@ -37,21 +39,31 @@ const Dashboard = function({ token }) {
         }
     }, [token]);
     
-    const newDeck = () => {
+    const newPres = () => {
+        setNewPresPopup(!newPresPopup);
         const newStore = {...store};
         if (!('decks' in newStore)) {
             newStore['decks'] = [];
         }
         newStore['decks'].push({
-            title: 'Hayden sucks',
+            title: newPresName,
         })
         setStoreAll(newStore);
     }
 
     return <>
-        ALL YOUR STUFF!<br />
-        <button onClick={newDeck}>New deck</button>
-        {JSON.stringify(store)}
+        {newPresPopup ? (
+            <>
+                <input type="text" value={newPresName} onChange={e => setNewPresName(e.target.value)} /><br />
+                <button onClick={() => newPres()}>Create</button>
+            </>
+          ):(
+            <>
+                All Presentations<br />
+                <button onClick={() => setNewPresPopup(!newPresPopup)}>New Pesentation</button>
+                {JSON.stringify(store)}
+            </>
+          )}
     </>;
 };
 

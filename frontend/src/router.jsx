@@ -8,7 +8,7 @@ import Register from './page/register';
 import Login from './page/login';
 import Logout from './component/logout';
 import Dashboard from './page/dashboard';
-import Deck from './page/deck';
+import Pres from './page/pres';
 import Landingpage from './page/landingpage';
 
 // const Homepage = <>a</>;
@@ -45,7 +45,7 @@ function Router() {
         <Routes>
           <Route path="/" element={<Landingpage />} />
           <Route path="/dashboard" element={<Dashboard token={token} />} />
-          <Route path="/deck/:deckid" element={<Deck />} />
+          <Route path="/pres/:presid" element={<Pres />} />
           <Route path="/register" element={<Register token={token} handleSuccess={handleNewToken}/>} />
           <Route path="/login" element={<Login token={token} handleSuccess={handleNewToken}/>} />
         </Routes>

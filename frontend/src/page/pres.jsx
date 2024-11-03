@@ -3,13 +3,13 @@ import axios from 'axios';
 
 import { useParams } from 'react-router-dom';
 
-const Deck = function ({ token }) {
+const Pres = function ({ token }) {
 
     const params = useParams();
 
     return <>
-        Hello Deck {params.deckid}
+        Hello Deck {params.presid}
     </>;
 }
 
-export default Deck;
+export default Pres;
