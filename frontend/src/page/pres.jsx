@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { CurSlide, PresPage } from '../styles/styledComponents';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const Pres = function ({ token, curStore, setStoreFn }) {
     const [curSlideNum, setCurSlideNum] = useState(0);
@@ -23,7 +23,7 @@ const Pres = function ({ token, curStore, setStoreFn }) {
         </PresPage>
 
         <div>
-            dwadad
+            Ben
         </div>
     </>;
 
