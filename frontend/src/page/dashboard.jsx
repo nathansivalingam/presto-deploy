@@ -1,47 +1,17 @@
 import React from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { NewPresPopupStyle, NewPresPopUpDiv, DashboardCardStyleDiv, ShowPresentationList, ThumbnailStyle, DashboardCardTopHalf, TrailOff, TrailOffWrap } from '../styles/styledComponents';
 
-const Dashboard = function({ token }) {
+const Dashboard = function({ token, curStore, setStoreFn }) {
     
-    const [store, setStore] = React.useState({});
     const [newPresPopup, setNewPresPopup] = React.useState(false);
     const [newPresName, setNewPresName] = React.useState('');
-
-    const setStoreAll = (newStore) => {
-        axios.put(
-            'http://localhost:5005/store',
-            {
-                store: newStore,
-            },
-            {
-                headers: { Authorization: `Bearer ${token}` }
-            }
-        )
-        .then( (response) => {
-            setStore(newStore);
-        })
-        .catch( (error) => {
-            console.log(error.response.data.store);
-        })
-    }
-
-    React.useEffect(() => {
-        if (token) {
-            axios.get('http://localhost:5005/store', {
-                headers: { Authorization: `Bearer ${token}` }
-            })
-            .then( (response) => {
-                setStore(response.data.store);
-            })
-            .catch( (error) => {
-                console.log(error.response.data.error);
-            });
-        }
-    }, [token]);
+    const navigate = useNavigate();
     
     const newPres = () => {
         setNewPresPopup(!newPresPopup);
-        const newStore = {...store};
+        const newStore = {...curStore};
         if (!('allPres' in newStore)) {
             newStore['allPres'] = {};
         }
@@ -51,11 +21,11 @@ const Dashboard = function({ token }) {
                 "thumbnail": '',
                 "description": '',
                 "numSlides": 1,
-                "Slides": {
+                "slides": {
                     "0": {},
                 }
         };
-        setStoreAll(newStore);
+        setStoreFn(newStore);
     }
 
     const showPresentations = (presentations) => {
@@ -65,26 +35,55 @@ const Dashboard = function({ token }) {
         }
     
         return Object.entries(presentations).map(([key, presentation]) => (
-            <div key={key} style={{ border: "1px solid #ddd", padding: "10px", marginBottom: "10px" }}>
-                <h2>{presentation.title}</h2>
-                <p>{presentation.description}</p>
+            <div key={key}>
+                <DashboardCardStyleDiv onClick={() => {navigate(`/pres/${key}`)}}>
+                    <DashboardCardTopHalf>
+                        <ThumbnailStyle>
+                            {presentation.thumbnail}
+                        </ThumbnailStyle>
+                        <TrailOff>
+                            <div>Name: {presentation.title}</div>
+                            <div>No. Slides: {presentation.numSlides}</div>
+                        </TrailOff>
+                    </DashboardCardTopHalf>
+                    <TrailOffWrap>
+                        Description: {presentation.description}
+                    </TrailOffWrap>
+                </DashboardCardStyleDiv>
             </div>
         ));
     }
 
     return <>
-        {newPresPopup ? (
+        <>
+            <br />
+            <div>
+                <button onClick={() => setNewPresPopup(!newPresPopup)}>New Presentation</button>
+            </div>
+            All Presentations
+            <ShowPresentationList>
+                {showPresentations(curStore['allPres'])}
+            </ShowPresentationList>
+        </>
+        {newPresPopup && (
             <>
-                <input type="text" value={newPresName} onChange={e => setNewPresName(e.target.value)} /><br />
-                <button onClick={() => newPres()}>Create</button>
+                <NewPresPopUpDiv>
+                    <NewPresPopupStyle>
+                        <div>
+                            New presentation name:
+                        </div>
+                        <div>
+                            <input type="text" value={newPresName} onChange={e => setNewPresName(e.target.value)} /><br />
+                        </div>
+                        <div>
+                            <button onClick={() => newPres()}>Create</button>
+                        </div>
+                    </NewPresPopupStyle> 
+                </NewPresPopUpDiv>
             </>
-          ):(
-            <>
-                All Presentations<br />
-                <button onClick={() => setNewPresPopup(!newPresPopup)}>New Pesentation</button>
-                {showPresentations(store['allPres'])}
-            </>
-          )}
+        )}
+            
+          
     </>;
 };
 
