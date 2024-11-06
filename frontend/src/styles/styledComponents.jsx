@@ -78,3 +78,21 @@ export const NewPresPopupStyle = styled.div(() => ({
     borderColor: 'black',
     borderStyle: 'solid',
 }));
+
+export const DashboardCardStyle = styled.div(() => ({
+    border: "1px solid #ddd", 
+    padding: "10px",
+    marginBottom: "10px",
+    display: 'flex',
+    height: '100px',
+    width: '200px',
+}));
+
+export const ShowPresentationList = styled.div(() => ({
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: '10px',
+    margin: '20px',
+    justifyContent: 'center',
+}));

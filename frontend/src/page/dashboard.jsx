@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { NewPresPopupStyle, NewPresPopUpDiv } from '../styles/styledComponents';
+import { NewPresPopupStyle, NewPresPopUpDiv, DashboardCardStyle, ShowPresentationList } from '../styles/styledComponents';
 
 const Dashboard = function({ token }) {
     
@@ -66,18 +66,23 @@ const Dashboard = function({ token }) {
         }
     
         return Object.entries(presentations).map(([key, presentation]) => (
-            <div key={key} style={{ border: "1px solid #ddd", padding: "10px", marginBottom: "10px" }}>
+            <DashboardCardStyle key={key}>
                 <h2>{presentation.title}</h2>
                 <p>{presentation.description}</p>
-            </div>
+            </DashboardCardStyle>
         ));
     }
 
     return <>
         <>
-            All Presentations<br />
-            <button onClick={() => setNewPresPopup(!newPresPopup)}>New Presentation</button>
-            {showPresentations(store['allPres'])}
+            <br />
+            <div>
+                <button onClick={() => setNewPresPopup(!newPresPopup)}>New Presentation</button>
+            </div>
+            All Presentations
+            <ShowPresentationList>
+                {showPresentations(store['allPres'])}
+            </ShowPresentationList>
         </>
         {newPresPopup && (
             <>
