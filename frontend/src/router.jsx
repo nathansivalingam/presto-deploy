@@ -25,7 +25,7 @@ function Router() {
   }
 
   React.useEffect(() => {
-      if (token && ['/login', '/register'].includes(location.pathname)) {
+      if (token && ['/login', '/register', '/', ''].includes(location.pathname)) {
         navigate('/dashboard');
       } else if (!token && !['/login', '/register'].includes(location.pathname)) {
         navigate('/');
