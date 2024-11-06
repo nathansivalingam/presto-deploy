@@ -25,7 +25,6 @@ function Login({ handleSuccess }) {
 
   return (
     <>
-      <GlobalBodyStyle/>
       <Background>
         <Box>
           <h2>Login</h2>

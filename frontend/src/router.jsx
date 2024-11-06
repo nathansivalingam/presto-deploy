@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation, Routes, Route, Link } from 'react-router-dom';
+import { NavBar, NavBarBtn, GlobalBodyStyle } from './styles/styledComponents';
 
 import Register from './page/register';
 import Login from './page/login';
@@ -32,11 +33,18 @@ function Router() {
         <div>
           {token && (
             <>
-              <Link to='/dashboard'>Dashboard</Link>
-              <Logout token={token} setToken={setToken} />
+              <NavBar>
+                <NavBarBtn>
+                  <Link to='/dashboard'>Dashboard</Link>
+                </NavBarBtn>
+                <NavBarBtn>
+                  <Logout token={token} setToken={setToken} />
+                </NavBarBtn>
+              </NavBar>
             </>
           )}
         </div>
+        <GlobalBodyStyle/>
         <Routes>
           <Route path="/" element={<Landingpage />} />
           <Route path="/dashboard" element={<Dashboard token={token} />} />

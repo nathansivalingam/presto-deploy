@@ -33,7 +33,6 @@ function Register({ handleSuccess }) {
 
   return (
     <>
-      <GlobalBodyStyle/>
       <Background>
         <Box>
           <h2>Register</h2>

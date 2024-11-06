@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { NewPresPopupStyle, NewPresPopUpDiv } from '../styles/styledComponents';
 
 const Dashboard = function({ token }) {
     
@@ -73,18 +74,30 @@ const Dashboard = function({ token }) {
     }
 
     return <>
-        {newPresPopup ? (
+        <>
+            All Presentations<br />
+            <button onClick={() => setNewPresPopup(!newPresPopup)}>New Presentation</button>
+            {showPresentations(store['allPres'])}
+        </>
+        {newPresPopup && (
             <>
-                <input type="text" value={newPresName} onChange={e => setNewPresName(e.target.value)} /><br />
-                <button onClick={() => newPres()}>Create</button>
+                <NewPresPopUpDiv>
+                    <NewPresPopupStyle>
+                        <div>
+                            New presentation name:
+                        </div>
+                        <div>
+                            <input type="text" value={newPresName} onChange={e => setNewPresName(e.target.value)} /><br />
+                        </div>
+                        <div>
+                            <button onClick={() => newPres()}>Create</button>
+                        </div>
+                    </NewPresPopupStyle> 
+                </NewPresPopUpDiv>
             </>
-          ):(
-            <>
-                All Presentations<br />
-                <button onClick={() => setNewPresPopup(!newPresPopup)}>New Presentation</button>
-                {showPresentations(store['allPres'])}
-            </>
-          )}
+        )}
+            
+          
     </>;
 };
 

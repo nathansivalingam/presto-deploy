@@ -39,3 +39,42 @@ export const GlobalBodyStyle = createGlobalStyle`
         margin: 0px;
     }
 `;
+
+// Dashboard Styles
+export const NavBar = styled.div(() => ({
+    backgroundColor: '#D1EEFC',
+    display: 'flex',
+    height: '40px',
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: '10px',
+}));
+
+export const NavBarBtn = styled.div(() => ({
+    display: 'flex',
+    alignItems: 'center',
+}));
+
+export const NewPresPopUpDiv = styled.div(() => ({
+    display: 'flex',
+    justifyContent: 'center',
+}));
+
+export const NewPresPopupStyle = styled.div(() => ({
+    border: '10px',
+    backgroundColor: 'white',
+    display: 'flex',
+    flexDirection: 'column',
+    position: 'fixed',
+    width: '70%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    top: '100px',
+    borderRadius: '10px',
+    padding: '20px',
+    gap: '10px',
+    borderWidth: '1px',
+    borderColor: 'black',
+    borderStyle: 'solid',
+}));
