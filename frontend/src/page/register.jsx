@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
-import { useNavigate } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { Box, Background, GlobalBodyStyle, InputForLogReg, LabelsForLogReg } from '../styles/styledComponents';
 
-function Register({ token, handleSuccess }) {
+function Register({ handleSuccess }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confPassword, setConfPassword] = useState('');

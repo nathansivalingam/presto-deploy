@@ -81,7 +81,7 @@ const Dashboard = function({ token }) {
           ):(
             <>
                 All Presentations<br />
-                <button onClick={() => setNewPresPopup(!newPresPopup)}>New Pesentation</button>
+                <button onClick={() => setNewPresPopup(!newPresPopup)}>New Presentation</button>
                 {showPresentations(store['allPres'])}
             </>
           )}
