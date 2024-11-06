@@ -104,7 +104,21 @@ export const ShowPresentationList = styled.div(() => ({
 
 export const ThumbnailStyle = styled.div(() => ({
     backgroundColor: 'lightgrey',
-    width: '50px',
-    height: '50px',
+    minWidth: '50px',
+    minHeight: '50px',
     marginRight: '10px',
+}));
+
+
+export const TrailOff = styled.div(() => ({
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    maxWidth: '200px',
+}));
+
+export const TrailOffWrap = styled.div(() => ({
+    whiteSpace: 'wrap',
+    overflow: 'hidden',
+    maxWidth: '200px',
+    wordBreak: 'break-word',
 }));

@@ -1,12 +1,14 @@
 import React from 'react';
 import axios from 'axios';
-import { NewPresPopupStyle, NewPresPopUpDiv, DashboardCardStyleDiv, ShowPresentationList, ThumbnailStyle, DashboardCardTopHalf } from '../styles/styledComponents';
+import { useNavigate } from 'react-router-dom';
+import { NewPresPopupStyle, NewPresPopUpDiv, DashboardCardStyleDiv, ShowPresentationList, ThumbnailStyle, DashboardCardTopHalf, TrailOff, TrailOffWrap } from '../styles/styledComponents';
 
 const Dashboard = function({ token }) {
     
     const [store, setStore] = React.useState({});
     const [newPresPopup, setNewPresPopup] = React.useState(false);
     const [newPresName, setNewPresName] = React.useState('');
+    const navigate = useNavigate();
 
     const setStoreAll = (newStore) => {
         axios.put(
@@ -67,19 +69,19 @@ const Dashboard = function({ token }) {
     
         return Object.entries(presentations).map(([key, presentation]) => (
             <div key={key}>
-                <DashboardCardStyleDiv>
+                <DashboardCardStyleDiv onClick={() => {navigate(`/pres/${key}`)}}>
                     <DashboardCardTopHalf>
                         <ThumbnailStyle>
                             {presentation.thumbnail}
-                        </ThumbnailStyle> 
-                        <div>
+                        </ThumbnailStyle>
+                        <TrailOff>
                             <div>Name: {presentation.title}</div>
                             <div>No. Slides: {presentation.numSlides}</div>
-                        </div>
+                        </TrailOff>
                     </DashboardCardTopHalf>
-                    <div>
+                    <TrailOffWrap>
                         Description: {presentation.description}
-                    </div>
+                    </TrailOffWrap>
                 </DashboardCardStyleDiv>
             </div>
         ));
