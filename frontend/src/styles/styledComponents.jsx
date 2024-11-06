@@ -122,3 +122,21 @@ export const TrailOffWrap = styled.div(() => ({
     maxWidth: '200px',
     wordBreak: 'break-word',
 }));
+
+// Current Presentation
+export const CurSlide = styled.div(() => ({
+    height: '70%',
+    width: '80%',
+    display: 'flex',
+    borderWidth: '1px',
+    borderColor: 'black',
+    borderStyle: 'solid',
+    backgroundColor: 'white',
+}));
+
+export const PresPage = styled.div(() => ({
+    display: 'flex',
+    justifyContent: 'center',
+    height: '100vw',
+    marginTop: '10px',
+}));

@@ -21,7 +21,7 @@ const Dashboard = function({ token, curStore, setStoreFn }) {
                 "thumbnail": '',
                 "description": '',
                 "numSlides": 1,
-                "Slides": {
+                "slides": {
                     "0": {},
                 }
         };

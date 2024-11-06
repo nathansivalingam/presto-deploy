@@ -85,7 +85,7 @@ function Router() {
         <Routes>
           <Route path="/" element={<Landingpage />} />
           <Route path="/dashboard" element={<Dashboard token={token} curStore={store} setStoreFn={setStoreAll} />} />
-          <Route path="/pres/:presid" element={<Pres />} />
+          <Route path="/pres/:presid" element={<Pres token={token} curStore={store} setStoreFn={setStoreAll} />} />
           <Route path="/register" element={<Register handleSuccess={handleNewToken}/>} />
           <Route path="/login" element={<Login handleSuccess={handleNewToken}/>} />
         </Routes>
