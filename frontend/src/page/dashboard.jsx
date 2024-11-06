@@ -3,48 +3,15 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { NewPresPopupStyle, NewPresPopUpDiv, DashboardCardStyleDiv, ShowPresentationList, ThumbnailStyle, DashboardCardTopHalf, TrailOff, TrailOffWrap } from '../styles/styledComponents';
 
-const Dashboard = function({ token }) {
+const Dashboard = function({ token, curStore, setStoreFn }) {
     
-    const [store, setStore] = React.useState({});
     const [newPresPopup, setNewPresPopup] = React.useState(false);
     const [newPresName, setNewPresName] = React.useState('');
     const navigate = useNavigate();
-
-    const setStoreAll = (newStore) => {
-        axios.put(
-            'http://localhost:5005/store',
-            {
-                store: newStore,
-            },
-            {
-                headers: { Authorization: `Bearer ${token}` }
-            }
-        )
-        .then( (response) => {
-            setStore(newStore);
-        })
-        .catch( (error) => {
-            console.log(error.response.data.store);
-        })
-    }
-
-    React.useEffect(() => {
-        if (token) {
-            axios.get('http://localhost:5005/store', {
-                headers: { Authorization: `Bearer ${token}` }
-            })
-            .then( (response) => {
-                setStore(response.data.store);
-            })
-            .catch( (error) => {
-                console.log(error.response.data.error);
-            });
-        }
-    }, [token]);
     
     const newPres = () => {
         setNewPresPopup(!newPresPopup);
-        const newStore = {...store};
+        const newStore = {...curStore};
         if (!('allPres' in newStore)) {
             newStore['allPres'] = {};
         }
@@ -58,7 +25,7 @@ const Dashboard = function({ token }) {
                     "0": {},
                 }
         };
-        setStoreAll(newStore);
+        setStoreFn(newStore);
     }
 
     const showPresentations = (presentations) => {
@@ -95,7 +62,7 @@ const Dashboard = function({ token }) {
             </div>
             All Presentations
             <ShowPresentationList>
-                {showPresentations(store['allPres'])}
+                {showPresentations(curStore['allPres'])}
             </ShowPresentationList>
         </>
         {newPresPopup && (
