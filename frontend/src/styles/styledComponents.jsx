@@ -79,13 +79,18 @@ export const NewPresPopupStyle = styled.div(() => ({
     borderStyle: 'solid',
 }));
 
-export const DashboardCardStyle = styled.div(() => ({
+export const DashboardCardStyleDiv = styled.div(() => ({
     border: "1px solid #ddd", 
     padding: "10px",
-    marginBottom: "10px",
     display: 'flex',
     height: '100px',
     width: '200px',
+    flexDirection: 'column',
+}));
+
+export const DashboardCardTopHalf = styled.div(() => ({
+    display: 'flex',
+    flexDirection: 'row',
 }));
 
 export const ShowPresentationList = styled.div(() => ({
@@ -95,4 +100,11 @@ export const ShowPresentationList = styled.div(() => ({
     gap: '10px',
     margin: '20px',
     justifyContent: 'center',
+}));
+
+export const ThumbnailStyle = styled.div(() => ({
+    backgroundColor: 'lightgrey',
+    width: '50px',
+    height: '50px',
+    marginRight: '10px',
 }));
