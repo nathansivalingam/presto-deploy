@@ -148,3 +148,11 @@ export const PresentationBtnHeadingStyle = styled.div(() => ({
     marginTop: '10px',
     alignItems: 'center',
 }));
+
+export const BackDeleteBtnPagePosStyle = styled.div(() => ({
+    display: 'flex',
+    gap: '10px',
+    marginTop: '10px',
+    alignItems: 'center',
+    justifyContent: 'center',
+}));

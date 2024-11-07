@@ -1,6 +1,10 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { CurSlide, PresPage, NewPresPopUpDiv, NewPresPopupStyle } from '../styles/styledComponents';
+import { CurSlide, 
+    PresPage,
+    NewPresPopUpDiv,
+    NewPresPopupStyle, 
+    BackDeleteBtnPagePosStyle } from '../styles/styledComponents';
 
 
 const Pres = function ({ token, curStore, setStoreFn }) {
@@ -12,9 +16,7 @@ const Pres = function ({ token, curStore, setStoreFn }) {
     const navigate = useNavigate();
 
     const displayCurSlide = () => {
-        return <CurSlide>
-                This is the firsts slide = {curSlideNum}
-            </CurSlide>
+        return <CurSlide>This is the first slide = {curSlideNum}</CurSlide>
     }
 
     const deletePres = () => {
@@ -22,23 +24,19 @@ const Pres = function ({ token, curStore, setStoreFn }) {
         const deletePresNum = params.presid;
         console.log(params.presid);
 
-
-
         setStoreFn(newStore);
         setDeletePresPopup(false);
         navigate('/dashboard');
     }
     
     return <>
-        <button onClick={() => navigate('/Dashboard')}>Back</button>
-        <button onClick={() => setDeletePresPopup(true)}>Delete Presentation</button>
+        <BackDeleteBtnPagePosStyle>
+            <button onClick={() => navigate('/Dashboard')}>Back</button>
+            <button onClick={() => setDeletePresPopup(true)}>Delete Presentation</button>
+        </BackDeleteBtnPagePosStyle>
         <PresPage>
             {displayCurSlide()}
         </PresPage>
-
-        <div>
-            2
-        </div>
 
         {deletePresPopup && (
             <>
