@@ -156,3 +156,8 @@ export const BackDeleteBtnPagePosStyle = styled.div(() => ({
     alignItems: 'center',
     justifyContent: 'center',
 }));
+
+export const YesNoBtnStyle = styled.div(() => ({
+    display: 'flex',
+    gap: '10px',
+}));

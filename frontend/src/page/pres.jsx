@@ -4,7 +4,8 @@ import { CurSlide,
     PresPage,
     NewPresPopUpDiv,
     NewPresPopupStyle, 
-    BackDeleteBtnPagePosStyle } from '../styles/styledComponents';
+    BackDeleteBtnPagePosStyle,
+    YesNoBtnStyle } from '../styles/styledComponents';
 
 
 const Pres = function ({ token, curStore, setStoreFn }) {
@@ -42,13 +43,11 @@ const Pres = function ({ token, curStore, setStoreFn }) {
             <>
                 <NewPresPopUpDiv>
                     <NewPresPopupStyle>
-                        <div>
-                            Are you sure?
-                        </div>
-                        <div>
+                        <div>Are you sure?</div>
+                        <YesNoBtnStyle>
                             <button onClick={() => deletePres()}>Yes</button>
                             <button onClick={() => setDeletePresPopup(false)}>No</button>
-                        </div>
+                        </YesNoBtnStyle>
                     </NewPresPopupStyle> 
                 </NewPresPopUpDiv>
             </>
