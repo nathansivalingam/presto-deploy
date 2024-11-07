@@ -40,7 +40,6 @@ const Pres = function ({ token, curStore, setStoreFn }) {
         setStoreFn(newStore);
         setEditTitlePopup(false);
     }
-
     const  fileToDataUrl = (event) => {
         const file = event.target.files[0];
         const validFileTypes = [ 'image/jpeg', 'image/png', 'image/jpg' ]
