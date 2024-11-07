@@ -1,7 +1,13 @@
 import React from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { NewPresPopupStyle, NewPresPopUpDiv, DashboardCardStyleDiv, ShowPresentationList, ThumbnailStyle, DashboardCardTopHalf, TrailOff, TrailOffWrap } from '../styles/styledComponents';
+import { NewPresPopupStyle, 
+    NewPresPopUpDiv, 
+    DashboardCardStyleDiv, 
+    ShowPresentationList, 
+    ThumbnailStyle, 
+    DashboardCardTopHalf, 
+    TrailOff, 
+    TrailOffWrap } from '../styles/styledComponents';
 
 const Dashboard = function({ token, curStore, setStoreFn }) {
     
