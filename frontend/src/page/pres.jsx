@@ -10,15 +10,11 @@ import { CurSlide,
 
 const Pres = function ({ token, curStore, setStoreFn }) {
     
-
     const params = useParams();
-    
-    
     const [curSlideNum, setCurSlideNum] = React.useState(0);
     const [deletePresPopup, setDeletePresPopup] = React.useState(false);
     const [editTitlePopup, setEditTitlePopup] = React.useState(false);
     const [title, setTitle] = React.useState(((curStore.allPres)[params.presid])['title']);
-    
     
     //const firstSlide = newStore?.allPres?.[params.presid]?.slides?.[0];
     const navigate = useNavigate();
@@ -30,7 +26,6 @@ const Pres = function ({ token, curStore, setStoreFn }) {
     // This function is in charge of deleting the presentation
     const deletePres = () => {
         const newStore = {...curStore};
-        
         const deletePresNum = params.presid;
         (newStore.allPres).splice([params.presid],1);
         setStoreFn(newStore);
@@ -40,10 +35,8 @@ const Pres = function ({ token, curStore, setStoreFn }) {
     const modifyPresDetails = () => {
         const newStore = {...curStore};
         ((newStore.allPres)[params.presid])['title'] = title;
-        
         setStoreFn(newStore);
         setEditTitlePopup(false);
-
     }
 
     return <>
@@ -77,11 +70,19 @@ const Pres = function ({ token, curStore, setStoreFn }) {
                 <>
                     <NewPresPopUpDiv>
                         <NewPresPopupStyle>
-                            <div>Enter New Title</div>
-                            <div><InputForLogReg type="text" value={title} onChange={e => setTitle(e.target.value)} /><br /></div>
+                            <div>Enter new title:</div>
+                            <div>
+                                <InputForLogReg type="text" value={title} onChange={e => setTitle(e.target.value)} /><br />
+                            </div>
                             <YesNoBtnStyle>
                                 <button onClick={() => modifyPresDetails()}>Submit</button>
-                                <button onClick={() => setEditTitlePopup(false)}>Cancel</button>
+                                <button onClick={() => {
+                                    setEditTitlePopup(false);
+                                    setTitle((curStore.allPres)[params.presid]['title']);
+                                    console.log((curStore.allPres)[params.presid]['title']);
+                                }}>
+                                    Cancel
+                                </button>
                             </YesNoBtnStyle>
                         </NewPresPopupStyle> 
                     </NewPresPopUpDiv>
