@@ -13,11 +13,11 @@ const Pres = function ({ token, curStore, setStoreFn }) {
 
     const params = useParams();
     
-    
     const [curSlideNum, setCurSlideNum] = React.useState(0);
     const [deletePresPopup, setDeletePresPopup] = React.useState(false);
     const [editTitlePopup, setEditTitlePopup] = React.useState(false);
-    const [title, setTitle] = React.useState(((curStore.allPres)[params.presid])['title']);
+    //const [title, setTitle] = React.useState(((curStore.allPres)[params.presid])['title']);
+    const [title, setTitle] = React.useState('broken');
     
     
     //const firstSlide = newStore?.allPres?.[params.presid]?.slides?.[0];
