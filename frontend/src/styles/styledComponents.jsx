@@ -104,11 +104,17 @@ export const ShowPresentationList = styled.div(() => ({
 
 export const ThumbnailStyle = styled.div(() => ({
     backgroundColor: 'lightgrey',
-    minWidth: '50px',
-    minHeight: '50px',
+    width: '50px',
+    height: '50px',
     marginRight: '10px',
 }));
 
+export const ThumbnailImg = styled.img(() => ({
+    backgroundColor: 'lightgrey',
+    width: '100%',
+    height: '100%',
+    marginRight: '10px',
+}));
 
 export const TrailOff = styled.div(() => ({
     whiteSpace: 'nowrap',

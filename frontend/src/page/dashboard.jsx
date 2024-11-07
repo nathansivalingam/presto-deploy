@@ -8,7 +8,7 @@ import { NewPresPopupStyle,
     DashboardCardTopHalf, 
     TrailOff, 
     TrailOffWrap,
-    PresentationBtnHeadingStyle } from '../styles/styledComponents';
+    PresentationBtnHeadingStyle, ThumbnailImg } from '../styles/styledComponents';
 
 const Dashboard = function({ token, curStore, setStoreFn }) {
     
@@ -46,7 +46,7 @@ const Dashboard = function({ token, curStore, setStoreFn }) {
                 <DashboardCardStyleDiv onClick={() => {navigate(`/pres/${key}`)}}>
                     <DashboardCardTopHalf>
                         <ThumbnailStyle>
-                            {presentation.thumbnail}
+                            {presentation.thumbnail && <ThumbnailImg src={presentation.thumbnail}></ThumbnailImg>}   
                         </ThumbnailStyle>
                         <TrailOff>
                             <div>Name: {presentation.title}</div>

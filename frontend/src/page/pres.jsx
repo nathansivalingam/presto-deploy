@@ -5,7 +5,7 @@ import { CurSlide,
     NewPresPopUpDiv,
     NewPresPopupStyle, 
     BackDeleteBtnPagePosStyle,
-    YesNoBtnStyle, InputForLogReg } from '../styles/styledComponents';
+    YesNoBtnStyle, InputForLogReg, ThumbnailStyle, ThumbnailImg } from '../styles/styledComponents';
 
 
 const Pres = function ({ token, curStore, setStoreFn }) {
@@ -41,32 +41,43 @@ const Pres = function ({ token, curStore, setStoreFn }) {
         setEditTitlePopup(false);
     }
 
-    const  fileToDataUrl = (file) => {
+    const  fileToDataUrl = (event) => {
+        const file = event.target.files[0];
         const validFileTypes = [ 'image/jpeg', 'image/png', 'image/jpg' ]
-        const valid = validFileTypes.find(type => type === file.type);
-        // Bad data, let's walk away.
+        const valid = validFileTypes.includes(file.type);
+        // console.log(file);
+        // console.log(file.type);
+        // // Bad data, let's walk away.
         if (!valid) {
-            throw Error('provided file is not a png, jpg or jpeg image.');
-        }
+             throw Error('provided file is not a png, jpg or jpeg image.');
+         }
         
+        if (file) {
         const reader = new FileReader();
-        const dataUrlPromise = new Promise((resolve,reject) => {
-            reader.onerror = reject;
-            reader.onload = () => resolve(reader.result);
-        });
-        reader.readAsDataURL(file);
-        return dataUrlPromise;
+        reader.onload = () => {
+            setThumbnail(reader.result); // Set the Data URL as the thumbnail
+        };
+        reader.readAsDataURL(file); // Convert file to Data URL
+        }
     }
 
     const modifyPresThumbnail = () => {
-
-
+        const newStore = {...curStore};
+        ((newStore.allPres)[params.presid])['thumbnail'] = (thumbnail);
+        setStoreFn(newStore);
+        setEditThumbnailPopup(false);
     }
 
     return <>
         <BackDeleteBtnPagePosStyle>
             <div>{title}</div>
             <button onClick={() => setEditTitlePopup(true)}>Edit Title</button>
+        </BackDeleteBtnPagePosStyle>
+        <BackDeleteBtnPagePosStyle>
+            <ThumbnailStyle>
+                {thumbnail && <ThumbnailImg src={thumbnail}></ThumbnailImg>} 
+            </ThumbnailStyle>
+            <button onClick={() => setEditThumbnailPopup(true)}>Edit Thumbnail</button>
         </BackDeleteBtnPagePosStyle>
         <BackDeleteBtnPagePosStyle>
             <button onClick={() => navigate('/Dashboard')}>Back</button>
@@ -96,14 +107,13 @@ const Pres = function ({ token, curStore, setStoreFn }) {
                         <NewPresPopupStyle>
                             <div>Select a Thumbnail:</div>
                             <div>
-                                <InputForLogReg type="file" value={thumbnail} /><br />
+                                <input type="file" onChange={fileToDataUrl}/><br />
                             </div>
                             <YesNoBtnStyle>
                                 <button onClick={() => modifyPresThumbnail()}>Submit</button>
                                 <button onClick={() => {
                                     setEditThumbnailPopup(false);
-                                    setTitle((curStore.allPres)[params.presid]['title']);
-                                    console.log((curStore.allPres)[params.presid]['title']);
+                                    setThumbnail((curStore.allPres)[params.presid]['thumbnail']);
                                 }}>
                                     Cancel
                                 </button>
