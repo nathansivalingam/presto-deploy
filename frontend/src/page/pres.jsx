@@ -66,6 +66,33 @@ const Pres = function ({ token, curStore, setStoreFn }) {
         setEditThumbnailPopup(false);
     }
 
+    const createNewSlide = () => {
+        const newStore = {...curStore};
+        console.log(newStore.allPres)
+        console.log(Object.keys(newStore['allPres'][params.presid]['slides']).length);
+        //((newStore.allPres)[params.presid])['title'] = title;
+        newStore['allPres'][params.presid]['slides'][Object.keys(newStore['allPres'][params.presid]['slides']).length] = {
+                'content' : {},
+        };
+        console.log(newStore.allPres)
+        setStoreFn(newStore);
+    }
+
+    const deleteSlide = () => {
+        const newStore = {...curStore};
+        console.log(newStore.allPres)
+        console.log(Object.keys(newStore['allPres'][params.presid]['slides']).length);
+        //((newStore.allPres)[params.presid])['title'] = title;
+        newStore['allPres'][params.presid]['slides'][Object.keys(newStore['allPres'][params.presid]['slides']).length] = {
+                'content' : {},
+        };
+        console.log(newStore.allPres)
+        setStoreFn(newStore);
+    }
+
+    
+
+
     return <>
         <BackDeleteBtnPagePosStyle>
             <div>{title}</div>
@@ -84,6 +111,13 @@ const Pres = function ({ token, curStore, setStoreFn }) {
         <PresPage>
             {displayCurSlide()}
         </PresPage>
+
+        <BackDeleteBtnPagePosStyle>
+            <button onClick={() => {}}> Prev Slide. </button>
+            <button onClick={() => {}}>Next Slide.</button>
+            <button onClick={() => createNewSlide()}>New Slide</button>
+            <button onClick={() => deleteSlide()}>Delete Slide</button>
+        </BackDeleteBtnPagePosStyle>
 
         {deletePresPopup && (
             <>

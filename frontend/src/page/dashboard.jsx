@@ -29,7 +29,7 @@ const Dashboard = function({ token, curStore, setStoreFn }) {
                 "description": '',
                 "numSlides": 1,
                 "slides": {
-                    "0": {},
+                    "0" : {},
                 }
         };
         setStoreFn(newStore);

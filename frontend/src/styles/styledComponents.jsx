@@ -131,7 +131,7 @@ export const TrailOffWrap = styled.div(() => ({
 
 // Current Presentation
 export const CurSlide = styled.div(() => ({
-    height: '70%',
+    height: '100%',
     width: '80%',
     display: 'flex',
     borderWidth: '1px',
@@ -143,7 +143,7 @@ export const CurSlide = styled.div(() => ({
 export const PresPage = styled.div(() => ({
     display: 'flex',
     justifyContent: 'center',
-    height: '100vw',
+    height: '400px',
     marginTop: '10px',
 }));
 
