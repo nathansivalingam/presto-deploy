@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { Link } from "react-router-dom";
-import { Box, Background, GlobalBodyStyle, InputForLogReg, LabelsForLogReg } from '../styles/styledComponents';
+import { Box, Background, InputForLogReg, LabelsForLogReg } from '../styles/styledComponents';
 
 function Register({ handleSuccess }) {
   const [email, setEmail] = useState('');
@@ -12,7 +12,10 @@ function Register({ handleSuccess }) {
 
   const register = () => {
     console.log(email, password, confPassword, name);
-    if (confPassword !== password){
+    if (!(email.includes('@'))){
+      setError("All emails must contain an '@' symbol");
+      return;
+    } else if (confPassword !== password){
       setError("Passwords do NOT match");
       return;
     }

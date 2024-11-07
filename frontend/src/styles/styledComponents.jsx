@@ -140,3 +140,24 @@ export const PresPage = styled.div(() => ({
     height: '100vw',
     marginTop: '10px',
 }));
+
+export const PresentationBtnHeadingStyle = styled.div(() => ({
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '10px',
+    marginTop: '10px',
+    alignItems: 'center',
+}));
+
+export const BackDeleteBtnPagePosStyle = styled.div(() => ({
+    display: 'flex',
+    gap: '10px',
+    marginTop: '10px',
+    alignItems: 'center',
+    justifyContent: 'center',
+}));
+
+export const YesNoBtnStyle = styled.div(() => ({
+    display: 'flex',
+    gap: '10px',
+}));

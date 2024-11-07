@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { Link } from "react-router-dom";
-import { Box, Background, GlobalBodyStyle, InputForLogReg, LabelsForLogReg } from '../styles/styledComponents';
+import { Box, Background, InputForLogReg, LabelsForLogReg } from '../styles/styledComponents';
 
 function Login({ handleSuccess }) {
   const [email, setEmail] = useState('');

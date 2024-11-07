@@ -1,6 +1,11 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { CurSlide, PresPage, NewPresPopUpDiv, NewPresPopupStyle } from '../styles/styledComponents';
+import { CurSlide, 
+    PresPage,
+    NewPresPopUpDiv,
+    NewPresPopupStyle, 
+    BackDeleteBtnPagePosStyle,
+    YesNoBtnStyle } from '../styles/styledComponents';
 
 
 const Pres = function ({ token, curStore, setStoreFn }) {
@@ -12,48 +17,38 @@ const Pres = function ({ token, curStore, setStoreFn }) {
     const navigate = useNavigate();
 
     const displayCurSlide = () => {
-        return <CurSlide>
-                This is the firsts slide = {curSlideNum}
-            </CurSlide>
+        return <CurSlide>This is the first slide = {curSlideNum}</CurSlide>
     }
 
+    // This function is in charge of deleting the presentation
     const deletePres = () => {
         const newStore = {...curStore};
         const deletePresNum = params.presid;
-        console.log(params.presid);
         
-        // for (let i=0; i < newStore.allPres; i++) {
-        //     if 
-
-        // }
-
+        (newStore.allPres).splice([params.presid],1);
         setStoreFn(newStore);
         setDeletePresPopup(false);
         navigate('/dashboard');
     }
     
     return <>
-        <button onClick={() => navigate('/Dashboard')}>Back</button>
-        <button onClick={() => setDeletePresPopup(true)}>Delete Presentation</button>
+        <BackDeleteBtnPagePosStyle>
+            <button onClick={() => navigate('/Dashboard')}>Back</button>
+            <button onClick={() => setDeletePresPopup(true)}>Delete Presentation</button>
+        </BackDeleteBtnPagePosStyle>
         <PresPage>
             {displayCurSlide()}
         </PresPage>
-
-        <div>
-            2
-        </div>
 
         {deletePresPopup && (
             <>
                 <NewPresPopUpDiv>
                     <NewPresPopupStyle>
-                        <div>
-                            Are you sure?
-                        </div>
-                        <div>
+                        <div>Are you sure?</div>
+                        <YesNoBtnStyle>
                             <button onClick={() => deletePres()}>Yes</button>
                             <button onClick={() => setDeletePresPopup(false)}>No</button>
-                        </div>
+                        </YesNoBtnStyle>
                     </NewPresPopupStyle> 
                 </NewPresPopUpDiv>
             </>
