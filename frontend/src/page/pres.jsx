@@ -5,13 +5,20 @@ import { CurSlide,
     NewPresPopUpDiv,
     NewPresPopupStyle, 
     BackDeleteBtnPagePosStyle,
-    YesNoBtnStyle } from '../styles/styledComponents';
+    YesNoBtnStyle, InputForLogReg } from '../styles/styledComponents';
 
 
 const Pres = function ({ token, curStore, setStoreFn }) {
+    
+
+    const params = useParams();
+    
+    
     const [curSlideNum, setCurSlideNum] = React.useState(0);
     const [deletePresPopup, setDeletePresPopup] = React.useState(false);
-    const params = useParams();
+    const [editTitlePopup, setEditTitlePopup] = React.useState(false);
+    const [title, setTitle] = React.useState(((curStore.allPres)[params.presid])['title']);
+    
     
     //const firstSlide = newStore?.allPres?.[params.presid]?.slides?.[0];
     const navigate = useNavigate();
@@ -23,15 +30,27 @@ const Pres = function ({ token, curStore, setStoreFn }) {
     // This function is in charge of deleting the presentation
     const deletePres = () => {
         const newStore = {...curStore};
-        const deletePresNum = params.presid;
         
+        const deletePresNum = params.presid;
         (newStore.allPres).splice([params.presid],1);
         setStoreFn(newStore);
         setDeletePresPopup(false);
         navigate('/dashboard');
     }
-    
+    const modifyPresDetails = () => {
+        const newStore = {...curStore};
+        ((newStore.allPres)[params.presid])['title'] = title;
+        
+        setStoreFn(newStore);
+        setEditTitlePopup(false);
+
+    }
+
     return <>
+        <BackDeleteBtnPagePosStyle>
+            <div>{title}</div>
+            <button onClick={() => setEditTitlePopup(true)}>Edit Title</button>
+        </BackDeleteBtnPagePosStyle>
         <BackDeleteBtnPagePosStyle>
             <button onClick={() => navigate('/Dashboard')}>Back</button>
             <button onClick={() => setDeletePresPopup(true)}>Delete Presentation</button>
@@ -54,7 +73,20 @@ const Pres = function ({ token, curStore, setStoreFn }) {
             </>
         )}
 
-
+        {editTitlePopup && (
+                <>
+                    <NewPresPopUpDiv>
+                        <NewPresPopupStyle>
+                            <div>Enter New Title</div>
+                            <div><InputForLogReg type="text" value={title} onChange={e => setTitle(e.target.value)} /><br /></div>
+                            <YesNoBtnStyle>
+                                <button onClick={() => modifyPresDetails()}>Submit</button>
+                                <button onClick={() => setEditTitlePopup(false)}>Cancel</button>
+                            </YesNoBtnStyle>
+                        </NewPresPopupStyle> 
+                    </NewPresPopUpDiv>
+                </>
+            )}  
     </>;
 
 
