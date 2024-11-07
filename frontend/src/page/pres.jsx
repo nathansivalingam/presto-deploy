@@ -15,10 +15,10 @@ const Pres = function ({ token, curStore, setStoreFn }) {
     const [curSlideNum, setCurSlideNum] = React.useState(0);
     const [deletePresPopup, setDeletePresPopup] = React.useState(false);
     const [editTitlePopup, setEditTitlePopup] = React.useState(false);
-    //const [title, setTitle] = React.useState(((curStore.allPres)[params.presid])['title']);
-    const [title, setTitle] = React.useState('broken');
-    
-    //const firstSlide = newStore?.allPres?.[params.presid]?.slides?.[0];
+    const [editThumbnailPopup, setEditThumbnailPopup] = React.useState(false);
+    const [title, setTitle] = React.useState(((curStore.allPres)[params.presid])['title']);
+    const [thumbnail, setThumbnail] = React.useState(((curStore.allPres)[params.presid])['thumbnail']);
+
     const navigate = useNavigate();
 
     const displayCurSlide = () => {
@@ -39,6 +39,28 @@ const Pres = function ({ token, curStore, setStoreFn }) {
         ((newStore.allPres)[params.presid])['title'] = title;
         setStoreFn(newStore);
         setEditTitlePopup(false);
+    }
+
+    const  fileToDataUrl = (file) => {
+        const validFileTypes = [ 'image/jpeg', 'image/png', 'image/jpg' ]
+        const valid = validFileTypes.find(type => type === file.type);
+        // Bad data, let's walk away.
+        if (!valid) {
+            throw Error('provided file is not a png, jpg or jpeg image.');
+        }
+        
+        const reader = new FileReader();
+        const dataUrlPromise = new Promise((resolve,reject) => {
+            reader.onerror = reject;
+            reader.onload = () => resolve(reader.result);
+        });
+        reader.readAsDataURL(file);
+        return dataUrlPromise;
+    }
+
+    const modifyPresThumbnail = () => {
+
+
     }
 
     return <>
@@ -68,6 +90,29 @@ const Pres = function ({ token, curStore, setStoreFn }) {
             </>
         )}
 
+        {editThumbnailPopup && (
+                <>
+                    <NewPresPopUpDiv>
+                        <NewPresPopupStyle>
+                            <div>Select a Thumbnail:</div>
+                            <div>
+                                <InputForLogReg type="file" value={thumbnail} /><br />
+                            </div>
+                            <YesNoBtnStyle>
+                                <button onClick={() => modifyPresThumbnail()}>Submit</button>
+                                <button onClick={() => {
+                                    setEditThumbnailPopup(false);
+                                    setTitle((curStore.allPres)[params.presid]['title']);
+                                    console.log((curStore.allPres)[params.presid]['title']);
+                                }}>
+                                    Cancel
+                                </button>
+                            </YesNoBtnStyle>
+                        </NewPresPopupStyle> 
+                    </NewPresPopUpDiv>
+                </>
+            )}
+
         {editTitlePopup && (
                 <>
                     <NewPresPopUpDiv>
@@ -89,7 +134,7 @@ const Pres = function ({ token, curStore, setStoreFn }) {
                         </NewPresPopupStyle> 
                     </NewPresPopUpDiv>
                 </>
-            )}  
+            )}
     </>;
 
 
