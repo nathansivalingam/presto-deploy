@@ -83,6 +83,12 @@ const Pres = function ({ token, curStore, setStoreFn }) {
     }
 
     const deleteSlide = () => {
+        
+        if (curSlidesCount === 1) {
+            setDeletePresPopup(true);
+            return;
+        } 
+        
         const newStore = {...curStore};
         console.log(newStore.allPres)
         console.log(Object.keys(newStore['allPres'][params.presid]['slides']).length);
@@ -152,7 +158,7 @@ const Pres = function ({ token, curStore, setStoreFn }) {
             <>
                 <NewPresPopUpDiv>
                     <NewPresPopupStyle>
-                        <div>Are you sure?</div>
+                        <div>WARNING: Are you sure you want to delete Your Presentation?</div>
                         <YesNoBtnStyle>
                             <button onClick={() => deletePres()}>Yes</button>
                             <button onClick={() => setDeletePresPopup(false)}>No</button>
