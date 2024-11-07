@@ -92,7 +92,10 @@ const Pres = function ({ token, curStore, setStoreFn }) {
         console.log(newStore.allPres);
         setStoreFn(newStore);
         setCurSlidesCount(curSlidesCount - 1);
-        setCurSlideNum(curSlideNum - 1);
+        
+        if (curSlideNum !== 0){
+            setCurSlideNum(curSlideNum - 1);
+        }
     }
 
     const nextSlide = () => {
