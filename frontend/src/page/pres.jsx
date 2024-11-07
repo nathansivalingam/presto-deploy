@@ -12,6 +12,7 @@ const Pres = function ({ token, curStore, setStoreFn }) {
     
     const params = useParams();
     
+    const [curSlidesCount, setCurSlidesCount] = React.useState(((curStore.allPres)[params.presid])['numSlides']);
     const [curSlideNum, setCurSlideNum] = React.useState(0);
     const [deletePresPopup, setDeletePresPopup] = React.useState(false);
     const [editTitlePopup, setEditTitlePopup] = React.useState(false);
@@ -75,8 +76,9 @@ const Pres = function ({ token, curStore, setStoreFn }) {
                 'content' : {},
         };
         newStore.allPres[params.presid]['numSlides'] +=1;
-        console.log(newStore.allPres)
+        console.log(newStore.allPres);
         setStoreFn(newStore);
+        setCurSlidesCount(curSlidesCount + 1);
     }
 
     const deleteSlide = () => {
@@ -86,11 +88,17 @@ const Pres = function ({ token, curStore, setStoreFn }) {
         
         newStore.allPres[params.presid].slides.splice(curSlideNum, 1);
         newStore.allPres[params.presid]['numSlides'] -=1;
-        console.log(newStore.allPres)
-        //setStoreFn(newStore);
+        console.log(newStore.allPres);
+        setStoreFn(newStore);
+        setCurSlidesCount(curSlidesCount - 1);
     }
 
-    
+    const nextSlide = () => {
+        setCurSlideNum(curSlideNum + 1);
+    }
+    const prevSlide = () => {
+        setCurSlideNum(curSlideNum - 1);
+    }
 
 
     return <>
@@ -113,10 +121,11 @@ const Pres = function ({ token, curStore, setStoreFn }) {
         </PresPage>
 
         <BackDeleteBtnPagePosStyle>
-            <button onClick={() => {}}> Prev Slide. </button>
-            <button onClick={() => {}}>Next Slide.</button>
+            {!(curSlideNum == 0) && <button onClick={() => prevSlide()}>Prev Slide. </button>}
             <button onClick={() => createNewSlide()}>New Slide</button>
             <button onClick={() => deleteSlide()}>Delete Slide</button>
+            {!(curSlideNum == (curSlidesCount - 1)) && <button onClick={() => nextSlide()}>Next Slide.</button>}
+            
         </BackDeleteBtnPagePosStyle>
 
         {deletePresPopup && (
