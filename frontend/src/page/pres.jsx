@@ -79,6 +79,7 @@ const Pres = function ({ token, curStore, setStoreFn }) {
         console.log(newStore.allPres);
         setStoreFn(newStore);
         setCurSlidesCount(curSlidesCount + 1);
+        
     }
 
     const deleteSlide = () => {
@@ -91,6 +92,7 @@ const Pres = function ({ token, curStore, setStoreFn }) {
         console.log(newStore.allPres);
         setStoreFn(newStore);
         setCurSlidesCount(curSlidesCount - 1);
+        setCurSlideNum(curSlideNum - 1);
     }
 
     const nextSlide = () => {
@@ -100,8 +102,23 @@ const Pres = function ({ token, curStore, setStoreFn }) {
         setCurSlideNum(curSlideNum - 1);
     }
 
+    React.useEffect(() => {
+        const handleArrowKeyPres = (e) => {
+            if (e.key === 'ArrowLeft' && !(curSlideNum == 0)) {
+                prevSlide();
+            } else if (e.key === 'ArrowRight' && !(curSlideNum == (curSlidesCount - 1))) {
+                nextSlide();
+            }
+        }
+        window.addEventListener('keydown', handleArrowKeyPres);
+        return () => {
+          window.removeEventListener('keydown', handleArrowKeyPres);
+        };
+      }, [curSlideNum]);
+
 
     return <>
+        
         <BackDeleteBtnPagePosStyle>
             <div>{title}</div>
             <button onClick={() => setEditTitlePopup(true)}>Edit Title</button>
@@ -120,11 +137,11 @@ const Pres = function ({ token, curStore, setStoreFn }) {
             {displayCurSlide()}
         </PresPage>
 
-        <BackDeleteBtnPagePosStyle>
-            {!(curSlideNum == 0) && <button onClick={() => prevSlide()}>Prev Slide. </button>}
+        <BackDeleteBtnPagePosStyle >
+            {!(curSlideNum == 0) && <button onClick={() => prevSlide()}> {'<'} </button>}
             <button onClick={() => createNewSlide()}>New Slide</button>
             <button onClick={() => deleteSlide()}>Delete Slide</button>
-            {!(curSlideNum == (curSlidesCount - 1)) && <button onClick={() => nextSlide()}>Next Slide.</button>}
+            {!(curSlideNum == (curSlidesCount - 1)) && <button onClick={() => nextSlide()}>{'>'}</button>}
             
         </BackDeleteBtnPagePosStyle>
 
