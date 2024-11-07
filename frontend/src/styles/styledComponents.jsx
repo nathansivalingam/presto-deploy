@@ -140,3 +140,11 @@ export const PresPage = styled.div(() => ({
     height: '100vw',
     marginTop: '10px',
 }));
+
+export const PresentationBtnHeadingStyle = styled.div(() => ({
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '10px',
+    marginTop: '10px',
+    alignItems: 'center',
+}));

@@ -14,8 +14,6 @@ function Router() {
   const [token, setToken] = useState(localStorage.getItem('token'));
   const navigate = useNavigate();
   const location = useLocation();
-
-
   const [store, setStore] = React.useState({});
 
   const setStoreAll = (newStore) => {
@@ -49,7 +47,6 @@ function Router() {
           });
       }
   }, [token]);
-
 
   const handleNewToken = (newToken) => {
     localStorage.setItem('token', newToken);
