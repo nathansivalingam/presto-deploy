@@ -21,8 +21,11 @@ const Pres = function ({ token, curStore, setStoreFn }) {
         const newStore = {...curStore};
         const deletePresNum = params.presid;
         console.log(params.presid);
+        
+        // for (let i=0; i < newStore.allPres; i++) {
+        //     if 
 
-
+        // }
 
         setStoreFn(newStore);
         setDeletePresPopup(false);
