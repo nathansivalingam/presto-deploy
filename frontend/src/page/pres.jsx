@@ -5,7 +5,11 @@ import { CurSlide,
     NewPresPopUpDiv,
     NewPresPopupStyle, 
     BackDeleteBtnPagePosStyle,
-    YesNoBtnStyle, InputForLogReg, ThumbnailStyle, ThumbnailImg } from '../styles/styledComponents';
+    YesNoBtnStyle, 
+    InputForLogReg, 
+    ThumbnailStyle, 
+    ThumbnailImg, 
+    SlideNumberStyle } from '../styles/styledComponents';
 
 
 const Pres = function ({ token, curStore, setStoreFn }) {
@@ -23,7 +27,13 @@ const Pres = function ({ token, curStore, setStoreFn }) {
     const navigate = useNavigate();
 
     const displayCurSlide = () => {
-        return <CurSlide>This is the first slide = {curSlideNum}</CurSlide>
+        return <>
+            <CurSlide>
+                <SlideNumberStyle>
+                    {curSlideNum + 1}
+                </SlideNumberStyle>
+            </CurSlide>
+        </>
     }
 
     // This function is in charge of deleting the presentation
@@ -129,7 +139,7 @@ const Pres = function ({ token, curStore, setStoreFn }) {
             <button onClick={() => setEditThumbnailPopup(true)}>Edit Thumbnail</button>
         </BackDeleteBtnPagePosStyle>
         <BackDeleteBtnPagePosStyle>
-            <button onClick={() => navigate('/Dashboard')}>Back</button>
+            <button onClick={() => navigate('/Dashboard')}>Back to Dashboard</button>
             <button onClick={() => setDeletePresPopup(true)}>Delete Presentation</button>
         </BackDeleteBtnPagePosStyle>
         <PresPage>
@@ -138,7 +148,7 @@ const Pres = function ({ token, curStore, setStoreFn }) {
 
         <BackDeleteBtnPagePosStyle >
             {!(curSlideNum == 0) && <button onClick={() => prevSlide()}> {'<'} </button>}
-            <button onClick={() => createNewSlide()}>New Slide</button>
+            <button onClick={() => createNewSlide()}>Create New Slide</button>
             <button onClick={() => deleteSlide()}>Delete Slide</button>
             {!(curSlideNum == (curSlidesCount - 1)) && <button onClick={() => nextSlide()}>{'>'}</button>}
             

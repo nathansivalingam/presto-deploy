@@ -69,7 +69,7 @@ function Router() {
             <>
               <NavBar>
                 <NavBarBtn>
-                  <Link to='/dashboard'>Dashboard</Link>
+                  <div>Presto</div>
                 </NavBarBtn>
                 <NavBarBtn>
                   <Logout token={token} setToken={setToken} />
