@@ -70,10 +70,11 @@ const Pres = function ({ token, curStore, setStoreFn }) {
         const newStore = {...curStore};
         console.log(newStore.allPres)
         console.log(Object.keys(newStore['allPres'][params.presid]['slides']).length);
-        //((newStore.allPres)[params.presid])['title'] = title;
+
         newStore['allPres'][params.presid]['slides'][Object.keys(newStore['allPres'][params.presid]['slides']).length] = {
                 'content' : {},
         };
+        newStore.allPres[params.presid]['numSlides'] +=1;
         console.log(newStore.allPres)
         setStoreFn(newStore);
     }
@@ -82,12 +83,11 @@ const Pres = function ({ token, curStore, setStoreFn }) {
         const newStore = {...curStore};
         console.log(newStore.allPres)
         console.log(Object.keys(newStore['allPres'][params.presid]['slides']).length);
-        //((newStore.allPres)[params.presid])['title'] = title;
-        newStore['allPres'][params.presid]['slides'][Object.keys(newStore['allPres'][params.presid]['slides']).length] = {
-                'content' : {},
-        };
+        
+        newStore.allPres[params.presid].slides.splice(curSlideNum, 1);
+        newStore.allPres[params.presid]['numSlides'] -=1;
         console.log(newStore.allPres)
-        setStoreFn(newStore);
+        //setStoreFn(newStore);
     }
 
     
