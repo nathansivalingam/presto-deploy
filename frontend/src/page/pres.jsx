@@ -7,7 +7,7 @@ const Pres = function ({ token, curStore, setStoreFn }) {
     const [curSlideNum, setCurSlideNum] = React.useState(0);
     const [deletePresPopup, setDeletePresPopup] = React.useState(false);
     const params = useParams();
-    //const newStore = {...curStore};
+    
     //const firstSlide = newStore?.allPres?.[params.presid]?.slides?.[0];
     const navigate = useNavigate();
 
@@ -18,9 +18,13 @@ const Pres = function ({ token, curStore, setStoreFn }) {
     }
 
     const deletePres = () => {
+        const newStore = {...curStore};
+        const deletePresNum = params.presid;
+        console.log(params.presid);
 
 
 
+        setStoreFn(newStore);
         setDeletePresPopup(false);
         navigate('/dashboard');
     }
