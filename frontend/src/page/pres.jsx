@@ -12,6 +12,7 @@ const Pres = function ({ token, curStore, setStoreFn }) {
     
     const params = useParams();
     
+    const [curSlidesCount, setCurSlidesCount] = React.useState(((curStore.allPres)[params.presid])['numSlides']);
     const [curSlideNum, setCurSlideNum] = React.useState(0);
     const [deletePresPopup, setDeletePresPopup] = React.useState(false);
     const [editTitlePopup, setEditTitlePopup] = React.useState(false);
@@ -74,8 +75,10 @@ const Pres = function ({ token, curStore, setStoreFn }) {
                 'content' : {},
         };
         newStore.allPres[params.presid]['numSlides'] +=1;
-        console.log(newStore.allPres)
+        console.log(newStore.allPres);
         setStoreFn(newStore);
+        setCurSlidesCount(curSlidesCount + 1);
+        
     }
 
     const deleteSlide = () => {
@@ -85,14 +88,36 @@ const Pres = function ({ token, curStore, setStoreFn }) {
         
         newStore.allPres[params.presid].slides.splice(curSlideNum, 1);
         newStore.allPres[params.presid]['numSlides'] -=1;
-        console.log(newStore.allPres)
-        //setStoreFn(newStore);
+        console.log(newStore.allPres);
+        setStoreFn(newStore);
+        setCurSlidesCount(curSlidesCount - 1);
+        setCurSlideNum(curSlideNum - 1);
     }
 
-    
+    const nextSlide = () => {
+        setCurSlideNum(curSlideNum + 1);
+    }
+    const prevSlide = () => {
+        setCurSlideNum(curSlideNum - 1);
+    }
+
+    React.useEffect(() => {
+        const handleArrowKeyPres = (e) => {
+            if (e.key === 'ArrowLeft' && !(curSlideNum == 0)) {
+                prevSlide();
+            } else if (e.key === 'ArrowRight' && !(curSlideNum == (curSlidesCount - 1))) {
+                nextSlide();
+            }
+        }
+        window.addEventListener('keydown', handleArrowKeyPres);
+        return () => {
+          window.removeEventListener('keydown', handleArrowKeyPres);
+        };
+      }, [curSlideNum]);
 
 
     return <>
+        
         <BackDeleteBtnPagePosStyle>
             <div>{title}</div>
             <button onClick={() => setEditTitlePopup(true)}>Edit Title</button>
@@ -111,11 +136,12 @@ const Pres = function ({ token, curStore, setStoreFn }) {
             {displayCurSlide()}
         </PresPage>
 
-        <BackDeleteBtnPagePosStyle>
-            <button onClick={() => {}}> Prev Slide. </button>
-            <button onClick={() => {}}>Next Slide.</button>
+        <BackDeleteBtnPagePosStyle >
+            {!(curSlideNum == 0) && <button onClick={() => prevSlide()}> {'<'} </button>}
             <button onClick={() => createNewSlide()}>New Slide</button>
             <button onClick={() => deleteSlide()}>Delete Slide</button>
+            {!(curSlideNum == (curSlidesCount - 1)) && <button onClick={() => nextSlide()}>{'>'}</button>}
+            
         </BackDeleteBtnPagePosStyle>
 
         {deletePresPopup && (
