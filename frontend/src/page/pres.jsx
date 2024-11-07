@@ -20,9 +20,10 @@ const Pres = function ({ token, curStore, setStoreFn }) {
         return <CurSlide>This is the first slide = {curSlideNum}</CurSlide>
     }
 
+    // This function is in charge of deleting the presentation
     const deletePres = () => {
         const newStore = {...curStore};
-        const deletePresNum = params.presid;
+        const deletePresNum = params.presid;    // id of pres to be deleted
         console.log(params.presid);
 
         setStoreFn(newStore);
