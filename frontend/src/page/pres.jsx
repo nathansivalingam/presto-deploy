@@ -45,19 +45,17 @@ const Pres = function ({ token, curStore, setStoreFn }) {
         const file = event.target.files[0];
         const validFileTypes = [ 'image/jpeg', 'image/png', 'image/jpg' ]
         const valid = validFileTypes.includes(file.type);
-        // console.log(file);
-        // console.log(file.type);
         // // Bad data, let's walk away.
         if (!valid) {
              throw Error('provided file is not a png, jpg or jpeg image.');
          }
         
         if (file) {
-        const reader = new FileReader();
-        reader.onload = () => {
-            setThumbnail(reader.result); // Set the Data URL as the thumbnail
-        };
-        reader.readAsDataURL(file); // Convert file to Data URL
+            const reader = new FileReader();
+            reader.onload = () => {
+                setThumbnail(reader.result); // Set the Data URL as the thumbnail
+            };
+            reader.readAsDataURL(file); // Convert file to Data URL
         }
     }
 
