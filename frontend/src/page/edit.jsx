@@ -24,14 +24,31 @@ const Edit = function ({ token, curStore, setStoreFn }) {
     const [textColour, setTextColour] = React.useState('');
 
     const displayCurSlide = () => {
+        console.log(curStore.allPres[params.presid].slides[params.editid]);
         return <>
             <CurSlide>
+                {curStore.allPres[params.presid].slides[params.editid].map((element, index) => (
+                    <div>
+                        {element.type}
+                    </div>
+                ))}
             </CurSlide>
         </>
     }
 
     const addText = () => {
-
+        // Make sure to add checks for size, input, color, etc.
+        const newStore = {...curStore};
+        newStore.allPres[params.presid].slides[params.editid].push({
+            'type': 'text',
+            'textSize': textSize,
+            'textFontSize': textFontSize,
+            'textColour': textColour,
+            'locationX': 0,
+            'locationY': 0,
+        });
+        setStoreFn(newStore);
+        setAddTextPopup(false);    
     }
 
     return <>
@@ -67,9 +84,9 @@ const Edit = function ({ token, curStore, setStoreFn }) {
                         </div>
                         <InputForLogReg type="number" value={textFontSize} onChange={e => setTextFontSize(e.target.value)} /><br />
                         <div>
-                            Text Color {'[HEX COLOUR CODE]'}:
+                            Text Color {'[HEX COLOR CODE]'}:
                         </div>
-                        <InputForLogReg type="text" value={textColour} onChange={e => setTextColour(e.target.value)} /><br />
+                        <InputForLogReg type="color" value={textColour} onChange={e => setTextColour(e.target.value)} /><br />
                         <YesNoBtnStyle>
                             <button onClick={() => addText()}>Submit</button>
                             <button onClick={() => setAddTextPopup(false)}>Cancel</button>

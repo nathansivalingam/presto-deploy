@@ -40,7 +40,7 @@ const Pres = function ({ token, curStore, setStoreFn }) {
     const deletePres = () => {
         const newStore = {...curStore};
         const deletePresNum = params.presid;
-        (newStore.allPres).splice([params.presid],1);
+        delete newStore.allPres[params.presid];
         setStoreFn(newStore);
         setDeletePresPopup(false);
         navigate('/dashboard');
@@ -80,10 +80,7 @@ const Pres = function ({ token, curStore, setStoreFn }) {
         const newStore = {...curStore};
         console.log(newStore.allPres)
         console.log(Object.keys(newStore['allPres'][params.presid]['slides']).length);
-
-        newStore['allPres'][params.presid]['slides'][Object.keys(newStore['allPres'][params.presid]['slides']).length] = {
-                'content' : {},
-        };
+        newStore.allPres[params.presid].slides.push([]);
         newStore.allPres[params.presid]['numSlides'] +=1;
         console.log(newStore.allPres);
         setStoreFn(newStore);
@@ -126,8 +123,7 @@ const Pres = function ({ token, curStore, setStoreFn }) {
       }, [curSlideNum]);
 
 
-    return <>
-        
+    return <>  
         <BackDeleteBtnPagePosStyle>
             <div>{title}</div>
             <button onClick={() => setEditTitlePopup(true)}>Edit Title</button>
