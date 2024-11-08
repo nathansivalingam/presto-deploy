@@ -9,6 +9,7 @@ import Logout from './component/logout';
 import Dashboard from './page/dashboard';
 import Pres from './page/pres';
 import Landingpage from './page/landingpage';
+import Edit from './page/edit';
 
 function Router() {
   const [token, setToken] = useState(localStorage.getItem('token'));
@@ -85,6 +86,7 @@ function Router() {
           <Route path="/pres/:presid" element={<Pres token={token} curStore={store} setStoreFn={setStoreAll} />} />
           <Route path="/register" element={<Register handleSuccess={handleNewToken}/>} />
           <Route path="/login" element={<Login handleSuccess={handleNewToken}/>} />
+          <Route path="/pres/:presid/edit/:editid" element={<Edit token={token} curStore={store} setStoreFn={setStoreAll} />} />
         </Routes>
     </>
   )

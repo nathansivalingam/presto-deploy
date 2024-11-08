@@ -145,13 +145,14 @@ const Pres = function ({ token, curStore, setStoreFn }) {
         <PresPage>
             {displayCurSlide()}
         </PresPage>
-
+        <BackDeleteBtnPagePosStyle>
+            <button onClick={() => navigate(`/Pres/${params.presid}/Edit/${curSlideNum}`)}>Edit Screen</button>
+        </BackDeleteBtnPagePosStyle>
         <BackDeleteBtnPagePosStyle >
             {!(curSlideNum == 0) && <button onClick={() => prevSlide()}> {'<'} </button>}
             <button onClick={() => createNewSlide()}>Create New Slide</button>
             <button onClick={() => deleteSlide()}>Delete Slide</button>
             {!(curSlideNum == (curSlidesCount - 1)) && <button onClick={() => nextSlide()}>{'>'}</button>}
-            
         </BackDeleteBtnPagePosStyle>
 
         {deletePresPopup && (
