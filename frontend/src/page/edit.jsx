@@ -10,6 +10,7 @@ import { CurSlide,
     ThumbnailStyle, 
     ThumbnailImg, 
     SlideNumberStyle } from '../styles/styledComponents';
+import Text from '../component/text';
 
 const Edit = function ({ token, curStore, setStoreFn }) {
     
@@ -23,39 +24,18 @@ const Edit = function ({ token, curStore, setStoreFn }) {
     const [textFontSize, setTextFontSize] = React.useState('');
     const [textColour, setTextColour] = React.useState('');
 
-    const MyText = (props) => {
-        const { input, areaSize, fontSize, colour } = props;
-        console.log(areaSize);
-        return <>
-            <div
-                style={{
-                    width: `${areaSize}%`,
-                    height: `${areaSize}%`,
-                    fontSize: `${fontSize}em`,
-                    color: `${colour}`,
-                    borderWidth: '1px',
-                    borderColor: 'lightgrey',
-                    borderStyle: 'solid',
-                    overflow: 'hidden',
-                    position: 'absolute',
-                }}
-                >
-                {input}
-            </div>
-        </>
-    }
-
     const displayCurSlide = () => {
+        console.log(curStore.allPres[params.presid].slides[params.editid]);
         return <>
             <CurSlide>
                 {curStore.allPres[params.presid].slides[params.editid].map((element, index) => {
                     return <>
-                        <MyText 
+                        <Text key={index} // generates warning cause key not unique enough
                             input={element.textInput} 
                             areaSize={element.textAreaSize}
                             fontSize={element.textFontSize}
                             colour={element.textColour}
-                        ></MyText>
+                        ></Text>
                     </>
                 })}
             </CurSlide>
