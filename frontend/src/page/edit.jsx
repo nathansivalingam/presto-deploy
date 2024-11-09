@@ -86,19 +86,19 @@ const Edit = function ({ token, curStore, setStoreFn }) {
                         <div>
                             Textarea Size {'[0 < % < 100]'}:
                         </div>
-                        <InputForLogReg type="number" value={textAreaSize} onChange={e => setTextAreaSize(e.target.value)} /><br />
+                        <InputForLogReg type="number" onChange={e => setTextAreaSize(e.target.value)} /><br />
                         <div>
                             Textarea Input:
                         </div>
-                        <InputForLogReg type="text" value={textInput} onChange={e => setTextInput(e.target.value)} /><br />
+                        <InputForLogReg type="text" onChange={e => setTextInput(e.target.value)} /><br />
                         <div>
                             Font size {'[em]'}:
                         </div>
-                        <InputForLogReg type="number" value={textFontSize} onChange={e => setTextFontSize(e.target.value)} /><br />
+                        <InputForLogReg type="number" onChange={e => setTextFontSize(e.target.value)} /><br />
                         <div>
                             Text Color {'[HEX COLOR CODE]'}:
                         </div>
-                        <InputForLogReg type="color" value={textColour} onChange={e => setTextColour(e.target.value)} /><br />
+                        <InputForLogReg type="color" onChange={e => setTextColour(e.target.value)} /><br />
                         <YesNoBtnStyle>
                             <button onClick={() => addText()}>Submit</button>
                             <button onClick={() => setAddTextPopup(false)}>Cancel</button>

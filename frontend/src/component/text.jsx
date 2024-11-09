@@ -23,31 +23,31 @@ const Text = ({ num, input, areaSize, fontSize, colour, curStore, locationX, loc
     const [newLocationX, setNewLocationX] = React.useState(locationX);
     const [newLocationY, setNewLocationY] = React.useState(locationY);
 
-    const handleClick = () => {
+    const handleDoubleClick = () => {
         const currentTime = Date.now();
         if (currentTime - finalClickTime <= 500) {
             setEditTextPopup(true);
-            
-            console.log('Double-click detected');      
             if (clickTimeout) {
                 clearTimeout(clickTimeout);
                 setClickTimeout(null);
             }
         } else {
             const timeout = setTimeout(() => {
-                console.log('Single click action');
                 setClickTimeout(null);
             }, 500);
-        
             setClickTimeout(timeout);
         }
-    
         setFinalClickTime(currentTime);
     };
 
+    const handleRightClick = () => {
+        const newStore = {...curStore};
+        newStore.allPres[params.presid].slides[params.editid].splice(num, 1);
+        setStoreFn(newStore);
+    }
+
     const editText = () => {
         const newStore = {...curStore};
-        console.log(newStore.allPres[params.presid].slides[params.editid]);
         newStore.allPres[params.presid].slides[params.editid][num] = {
             'textInput': newTextInput,
             'textAreaSize': newTextAreaSize,
@@ -64,7 +64,8 @@ const Text = ({ num, input, areaSize, fontSize, colour, curStore, locationX, loc
     const MyText = () => {
         return <>
             <div
-                onClick={handleClick}
+                onClick={handleDoubleClick}
+                onContextMenu={handleRightClick}
                 style={{
                     width: `${areaSize}%`,
                     height: `${areaSize}%`,
