@@ -132,6 +132,11 @@ const Edit = function ({ token, curStore, setStoreFn }) {
                             Text Color {'[HEX COLOR CODE]'}:
                         </div>
                         <InputForLogReg type="color" value={textColour} onChange={e => setTextColour(e.target.value)} /><br />
+                        <div>
+                            Coordinates {'[X, Y]'}:
+                        </div>
+                        <InputForLogReg type="number" value={textFontSize} onChange={e => setTextFontSize(e.target.value)} />
+                        <InputForLogReg type="number" value={textFontSize} onChange={e => setTextFontSize(e.target.value)} /><br />
                         <YesNoBtnStyle>
                             <button onClick={() => editText()}>Submit</button>
                             <button onClick={() => setEditTextPopup(false)}>Cancel</button>
