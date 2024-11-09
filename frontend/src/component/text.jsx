@@ -1,31 +1,38 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 
-const Text = ({ input, areaSize, fontSize, colour }) => {
-    const [message, setMessage] = useState('');
-    const divRef = useRef(null);
-
-    useEffect(() => {
-        const handleDoubleClick = () => {
-            console.log('Double-clicked on text!');
-        };
-
-        const divElement = divRef.current;
-        
-        if (divElement) {
-            divElement.addEventListener('dblclick', handleDoubleClick);
-        }
-
-        return () => {
-            if (divElement) {
-                divElement.removeEventListener('dblclick', handleDoubleClick);
+const Text = ({ input, areaSize, fontSize, colour, setEditTextPopup }) => {
+    const [clickTimeout, setClickTimeout] = useState(null);
+    const [finalClickTime, setFinalClickTime] = useState(0);
+    
+    const handleClick = () => {
+        const currentTime = Date.now();
+        if (currentTime - finalClickTime <= 500) {
+            
+            // Open up edit popup
+            setEditTextPopup(true);
+            
+            console.log('Double-click detected');      
+            if (clickTimeout) {
+                clearTimeout(clickTimeout);
+                setClickTimeout(null);
             }
-        };
-    }, []);
+        } else {
+            const timeout = setTimeout(() => {
+                console.log('Single click action');
+                setClickTimeout(null);
+            }, 500);
+        
+            setClickTimeout(timeout);
+        }
+    
+        setFinalClickTime(currentTime);
+    };
     
     const MyText = () => {
         return <>
             <div
+                onClick={handleClick}
                 style={{
                     width: `${areaSize}%`,
                     height: `${areaSize}%`,
@@ -43,7 +50,8 @@ const Text = ({ input, areaSize, fontSize, colour }) => {
         </>
     }
     return <>
-        <MyText></MyText>
+        <MyText>
+        </MyText>
     </>
 }
 
