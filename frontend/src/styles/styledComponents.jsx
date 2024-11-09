@@ -138,7 +138,7 @@ export const CurSlide = styled.div(() => ({
     borderColor: 'black',
     borderStyle: 'solid',
     backgroundColor: 'white',
-    position: 'relative', // Set relative positioning to allow absolute positioning of child elements
+    position: 'relative',
 }));
 
 export const SlideNumberStyle = styled.div(() => ({

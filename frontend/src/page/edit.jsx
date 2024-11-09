@@ -18,20 +18,46 @@ const Edit = function ({ token, curStore, setStoreFn }) {
     const [addTextPopup, setAddTextPopup] = React.useState(false);
     const navigate = useNavigate();
     
-    const [textSize, setTextSize] = React.useState('');
+    const [textAreaSize, setTextAreaSize] = React.useState('');
     const [textInput, setTextInput] = React.useState('');
     const [textFontSize, setTextFontSize] = React.useState('');
     const [textColour, setTextColour] = React.useState('');
 
+    const MyText = (props) => {
+        const { input, areaSize, fontSize, colour } = props;
+        console.log(areaSize);
+        return <>
+            <div
+                style={{
+                    width: `${areaSize}%`,
+                    height: `${areaSize}%`,
+                    fontSize: `${fontSize}em`,
+                    color: `${colour}`,
+                    borderWidth: '1px',
+                    borderColor: 'lightgrey',
+                    borderStyle: 'solid',
+                    overflow: 'hidden',
+                    position: 'absolute',
+                }}
+                >
+                {input}
+            </div>
+        </>
+    }
+
     const displayCurSlide = () => {
-        console.log(curStore.allPres[params.presid].slides[params.editid]);
         return <>
             <CurSlide>
-                {curStore.allPres[params.presid].slides[params.editid].map((element, index) => (
-                    <div>
-                        {element.type}
-                    </div>
-                ))}
+                {curStore.allPres[params.presid].slides[params.editid].map((element, index) => {
+                    return <>
+                        <MyText 
+                            input={element.textInput} 
+                            areaSize={element.textAreaSize}
+                            fontSize={element.textFontSize}
+                            colour={element.textColour}
+                        ></MyText>
+                    </>
+                })}
             </CurSlide>
         </>
     }
@@ -41,7 +67,8 @@ const Edit = function ({ token, curStore, setStoreFn }) {
         const newStore = {...curStore};
         newStore.allPres[params.presid].slides[params.editid].push({
             'type': 'text',
-            'textSize': textSize,
+            'textInput': textInput,
+            'textAreaSize': textAreaSize,
             'textFontSize': textFontSize,
             'textColour': textColour,
             'locationX': 0,
@@ -74,7 +101,7 @@ const Edit = function ({ token, curStore, setStoreFn }) {
                         <div>
                             Textarea Size {'[0 < % < 100]'}:
                         </div>
-                        <InputForLogReg type="number" value={textSize} onChange={e => setTextSize(e.target.value)} /><br />
+                        <InputForLogReg type="number" value={textAreaSize} onChange={e => setTextAreaSize(e.target.value)} /><br />
                         <div>
                             Textarea Input:
                         </div>
