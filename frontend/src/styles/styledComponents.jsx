@@ -77,6 +77,7 @@ export const NewPresPopupStyle = styled.div(() => ({
     borderWidth: '1px',
     borderColor: 'black',
     borderStyle: 'solid',
+    zIndex: '1',
 }));
 
 export const DashboardCardStyleDiv = styled.div(() => ({
@@ -139,6 +140,7 @@ export const CurSlide = styled.div(() => ({
     borderStyle: 'solid',
     backgroundColor: 'white',
     position: 'relative',
+    overflow: 'hidden',
 }));
 
 export const SlideNumberStyle = styled.div(() => ({

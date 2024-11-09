@@ -1,15 +1,31 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
+import { CurSlide, 
+    PresPage,
+    NewPresPopUpDiv,
+    NewPresPopupStyle, 
+    BackDeleteBtnPagePosStyle,
+    YesNoBtnStyle, 
+    InputForLogReg, 
+    ThumbnailStyle, 
+    ThumbnailImg, 
+    SlideNumberStyle } from '../styles/styledComponents';
+import { useParams } from 'react-router-dom';
 
-
-const Text = ({ input, areaSize, fontSize, colour, setEditTextPopup }) => {
+const Text = ({ num, input, areaSize, fontSize, colour, curStore, locationX, locationY, setStoreFn }) => {
+    const params = useParams();
     const [clickTimeout, setClickTimeout] = useState(null);
     const [finalClickTime, setFinalClickTime] = useState(0);
-    
+    const [editTextPopup, setEditTextPopup] = React.useState(false);
+    const [newTextAreaSize, setNewTextAreaSize] = React.useState(areaSize);
+    const [newTextInput, setNewTextInput] = React.useState(input);
+    const [newTextFontSize, setNewTextFontSize] = React.useState(fontSize);
+    const [newTextColour, setNewTextColour] = React.useState(colour);
+    const [newLocationX, setNewLocationX] = React.useState(locationX);
+    const [newLocationY, setNewLocationY] = React.useState(locationY);
+
     const handleClick = () => {
         const currentTime = Date.now();
         if (currentTime - finalClickTime <= 500) {
-            
-            // Open up edit popup
             setEditTextPopup(true);
             
             console.log('Double-click detected');      
@@ -28,6 +44,22 @@ const Text = ({ input, areaSize, fontSize, colour, setEditTextPopup }) => {
     
         setFinalClickTime(currentTime);
     };
+
+    const editText = () => {
+        const newStore = {...curStore};
+        console.log(newStore.allPres[params.presid].slides[params.editid]);
+        newStore.allPres[params.presid].slides[params.editid][num] = {
+            'textInput': newTextInput,
+            'textAreaSize': newTextAreaSize,
+            'textFontSize': newTextFontSize,
+            'textColour': newTextColour,
+            'locationX': newLocationX,
+            'locationY': newLocationY,
+        }
+        setStoreFn(newStore);
+        console.log(newStore.allPres[params.presid].slides[params.editid]);
+        setEditTextPopup(false);
+    }
     
     const MyText = () => {
         return <>
@@ -36,6 +68,8 @@ const Text = ({ input, areaSize, fontSize, colour, setEditTextPopup }) => {
                 style={{
                     width: `${areaSize}%`,
                     height: `${areaSize}%`,
+                    top: `${newLocationY}%`,
+                    left: `${newLocationX}%`,
                     fontSize: `${fontSize}em`,
                     color: `${colour}`,
                     borderWidth: '1px',
@@ -49,9 +83,47 @@ const Text = ({ input, areaSize, fontSize, colour, setEditTextPopup }) => {
             </div>
         </>
     }
+
     return <>
-        <MyText>
-        </MyText>
+        <MyText></MyText>
+
+        {editTextPopup && (
+            <>
+                <NewPresPopupStyle>
+                    <NewPresPopupStyle>
+                        <div><u>EDIT TEXT BOX</u></div>
+                        <div>
+                            Textarea Size {'[0 < % < 100]'}:
+                        </div>
+                        <InputForLogReg type="number" value={newTextAreaSize} onChange={e => setNewTextAreaSize(e.target.value)} /><br />
+                        <div>
+                            Textarea Input:
+                        </div>
+                        <InputForLogReg type="text" value={newTextInput} onChange={e => setNewTextInput(e.target.value)} /><br />
+                        <div>
+                            Font size {'[em]'}:
+                        </div>
+                        <InputForLogReg type="number" value={newTextFontSize} onChange={e => setNewTextFontSize(e.target.value)} /><br />
+                        <div>
+                            Text Color {'[HEX COLOR CODE]'}:
+                        </div>
+                        <InputForLogReg type="color" value={newTextColour} onChange={e => setNewTextColour(e.target.value)} /><br />
+                        <div>
+                            X-Coordinate {'[0 < % < 100]'}:
+                        </div>
+                        <InputForLogReg type="number" value={newLocationX} onChange={e => setNewLocationX(e.target.value)} />
+                        <div>
+                            Y-Coordinate {'[0 < % < 100]'}:
+                        </div>
+                        <InputForLogReg type="number" value={newLocationY} onChange={e => setNewLocationY(e.target.value)} /><br />
+                        <YesNoBtnStyle>
+                            <button onClick={() => editText()}>Submit</button>
+                            <button onClick={() => setEditTextPopup(false)}>Cancel</button>
+                        </YesNoBtnStyle>
+                    </NewPresPopupStyle> 
+                </NewPresPopupStyle>
+            </>
+        )}
     </>
 }
 
