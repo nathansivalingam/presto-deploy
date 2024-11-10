@@ -155,7 +155,7 @@ const Edit = function ({ token, curStore, setStoreFn }) {
             'locationY': 0,
         });
         setStoreFn(newStore);
-        setAddImagePopup(false);    
+        setAddVideoPopup(false);    
     }
 
     return <>

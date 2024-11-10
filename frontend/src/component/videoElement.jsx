@@ -64,6 +64,7 @@ const VideoElement = ({ num, videoURL, height, width, autoPlay, curStore, locati
     
     const MyVideo = () => {
         const autoplayParam = newAutoPlay ? "1" : "0";
+        console.log(autoplayParam);
         return <>
             <iframe 
                 src={`${videoURL}?autoplay=${autoplayParam}`}
@@ -76,6 +77,8 @@ const VideoElement = ({ num, videoURL, height, width, autoPlay, curStore, locati
                     left: `${newLocationX}%`,
                     position: 'absolute',
                 }}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                frameBorder="0"
             >
             </iframe>
         </>
