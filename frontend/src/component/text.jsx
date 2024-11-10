@@ -11,12 +11,13 @@ import { CurSlide,
     SlideNumberStyle } from '../styles/styledComponents';
 import { useParams } from 'react-router-dom';
 
-const Text = ({ num, input, areaSize, fontSize, colour, curStore, locationX, locationY, setStoreFn }) => {
+const Text = ({ num, input, textAreaSizeHeight, textAreaSizeWidth, fontSize, colour, curStore, locationX, locationY, setStoreFn }) => {
     const params = useParams();
     const [clickTimeout, setClickTimeout] = useState(null);
     const [finalClickTime, setFinalClickTime] = useState(0);
     const [editTextPopup, setEditTextPopup] = React.useState(false);
-    const [newTextAreaSize, setNewTextAreaSize] = React.useState(areaSize);
+    const [newTextAreaSizeHeight, setNewTextAreaSizeHeight] = React.useState(textAreaSizeHeight);
+    const [newTextAreaSizeWidth, setNewTextAreaSizeWidth] = React.useState(textAreaSizeWidth);
     const [newTextInput, setNewTextInput] = React.useState(input);
     const [newTextFontSize, setNewTextFontSize] = React.useState(fontSize);
     const [newTextColour, setNewTextColour] = React.useState(colour);
@@ -50,7 +51,8 @@ const Text = ({ num, input, areaSize, fontSize, colour, curStore, locationX, loc
         const newStore = {...curStore};
         newStore.allPres[params.presid].slides[params.editid][num] = {
             'textInput': newTextInput,
-            'textAreaSize': newTextAreaSize,
+            'textAreaSizeHeight': newTextAreaSizeHeight,
+            'textAreaSizeWidth': newTextAreaSizeWidth,
             'textFontSize': newTextFontSize,
             'textColour': newTextColour,
             'locationX': newLocationX,
@@ -67,8 +69,8 @@ const Text = ({ num, input, areaSize, fontSize, colour, curStore, locationX, loc
                 onClick={handleDoubleClick}
                 onContextMenu={handleRightClick}
                 style={{
-                    width: `${areaSize}%`,
-                    height: `${areaSize}%`,
+                    width: `${textAreaSizeWidth}%`,
+                    height: `${textAreaSizeHeight}%`,
                     top: `${newLocationY}%`,
                     left: `${newLocationX}%`,
                     fontSize: `${fontSize}em`,
@@ -94,9 +96,13 @@ const Text = ({ num, input, areaSize, fontSize, colour, curStore, locationX, loc
                     <NewPresPopupStyle>
                         <div><u>EDIT TEXT BOX</u></div>
                         <div>
-                            Textarea Size {'[0 < % < 100]'}:
+                            Textarea Size Height {'[0 < % < 100]'}:
                         </div>
-                        <InputForLogReg type="number" value={newTextAreaSize} onChange={e => setNewTextAreaSize(e.target.value)} /><br />
+                        <InputForLogReg type="number" value={newTextAreaSizeHeight} onChange={e => setNewTextAreaSizeHeight(e.target.value)} /><br />
+                        <div>
+                            Textarea Size Width {'[0 < % < 100]'}:
+                        </div>
+                        <InputForLogReg type="number" value={newTextAreaSizeWidth} onChange={e => setNewTextAreaSizeWidth(e.target.value)} /><br />
                         <div>
                             Textarea Input:
                         </div>

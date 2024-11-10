@@ -19,7 +19,8 @@ const Edit = function ({ token, curStore, setStoreFn }) {
     const [addTextPopup, setAddTextPopup] = React.useState(false);
     
     // Text Variables
-    const [textAreaSize, setTextAreaSize] = React.useState('');
+    const [textAreaSizeHeight, setTextAreaSizeHeight] = React.useState('');
+    const [textAreaSizeWidth, setTextAreaSizeWidth] = React.useState('');
     const [textInput, setTextInput] = React.useState('');
     const [textFontSize, setTextFontSize] = React.useState('');
     const [textColour, setTextColour] = React.useState('');
@@ -33,7 +34,8 @@ const Edit = function ({ token, curStore, setStoreFn }) {
                             key={index} // generates warning cause key not unique enough
                             num={index}
                             input={element.textInput} 
-                            areaSize={element.textAreaSize}
+                            textAreaSizeHeight={element.textAreaSizeHeight}
+                            textAreaSizeWidth={element.textAreaSizeWidth}
                             fontSize={element.textFontSize}
                             colour={element.textColour}
                             curStore={curStore}
@@ -53,7 +55,8 @@ const Edit = function ({ token, curStore, setStoreFn }) {
         newStore.allPres[params.presid].slides[params.editid].push({
             'type': 'text',
             'textInput': textInput,
-            'textAreaSize': textAreaSize,
+            'textAreaSizeHeight': textAreaSizeHeight,
+            'textAreaSizeWidth': textAreaSizeWidth,
             'textFontSize': textFontSize,
             'textColour': textColour,
             'locationX': 0,
@@ -84,9 +87,13 @@ const Edit = function ({ token, curStore, setStoreFn }) {
                     <NewPresPopupStyle>
                         <div><u>ADD TEXT BOX</u></div>
                         <div>
-                            Textarea Size {'[0 < % < 100]'}:
+                            Textarea Size Height {'[0 < % < 100]'}:
                         </div>
-                        <InputForLogReg type="number" onChange={e => setTextAreaSize(e.target.value)} /><br />
+                        <InputForLogReg type="number" onChange={e => setTextAreaSizeHeight(e.target.value)} /><br />
+                        <div>
+                            Textarea Size Width {'[0 < % < 100]'}:
+                        </div>
+                        <InputForLogReg type="number" onChange={e => setTextAreaSizeWidth(e.target.value)} /><br />
                         <div>
                             Textarea Input:
                         </div>
