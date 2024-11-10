@@ -19,7 +19,7 @@ const Edit = function ({ token, curStore, setStoreFn }) {
     const navigate = useNavigate();
     const [addTextPopup, setAddTextPopup] = React.useState(false);
     const [addImagePopup, setAddImagePopup] = React.useState(false);
-    
+    const [addVideoPopup, setAddVideoPopup] = React.useState(false);
     // General Variables
     const [elementHeight, setElementHeight] = React.useState('');
     const [elementWidth, setElementWidth] = React.useState('');
@@ -32,6 +32,10 @@ const Edit = function ({ token, curStore, setStoreFn }) {
     // Image Varaibles
     const [imageSrc, setImageSrc] = React.useState('');
     const [imageAltTag, setimageAltTag] = React.useState('');
+
+    //Video Variables 
+    const [videoURL, setVideoURL] = React.useState('');
+    const [autoPlay, setAutoPlay] = React.useState(false);
 
 
     const  fileToDataUrl = (event) => {
@@ -86,7 +90,19 @@ const Edit = function ({ token, curStore, setStoreFn }) {
                             locationY={element.locationY}
                             setStoreFn={setStoreFn}
                         ></Image>)}
-
+                        {(element.type === 'video') && (
+                        <Video 
+                            key={index} // generates warning cause key not unique enough
+                            num={index}
+                            videoURL={element.url} 
+                            height={element.height}
+                            width={element.width}
+                            autoPlay={element.autoPlay}
+                            curStore={curStore}
+                            locationX={element.locationX}
+                            locationY={element.locationY}
+                            setStoreFn={setStoreFn}
+                        ></Video>)}
                     </>
                 })}
             </CurSlide>
@@ -119,6 +135,21 @@ const Edit = function ({ token, curStore, setStoreFn }) {
             'height': elementHeight,
             'width': elementWidth,
             'altTag': imageAltTag,
+            'locationX': 0,
+            'locationY': 0,
+        });
+        setStoreFn(newStore);
+        setAddImagePopup(false);    
+    }
+    const addVideo = () => {
+        // Make sure to add checks for size, input, color, etc.
+        const newStore = {...curStore};
+        newStore.allPres[params.presid].slides[params.editid].push({
+            'type': 'video',
+            'url': videoURL,
+            'height': elementHeight,
+            'width': elementWidth,
+            'autoPlay': autoPlay,
             'locationX': 0,
             'locationY': 0,
         });
@@ -179,7 +210,7 @@ const Edit = function ({ token, curStore, setStoreFn }) {
             <>
                 <NewPresPopUpDiv>
                     <NewPresPopupStyle>
-                        <div><u>ADD TEXT BOX</u></div>
+                        <div><u>ADD IMAGE</u></div>
                         <div>
                             Image Height {'[0 < % < 100]'}:
                         </div>
@@ -199,6 +230,35 @@ const Edit = function ({ token, curStore, setStoreFn }) {
                         <YesNoBtnStyle>
                             <button onClick={() => addImage()}>Submit</button>
                             <button onClick={() => setAddImagePopup(false)}>Cancel</button>
+                        </YesNoBtnStyle>
+                    </NewPresPopupStyle> 
+                </NewPresPopUpDiv>
+            </>
+        )}
+        {addVideoPopup && (
+            <>
+                <NewPresPopUpDiv>
+                    <NewPresPopupStyle>
+                        <div><u>ADD VIDEO</u></div>
+                        <div>
+                            Video Height {'[0 < % < 100]'}:
+                        </div>
+                        <InputForLogReg type="number" onChange={e => setElementHeight(e.target.value)} /><br />
+                        <div>
+                            Video Width {'[0 < % < 100]'}:
+                        </div>
+                        <InputForLogReg type="number" onChange={e => setElementWidth(e.target.value)} /><br />
+                        <div>
+                            Video URL:
+                        </div>
+                        <InputForLogReg type="text" onChange={e => setVideoURL(e.target.value)} /><br />
+                        <div>
+                           Auto Play:
+                        </div>
+                        <InputForLogReg type="checkbox" onChange={e => setAutoPlay(e.target.checked)} /><br />
+                        <YesNoBtnStyle>
+                            <button onClick={() => addVideo()}>Submit</button>
+                            <button onClick={() => setAddVideoPopup(false)}>Cancel</button>
                         </YesNoBtnStyle>
                     </NewPresPopupStyle> 
                 </NewPresPopUpDiv>
