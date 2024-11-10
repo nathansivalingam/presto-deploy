@@ -81,6 +81,7 @@ const VideoElement = ({ num, videoURL, height, width, autoPlay, curStore, locati
                     onContextMenu={handleRightClick}
                     style={{
                         maxHeight: '100%',
+                        maxWidth: '100%',
                         padding: '6px',
                         flex: '1',
                     }}
