@@ -115,7 +115,7 @@ const VideoElement = ({ num, videoURL, height, width, autoPlay, curStore, locati
                         <div>
                             Auto Play
                         </div>
-                        <InputForLogReg type="checkbox" checked={newAutoPlay} onChange={e => setAutoPlay(e.target.checked)} /><br />
+                        <InputForLogReg type="checkbox" checked={newAutoPlay} onChange={e => setNewAutoPlay(e.target.checked)} /><br />
                         <div>
                             X-Coordinate {'[0 < % < 100]'}:
                         </div>
