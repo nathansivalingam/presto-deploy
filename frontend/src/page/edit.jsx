@@ -123,7 +123,7 @@ const Edit = function ({ token, curStore, setStoreFn }) {
             'locationY': 0,
         });
         setStoreFn(newStore);
-        setAddTextPopup(false);    
+        setAddImagePopup(false);    
     }
 
     return <>

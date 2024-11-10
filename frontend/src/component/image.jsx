@@ -23,10 +23,28 @@ const Image = ({ num, imgsrc, height, width, altTag, curStore, locationX, locati
     const [newLocationX, setNewLocationX] = React.useState(locationX);
     const [newLocationY, setNewLocationY] = React.useState(locationY);
 
+    const  fileToDataUrl = (event) => {
+        const file = event.target.files[0];
+        const validFileTypes = [ 'image/jpeg', 'image/png', 'image/jpg' ]
+        const valid = validFileTypes.includes(file.type);
+        // // Bad data, let's walk away.
+        if (!valid) {
+             throw Error('provided file is not a png, jpg or jpeg image.');
+         }
+        
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = () => {
+                setNewImgSrc(reader.result); // Set the Data URL as the thumbnail
+            };
+            reader.readAsDataURL(file); // Convert file to Data URL
+        }
+    }
+
     const handleDoubleClick = () => {
         const currentTime = Date.now();
         if (currentTime - finalClickTime <= 500) {
-            setEditTextPopup(true);
+            setEditImagePopup(true);
             if (clickTimeout) {
                 clearTimeout(clickTimeout);
                 setClickTimeout(null);
@@ -59,61 +77,51 @@ const Image = ({ num, imgsrc, height, width, altTag, curStore, locationX, locati
         }
         setStoreFn(newStore);
         console.log(newStore.allPres[params.presid].slides[params.editid]);
-        setEditTextPopup(false);
+        setEditImagePopup(false);
     }
     
     const MyImage = () => {
         return <>
-            <div
+            <img
+                src={imgsrc}
+                alt={altTag}
                 onClick={handleDoubleClick}
                 onContextMenu={handleRightClick}
                 style={{
-                    width: `${textAreaSizeWidth}%`,
-                    height: `${textAreaSizeHeight}%`,
+                    width: `${width}%`,
+                    height: `${height}%`,
                     top: `${newLocationY}%`,
                     left: `${newLocationX}%`,
-                    fontSize: `${fontSize}em`,
-                    color: `${colour}`,
-                    borderWidth: '1px',
-                    borderColor: 'lightgrey',
-                    borderStyle: 'solid',
-                    overflow: 'hidden',
                     position: 'absolute',
                 }}
-                >
-                {input}
-            </div>
+                />
         </>
     }
 
     return <>
         <MyImage></MyImage>
 
-        {editTextPopup && (
+        {editImagePopup && (
             <>
                 <NewPresPopupStyle>
                     <NewPresPopupStyle>
-                        <div><u>EDIT TEXT BOX</u></div>
+                        <div><u>EDIT IMAGE</u></div>
                         <div>
-                            Textarea Size Height {'[0 < % < 100]'}:
+                            Height {'[0 < % < 100]'}:
                         </div>
-                        <InputForLogReg type="number" value={newTextAreaSizeHeight} onChange={e => setNewTextAreaSizeHeight(e.target.value)} /><br />
+                        <InputForLogReg type="number" value={newHeight} onChange={e => setNewHeight(e.target.value)} /><br />
                         <div>
-                            Textarea Size Width {'[0 < % < 100]'}:
+                            Width {'[0 < % < 100]'}:
                         </div>
-                        <InputForLogReg type="number" value={newTextAreaSizeWidth} onChange={e => setNewTextAreaSizeWidth(e.target.value)} /><br />
+                        <InputForLogReg type="number" value={newWidth} onChange={e => setnewWidth(e.target.value)} /><br />
                         <div>
-                            Textarea Input:
+                            Image Source
                         </div>
-                        <InputForLogReg type="text" value={newTextInput} onChange={e => setNewTextInput(e.target.value)} /><br />
+                        <InputForLogReg type="file" onChange={fileToDataUrl} /><br />
                         <div>
-                            Font size {'[em]'}:
+                            Alt tag
                         </div>
-                        <InputForLogReg type="number" value={newTextFontSize} onChange={e => setNewTextFontSize(e.target.value)} /><br />
-                        <div>
-                            Text Color {'[HEX COLOR CODE]'}:
-                        </div>
-                        <InputForLogReg type="color" value={newTextColour} onChange={e => setNewTextColour(e.target.value)} /><br />
+                        <InputForLogReg type="text" value={newImgAltTag} onChange={e => setNewImgAltTag(e.target.value)} /><br />
                         <div>
                             X-Coordinate {'[0 < % < 100]'}:
                         </div>
@@ -123,8 +131,8 @@ const Image = ({ num, imgsrc, height, width, altTag, curStore, locationX, locati
                         </div>
                         <InputForLogReg type="number" value={newLocationY} onChange={e => setNewLocationY(e.target.value)} /><br />
                         <YesNoBtnStyle>
-                            <button onClick={() => editText()}>Submit</button>
-                            <button onClick={() => setEditTextPopup(false)}>Cancel</button>
+                            <button onClick={() => editImage()}>Submit</button>
+                            <button onClick={() => setEditImagePopup(false)}>Cancel</button>
                         </YesNoBtnStyle>
                     </NewPresPopupStyle> 
                 </NewPresPopupStyle>
