@@ -114,10 +114,10 @@ const Edit = function ({ token, curStore, setStoreFn }) {
                         <Code 
                             key={index} // generates warning cause key not unique enough
                             num={index}
-                            codeInput={element.codeInput} 
+                            input={element.codeInput} 
                             height={element.height}
                             width={element.width}
-                            codeFontSize={element.codeFontSize}
+                            fontSize={element.codeFontSize}
                             curStore={curStore}
                             locationX={element.locationX}
                             locationY={element.locationY}
