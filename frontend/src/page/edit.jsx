@@ -171,6 +171,7 @@ const Edit = function ({ token, curStore, setStoreFn }) {
         <BackDeleteBtnPagePosStyle>
             <button onClick={() => setAddTextPopup(true)}>Add Text Box</button>
             <button onClick={() => setAddImagePopup(true)}>Add Image</button>
+            <button onClick={() => setAddVideoPopup(true)}>Add Video</button>
         </BackDeleteBtnPagePosStyle>
 
         {addTextPopup && (
