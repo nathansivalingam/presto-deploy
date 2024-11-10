@@ -77,6 +77,7 @@ export const NewPresPopupStyle = styled.div(() => ({
     borderWidth: '1px',
     borderColor: 'black',
     borderStyle: 'solid',
+    zIndex: '1',
 }));
 
 export const DashboardCardStyleDiv = styled.div(() => ({
@@ -138,6 +139,21 @@ export const CurSlide = styled.div(() => ({
     borderColor: 'black',
     borderStyle: 'solid',
     backgroundColor: 'white',
+    position: 'relative',
+    overflow: 'hidden',
+}));
+
+export const SlideNumberStyle = styled.div(() => ({
+    display: 'flex',
+    justifyContent: 'center', // Horizontally center the text
+    alignItems: 'center',     // Vertically center the text
+    width: '50px',
+    height: '50px',
+    backgroundColor: '#D1EEFC',
+    position: 'absolute', // Absolute positioning
+    bottom: '0', // Position at the bottom
+    left: '0',   // Position at the left
+    fontSize: '1em',
 }));
 
 export const PresPage = styled.div(() => ({
