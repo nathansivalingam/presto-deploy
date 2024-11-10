@@ -312,19 +312,19 @@ const Edit = function ({ token, curStore, setStoreFn }) {
                         <div>
                             Code Size Height {'[0 < % < 100]'}:
                         </div>
-                        <InputForLogReg type="number" onChange={e => setElementHeight(e.target.value)} /><br />
+                        <InputForLogReg type="number" onChange={e => setElementHeight(e.target.value)} />
                         <div>
                             Code Size Width {'[0 < % < 100]'}:
                         </div>
-                        <InputForLogReg type="number" onChange={e => setElementWidth(e.target.value)} /><br />
+                        <InputForLogReg type="number" onChange={e => setElementWidth(e.target.value)} />
                         <div>
                             Code Input:
                         </div>
-                        <CodeInputTextArea rows="4" cols="50" onChange={e => setCodeInput(e.target.value)} /><br />
+                        <CodeInputTextArea rows="4" cols="50" onChange={e => setCodeInput(e.target.value)} />
                         <div>
                             Code Font size {'[em]'}:
                         </div>
-                        <InputForLogReg type="number" onChange={e => setCodeFontSize(e.target.value)} /><br />
+                        <InputForLogReg type="number" onChange={e => setCodeFontSize(e.target.value)} />
                         <YesNoBtnStyle>
                             <button onClick={() => addCode()}>Submit</button>
                             <button onClick={() => setAddCodePopup(false)}>Cancel</button>
