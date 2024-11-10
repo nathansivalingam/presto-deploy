@@ -11,7 +11,7 @@ import { CurSlide,
     SlideNumberStyle } from '../styles/styledComponents';
 import { useParams } from 'react-router-dom';
 
-const Text = ({ num, input, textAreaSizeHeight, textAreaSizeWidth, fontSize, colour, curStore, locationX, locationY, setStoreFn }) => {
+const Text = ({ num, input, height, width, fontSize, colour, curStore, locationX, locationY, setStoreFn }) => {
     const params = useParams();
     const [clickTimeout, setClickTimeout] = useState(null);
     const [finalClickTime, setFinalClickTime] = useState(0);
@@ -56,8 +56,8 @@ const Text = ({ num, input, textAreaSizeHeight, textAreaSizeWidth, fontSize, col
             'textAreaSizeWidth': newTextAreaSizeWidth,
             'textFontSize': newTextFontSize,
             'textColour': newTextColour,
-            'locationX': locationX,
-            'locationY': locationY,
+            'locationX': newLocationX,
+            'locationY': newLocationY,
         }
         setStoreFn(newStore);
         console.log(newStore.allPres[params.presid].slides[params.editid]);
@@ -70,10 +70,10 @@ const Text = ({ num, input, textAreaSizeHeight, textAreaSizeWidth, fontSize, col
                 onClick={handleDoubleClick}
                 onContextMenu={handleRightClick}
                 style={{
-                    width: `${textAreaSizeWidth}%`,
-                    height: `${textAreaSizeHeight}%`,
-                    top: `${newLocationY}%`,
-                    left: `${newLocationX}%`,
+                    width: `${width}%`,
+                    height: `${height}%`,
+                    top: `${locationX}%`,
+                    left: `${locationY}%`,
                     fontSize: `${fontSize}em`,
                     color: `${colour}`,
                     borderWidth: '1px',

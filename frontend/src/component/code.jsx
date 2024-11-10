@@ -16,8 +16,8 @@ const Code = ({ num, input, height, width, fontSize, curStore, locationX, locati
     const [clickTimeout, setClickTimeout] = useState(null);
     const [finalClickTime, setFinalClickTime] = useState(0);
     const [editCodePopup, setEditCodePopup] = React.useState(false);
-    const [newHeight, setNewHeight] = React.useState(textAreaSizeHeight);
-    const [newWidth, setNewWidth] = React.useState(textAreaSizeWidth);
+    const [newHeight, setNewHeight] = React.useState(height);
+    const [newWidth, setNewWidth] = React.useState(width);
     const [newCodeInput, setNewCodeInput] = React.useState(input);
     const [newCodeFontSize, setNewCodeFontSize] = React.useState(fontSize);
     const [newLocationX, setNewLocationX] = React.useState(locationX);
@@ -62,18 +62,17 @@ const Code = ({ num, input, height, width, fontSize, curStore, locationX, locati
         setEditCodePopup(false);
     }
     
-    const MyText = () => {
+    const MyCode = () => {
         return <>
             <div
                 onClick={handleDoubleClick}
                 onContextMenu={handleRightClick}
                 style={{
-                    width: `${textAreaSizeWidth}%`,
-                    height: `${textAreaSizeHeight}%`,
-                    top: `${newLocationY}%`,
-                    left: `${newLocationX}%`,
+                    width: `${width}%`,
+                    height: `${height}%`,
+                    top: `${locationX}%`,
+                    left: `${locationY}%`,
                     fontSize: `${fontSize}em`,
-                    color: `${colour}`,
                     borderWidth: '1px',
                     borderColor: 'lightgrey',
                     borderStyle: 'solid',
@@ -87,7 +86,7 @@ const Code = ({ num, input, height, width, fontSize, curStore, locationX, locati
     }
 
     return <>
-        <MyText></MyText>
+        <MyCode></MyCode>
 
         {editCodePopup && (
             <>
@@ -97,19 +96,19 @@ const Code = ({ num, input, height, width, fontSize, curStore, locationX, locati
                         <div>
                             Code Area Height {'[0 < % < 100]'}:
                         </div>
-                        <InputForLogReg type="number" value={newTextAreaSizeHeight} onChange={e => setNewTextAreaSizeHeight(e.target.value)} /><br />
+                        <InputForLogReg type="number" value={newHeight} onChange={e => setNewHeight(e.target.value)} /><br />
                         <div>
                             Code Area Width {'[0 < % < 100]'}:
                         </div>
-                        <InputForLogReg type="number" value={newTextAreaSizeWidth} onChange={e => setNewTextAreaSizeWidth(e.target.value)} /><br />
+                        <InputForLogReg type="number" value={newWidth} onChange={e => setNewWidth(e.target.value)} /><br />
                         <div>
                             Code Input:
                         </div>
-                        <InputForLogReg type="text" value={newTextInput} onChange={e => setNewTextInput(e.target.value)} /><br />
+                        <InputForLogReg type="text" value={newCodeInput} onChange={e => setNewCodeInput(e.target.value)} /><br />
                         <div>
                             Font size {'[em]'}:
                         </div>
-                        <InputForLogReg type="number" value={newTextFontSize} onChange={e => setNewTextFontSize(e.target.value)} /><br />
+                        <InputForLogReg type="number" value={newCodeFontSize} onChange={e => setNewCodeFontSize(e.target.value)} /><br />
                         <div>
                             X-Coordinate {'[0 < % < 100]'}:
                         </div>
@@ -119,8 +118,8 @@ const Code = ({ num, input, height, width, fontSize, curStore, locationX, locati
                         </div>
                         <InputForLogReg type="number" value={newLocationY} onChange={e => setNewLocationY(e.target.value)} /><br />
                         <YesNoBtnStyle>
-                            <button onClick={() => editText()}>Submit</button>
-                            <button onClick={() => setEditTextPopup(false)}>Cancel</button>
+                            <button onClick={() => editCode()}>Submit</button>
+                            <button onClick={() => setEditCodePopup(false)}>Cancel</button>
                         </YesNoBtnStyle>
                     </NewPresPopupStyle> 
                 </NewPresPopupStyle>
