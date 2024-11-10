@@ -80,6 +80,10 @@ export const NewPresPopupStyle = styled.div(() => ({
     zIndex: '1',
 }));
 
+export const CodeInputTextArea = styled.textarea(() => ({
+    width: '100%',
+}))
+
 export const DashboardCardStyleDiv = styled.div(() => ({
     border: "1px solid #ddd", 
     padding: "10px",

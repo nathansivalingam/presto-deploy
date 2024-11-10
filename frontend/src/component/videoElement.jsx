@@ -76,7 +76,7 @@ const VideoElement = ({ num, videoURL, height, width, autoPlay, curStore, locati
                         display: 'flex'
                     }}>
                 <iframe 
-                    src={`${videoURL}?autoplay=${autoplayParam}`}
+                    src={`${videoURL}&autoplay=${autoplayParam}&mute=1`}
                     onClick={handleDoubleClick}
                     onContextMenu={handleRightClick}
                     style={{
@@ -86,7 +86,6 @@ const VideoElement = ({ num, videoURL, height, width, autoPlay, curStore, locati
                         flex: '1',
                     }}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    frameBorder="0"
                 >
                 </iframe>
             </div>
@@ -94,7 +93,7 @@ const VideoElement = ({ num, videoURL, height, width, autoPlay, curStore, locati
     }
 
     return <>
-        <MyVideo></MyVideo>
+        <MyVideo/>
 
         {editVideoPopup && (
             <>

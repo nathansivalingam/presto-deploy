@@ -8,7 +8,8 @@ import { CurSlide,
     YesNoBtnStyle, 
     InputForLogReg, 
     ThumbnailStyle, 
-    ThumbnailImg, 
+    ThumbnailImg,
+    CodeInputTextArea,
     SlideNumberStyle } from '../styles/styledComponents';
 import Text from '../component/text';
 import Image from '../component/image';
@@ -190,7 +191,7 @@ const Edit = function ({ token, curStore, setStoreFn }) {
             'locationY': 0,
         });
         setStoreFn(newStore);
-        setAddTextPopup(false);    
+        setAddCodePopup(false);    
     }
 
 
@@ -319,7 +320,7 @@ const Edit = function ({ token, curStore, setStoreFn }) {
                         <div>
                             Code Input:
                         </div>
-                        <InputForLogReg type="text" onChange={e => setCodeInput(e.target.value)} /><br />
+                        <CodeInputTextArea rows="4" cols="50" onChange={e => setCodeInput(e.target.value)} /><br />
                         <div>
                             Code Font size {'[em]'}:
                         </div>

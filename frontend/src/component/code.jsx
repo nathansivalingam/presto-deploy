@@ -7,7 +7,8 @@ import { CurSlide,
     YesNoBtnStyle, 
     InputForLogReg, 
     ThumbnailStyle, 
-    ThumbnailImg, 
+    ThumbnailImg,
+    CodeInputTextArea,
     SlideNumberStyle } from '../styles/styledComponents';
 import { useParams } from 'react-router-dom';
 
@@ -104,7 +105,8 @@ const Code = ({ num, input, height, width, fontSize, curStore, locationX, locati
                         <div>
                             Code Input:
                         </div>
-                        <InputForLogReg type="text" value={newCodeInput} onChange={e => setNewCodeInput(e.target.value)} /><br />
+                        <CodeInputTextArea rows="4" cols="50" value={newCodeInput} onChange={e => setNewCodeInput(e.target.value)} /><br/>
+                        {/* <InputForLogReg type="text" value={newCodeInput} onChange={e => setNewCodeInput(e.target.value)} /><br /> */}
                         <div>
                             Font size {'[em]'}:
                         </div>
