@@ -13,6 +13,7 @@ import { CurSlide,
 import Text from '../component/text';
 import Image from '../component/image';
 import VideoElement from '../component/videoElement';
+import Code from '../component/code';
 
 const Edit = function ({ token, curStore, setStoreFn }) {
     
@@ -21,6 +22,8 @@ const Edit = function ({ token, curStore, setStoreFn }) {
     const [addTextPopup, setAddTextPopup] = React.useState(false);
     const [addImagePopup, setAddImagePopup] = React.useState(false);
     const [addVideoPopup, setAddVideoPopup] = React.useState(false);
+    const [addCodePopup, setAddCodePopup] = React.useState(false);
+
     // General Variables
     const [elementHeight, setElementHeight] = React.useState('');
     const [elementWidth, setElementWidth] = React.useState('');
@@ -34,10 +37,13 @@ const Edit = function ({ token, curStore, setStoreFn }) {
     const [imageSrc, setImageSrc] = React.useState('');
     const [imageAltTag, setimageAltTag] = React.useState('');
 
-    //Video Variables 
+    // Video Variables 
     const [videoURL, setVideoURL] = React.useState('');
     const [autoPlay, setAutoPlay] = React.useState(false);
 
+    // Code Variables
+    const [codeInput, setCodeInput] = React.useState('');
+    const [codeFontSize, setCodeFontSize] = React.useState('');
 
     const  fileToDataUrl = (event) => {
         const file = event.target.files[0];
@@ -104,6 +110,19 @@ const Edit = function ({ token, curStore, setStoreFn }) {
                             locationY={element.locationY}
                             setStoreFn={setStoreFn}
                         ></VideoElement>)}
+                        {(element.type === 'code') && (
+                        <Code 
+                            key={index} // generates warning cause key not unique enough
+                            num={index}
+                            codeInput={element.codeInput} 
+                            height={element.height}
+                            width={element.width}
+                            codeFontSize={element.codeFontSize}
+                            curStore={curStore}
+                            locationX={element.locationX}
+                            locationY={element.locationY}
+                            setStoreFn={setStoreFn}
+                        ></Code>)}
                     </>
                 })}
             </CurSlide>
@@ -158,6 +177,23 @@ const Edit = function ({ token, curStore, setStoreFn }) {
         setAddVideoPopup(false);    
     }
 
+    const addCode = () => {
+        // Make sure to add checks for size, input, color, etc.
+        const newStore = {...curStore};
+        newStore.allPres[params.presid].slides[params.editid].push({
+            'type': 'code',
+            'codeInput': codeInput,
+            'height': elementHeight,
+            'width': elementWidth,
+            'codeFontSize': codeFontSize,
+            'locationX': 0,
+            'locationY': 0,
+        });
+        setStoreFn(newStore);
+        setAddTextPopup(false);    
+    }
+
+
     return <>
         <BackDeleteBtnPagePosStyle>
             <div>Currently editing slide: {parseInt(params.editid + 1)}</div>
@@ -173,6 +209,7 @@ const Edit = function ({ token, curStore, setStoreFn }) {
             <button onClick={() => setAddTextPopup(true)}>Add Text Box</button>
             <button onClick={() => setAddImagePopup(true)}>Add Image</button>
             <button onClick={() => setAddVideoPopup(true)}>Add Video</button>
+            <button onClick={() => setAddCodePopup(true)}>Add Code</button>
         </BackDeleteBtnPagePosStyle>
 
         {addTextPopup && (
@@ -261,6 +298,35 @@ const Edit = function ({ token, curStore, setStoreFn }) {
                         <YesNoBtnStyle>
                             <button onClick={() => addVideo()}>Submit</button>
                             <button onClick={() => setAddVideoPopup(false)}>Cancel</button>
+                        </YesNoBtnStyle>
+                    </NewPresPopupStyle> 
+                </NewPresPopUpDiv>
+            </>
+        )}
+        {addCodePopup && (
+            <>
+                <NewPresPopUpDiv>
+                    <NewPresPopupStyle>
+                        <div><u>ADD TEXT BOX</u></div>
+                        <div>
+                            Code Size Height {'[0 < % < 100]'}:
+                        </div>
+                        <InputForLogReg type="number" onChange={e => setElementHeight(e.target.value)} /><br />
+                        <div>
+                            Code Size Width {'[0 < % < 100]'}:
+                        </div>
+                        <InputForLogReg type="number" onChange={e => setElementWidth(e.target.value)} /><br />
+                        <div>
+                            Code Input:
+                        </div>
+                        <InputForLogReg type="text" onChange={e => setCodeInput(e.target.value)} /><br />
+                        <div>
+                            Code Font size {'[em]'}:
+                        </div>
+                        <InputForLogReg type="number" onChange={e => setCodeFontSize(e.target.value)} /><br />
+                        <YesNoBtnStyle>
+                            <button onClick={() => addCode()}>Submit</button>
+                            <button onClick={() => setAddCodePopup(false)}>Cancel</button>
                         </YesNoBtnStyle>
                     </NewPresPopupStyle> 
                 </NewPresPopUpDiv>
