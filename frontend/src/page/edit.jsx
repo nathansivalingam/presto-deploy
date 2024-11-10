@@ -12,6 +12,7 @@ import { CurSlide,
     SlideNumberStyle } from '../styles/styledComponents';
 import Text from '../component/text';
 import Image from '../component/image';
+import VideoElement from '../component/videoElement';
 
 const Edit = function ({ token, curStore, setStoreFn }) {
     
@@ -91,7 +92,7 @@ const Edit = function ({ token, curStore, setStoreFn }) {
                             setStoreFn={setStoreFn}
                         ></Image>)}
                         {(element.type === 'video') && (
-                        <Video 
+                        <VideoElement 
                             key={index} // generates warning cause key not unique enough
                             num={index}
                             videoURL={element.url} 
@@ -102,7 +103,7 @@ const Edit = function ({ token, curStore, setStoreFn }) {
                             locationX={element.locationX}
                             locationY={element.locationY}
                             setStoreFn={setStoreFn}
-                        ></Video>)}
+                        ></VideoElement>)}
                     </>
                 })}
             </CurSlide>

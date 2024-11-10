@@ -63,10 +63,10 @@ const VideoElement = ({ num, videoURL, height, width, autoPlay, curStore, locati
     }
     
     const MyVideo = () => {
+        const autoplayParam = newAutoPlay ? "1" : "0";
         return <>
-            <img
-                src={imgsrc}
-                alt={altTag}
+            <iframe 
+                src={`${videoURL}?autoplay=${autoplayParam}`}
                 onClick={handleDoubleClick}
                 onContextMenu={handleRightClick}
                 style={{
@@ -76,7 +76,8 @@ const VideoElement = ({ num, videoURL, height, width, autoPlay, curStore, locati
                     left: `${newLocationX}%`,
                     position: 'absolute',
                 }}
-                />
+            >
+            </iframe>
         </>
     }
 
@@ -99,11 +100,11 @@ const VideoElement = ({ num, videoURL, height, width, autoPlay, curStore, locati
                         <div>
                             Video URL
                         </div>
-                        <InputForLogReg type="text" value={newImgAltTag} onChange={e => setNewImgAltTag(e.target.value)} /><br />
+                        <InputForLogReg type="text" value={newVideoURL} onChange={e => setNewVideoURL(e.target.value)} /><br />
                         <div>
                             Auto Play
                         </div>
-                        <InputForLogReg type="checkbox" onChange={e => setAutoPlay(e.target.checked)} /><br />
+                        <InputForLogReg type="checkbox" checked={newAutoPlay} onChange={e => setAutoPlay(e.target.checked)} /><br />
                         <div>
                             X-Coordinate {'[0 < % < 100]'}:
                         </div>
@@ -123,4 +124,4 @@ const VideoElement = ({ num, videoURL, height, width, autoPlay, curStore, locati
     </>
 }
 
-export default Video;
+export default VideoElement;
