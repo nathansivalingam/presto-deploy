@@ -17,6 +17,7 @@ const Edit = function ({ token, curStore, setStoreFn }) {
     const params = useParams();    
     const navigate = useNavigate();
     const [addTextPopup, setAddTextPopup] = React.useState(false);
+    const [addImagePopup, setAddImagePopup] = React.useState(false);
     
     // Text Variables
     const [textAreaSizeHeight, setTextAreaSizeHeight] = React.useState('');
@@ -30,6 +31,8 @@ const Edit = function ({ token, curStore, setStoreFn }) {
             <CurSlide>
                 {curStore.allPres[params.presid].slides[params.editid].map((element, index) => {
                     return <>
+                        
+                        {(element.type === 'text') && (
                         <Text 
                             key={index} // generates warning cause key not unique enough
                             num={index}
@@ -42,7 +45,22 @@ const Edit = function ({ token, curStore, setStoreFn }) {
                             locationX={element.locationX}
                             locationY={element.locationY}
                             setStoreFn={setStoreFn}
-                        ></Text>
+                        ></Text>)}
+
+                        {(element.type === 'image') && (
+                        <Text 
+                            key={index} // generates warning cause key not unique enough
+                            num={index}
+                            imgsrc={element.imgsrc} 
+                            height={element.height}
+                            width={element.width}
+                            altTag={element.altTag}
+                            curStore={curStore}
+                            locationX={element.locationX}
+                            locationY={element.locationY}
+                            setStoreFn={setStoreFn}
+                        ></Text>)}
+
                     </>
                 })}
             </CurSlide>
@@ -79,6 +97,7 @@ const Edit = function ({ token, curStore, setStoreFn }) {
         </PresPage>
         <BackDeleteBtnPagePosStyle>
             <button onClick={() => setAddTextPopup(true)}>Add Text Box</button>
+            <button onClick={() => setAddImagePopup(true)}>Add Image</button>
         </BackDeleteBtnPagePosStyle>
 
         {addTextPopup && (
@@ -109,6 +128,35 @@ const Edit = function ({ token, curStore, setStoreFn }) {
                         <YesNoBtnStyle>
                             <button onClick={() => addText()}>Submit</button>
                             <button onClick={() => setAddTextPopup(false)}>Cancel</button>
+                        </YesNoBtnStyle>
+                    </NewPresPopupStyle> 
+                </NewPresPopUpDiv>
+            </>
+        )}
+        {addImagePopup && (
+            <>
+                <NewPresPopUpDiv>
+                    <NewPresPopupStyle>
+                        <div><u>ADD TEXT BOX</u></div>
+                        <div>
+                            Image Height {'[0 < % < 100]'}:
+                        </div>
+                        <InputForLogReg type="number" onChange={e => setTextAreaSizeHeight(e.target.value)} /><br />
+                        <div>
+                            Image Width {'[0 < % < 100]'}:
+                        </div>
+                        <InputForLogReg type="number" onChange={e => setTextAreaSizeWidth(e.target.value)} /><br />
+                        <div>
+                            Image File:
+                        </div>
+                        <InputForLogReg type="file" onChange={e => setTextInput(e.target.value)} /><br />
+                        <div>
+                            alt tag for image:
+                        </div>
+                        <InputForLogReg type="text" onChange={e => setTextFontSize(e.target.value)} /><br />
+                        <YesNoBtnStyle>
+                            <button onClick={() => addImage()}>Submit</button>
+                            <button onClick={() => setAddImagePopup(false)}>Cancel</button>
                         </YesNoBtnStyle>
                     </NewPresPopupStyle> 
                 </NewPresPopUpDiv>
