@@ -11,6 +11,7 @@ import { CurSlide,
     ThumbnailImg, 
     SlideNumberStyle } from '../styles/styledComponents';
 import Text from '../component/text';
+import Image from '../component/image';
 
 const Edit = function ({ token, curStore, setStoreFn }) {
     
@@ -73,7 +74,7 @@ const Edit = function ({ token, curStore, setStoreFn }) {
                         ></Text>)}
 
                         {(element.type === 'image') && (
-                        <Text 
+                        <Image 
                             key={index} // generates warning cause key not unique enough
                             num={index}
                             imgsrc={element.imgsrc} 
@@ -84,7 +85,7 @@ const Edit = function ({ token, curStore, setStoreFn }) {
                             locationX={element.locationX}
                             locationY={element.locationY}
                             setStoreFn={setStoreFn}
-                        ></Text>)}
+                        ></Image>)}
 
                     </>
                 })}

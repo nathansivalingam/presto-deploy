@@ -11,16 +11,15 @@ import { CurSlide,
     SlideNumberStyle } from '../styles/styledComponents';
 import { useParams } from 'react-router-dom';
 
-const Text = ({ num, input, textAreaSizeHeight, textAreaSizeWidth, fontSize, colour, curStore, locationX, locationY, setStoreFn }) => {
+const Image = ({ num, imgsrc, height, width, altTag, curStore, locationX, locationY, setStoreFn }) => {
     const params = useParams();
     const [clickTimeout, setClickTimeout] = useState(null);
     const [finalClickTime, setFinalClickTime] = useState(0);
-    const [editTextPopup, setEditTextPopup] = React.useState(false);
-    const [newTextAreaSizeHeight, setNewTextAreaSizeHeight] = React.useState(textAreaSizeHeight);
-    const [newTextAreaSizeWidth, setNewTextAreaSizeWidth] = React.useState(textAreaSizeWidth);
-    const [newTextInput, setNewTextInput] = React.useState(input);
-    const [newTextFontSize, setNewTextFontSize] = React.useState(fontSize);
-    const [newTextColour, setNewTextColour] = React.useState(colour);
+    const [editImagePopup, setEditImagePopup] = React.useState(false);
+    const [newHeight, setNewHeight] = React.useState(height);
+    const [newWidth, setnewWidth] = React.useState(width);
+    const [newImgSrc, setNewImgSrc] = React.useState(imgsrc);
+    const [newImgAltTag, setNewImgAltTag] = React.useState(altTag);
     const [newLocationX, setNewLocationX] = React.useState(locationX);
     const [newLocationY, setNewLocationY] = React.useState(locationY);
 
@@ -47,15 +46,14 @@ const Text = ({ num, input, textAreaSizeHeight, textAreaSizeWidth, fontSize, col
         setStoreFn(newStore);
     }
 
-    const editText = () => {
+    const editImage = () => {
         const newStore = {...curStore};
         newStore.allPres[params.presid].slides[params.editid][num] = {
-            'type': 'text',
-            'textInput': newTextInput,
-            'textAreaSizeHeight': newTextAreaSizeHeight,
-            'textAreaSizeWidth': newTextAreaSizeWidth,
-            'textFontSize': newTextFontSize,
-            'textColour': newTextColour,
+            'type': 'image',
+            'imgsrc': newImgSrc,
+            'height': newHeight,
+            'width': newWidth,
+            'altTag': newImgAltTag,
             'locationX': newLocationX,
             'locationY': newLocationY,
         }
@@ -64,7 +62,7 @@ const Text = ({ num, input, textAreaSizeHeight, textAreaSizeWidth, fontSize, col
         setEditTextPopup(false);
     }
     
-    const MyText = () => {
+    const MyImage = () => {
         return <>
             <div
                 onClick={handleDoubleClick}
@@ -89,7 +87,7 @@ const Text = ({ num, input, textAreaSizeHeight, textAreaSizeWidth, fontSize, col
     }
 
     return <>
-        <MyText></MyText>
+        <MyImage></MyImage>
 
         {editTextPopup && (
             <>
@@ -135,4 +133,4 @@ const Text = ({ num, input, textAreaSizeHeight, textAreaSizeWidth, fontSize, col
     </>
 }
 
-export default Text;
+export default Image;
