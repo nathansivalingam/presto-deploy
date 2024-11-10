@@ -19,12 +19,37 @@ const Edit = function ({ token, curStore, setStoreFn }) {
     const [addTextPopup, setAddTextPopup] = React.useState(false);
     const [addImagePopup, setAddImagePopup] = React.useState(false);
     
-    // Text Variables
-    const [textAreaSizeHeight, setTextAreaSizeHeight] = React.useState('');
-    const [textAreaSizeWidth, setTextAreaSizeWidth] = React.useState('');
+    // General Variables
+    const [elementHeight, setElementHeight] = React.useState('');
+    const [elementWidth, setElementWidth] = React.useState('');
+
+    // Text Varaibles
     const [textInput, setTextInput] = React.useState('');
     const [textFontSize, setTextFontSize] = React.useState('');
     const [textColour, setTextColour] = React.useState('');
+
+    // Image Varaibles
+    const [imageSrc, setImageSrc] = React.useState('');
+    const [imageAltTag, setimageAltTag] = React.useState('');
+
+
+    const  fileToDataUrl = (event) => {
+        const file = event.target.files[0];
+        const validFileTypes = [ 'image/jpeg', 'image/png', 'image/jpg' ]
+        const valid = validFileTypes.includes(file.type);
+        // // Bad data, let's walk away.
+        if (!valid) {
+             throw Error('provided file is not a png, jpg or jpeg image.');
+         }
+        
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = () => {
+                setImageSrc(reader.result); // Set the Data URL as the thumbnail
+            };
+            reader.readAsDataURL(file); // Convert file to Data URL
+        }
+    }
 
     const displayCurSlide = () => {
         return <>
@@ -73,10 +98,26 @@ const Edit = function ({ token, curStore, setStoreFn }) {
         newStore.allPres[params.presid].slides[params.editid].push({
             'type': 'text',
             'textInput': textInput,
-            'textAreaSizeHeight': textAreaSizeHeight,
-            'textAreaSizeWidth': textAreaSizeWidth,
+            'textAreaSizeHeight': elementHeight,
+            'textAreaSizeWidth': elementWidth,
             'textFontSize': textFontSize,
             'textColour': textColour,
+            'locationX': 0,
+            'locationY': 0,
+        });
+        setStoreFn(newStore);
+        setAddTextPopup(false);    
+    }
+
+    const addImage = () => {
+        // Make sure to add checks for size, input, color, etc.
+        const newStore = {...curStore};
+        newStore.allPres[params.presid].slides[params.editid].push({
+            'type': 'image',
+            'imgsrc': imageSrc,
+            'height': elementHeight,
+            'width': elementWidth,
+            'altTag': imageAltTag,
             'locationX': 0,
             'locationY': 0,
         });
@@ -108,11 +149,11 @@ const Edit = function ({ token, curStore, setStoreFn }) {
                         <div>
                             Textarea Size Height {'[0 < % < 100]'}:
                         </div>
-                        <InputForLogReg type="number" onChange={e => setTextAreaSizeHeight(e.target.value)} /><br />
+                        <InputForLogReg type="number" onChange={e => setElementHeight(e.target.value)} /><br />
                         <div>
                             Textarea Size Width {'[0 < % < 100]'}:
                         </div>
-                        <InputForLogReg type="number" onChange={e => setTextAreaSizeWidth(e.target.value)} /><br />
+                        <InputForLogReg type="number" onChange={e => setElementWidth(e.target.value)} /><br />
                         <div>
                             Textarea Input:
                         </div>
@@ -141,19 +182,19 @@ const Edit = function ({ token, curStore, setStoreFn }) {
                         <div>
                             Image Height {'[0 < % < 100]'}:
                         </div>
-                        <InputForLogReg type="number" onChange={e => setTextAreaSizeHeight(e.target.value)} /><br />
+                        <InputForLogReg type="number" onChange={e => setElementHeight(e.target.value)} /><br />
                         <div>
                             Image Width {'[0 < % < 100]'}:
                         </div>
-                        <InputForLogReg type="number" onChange={e => setTextAreaSizeWidth(e.target.value)} /><br />
+                        <InputForLogReg type="number" onChange={e => setElementWidth(e.target.value)} /><br />
                         <div>
                             Image File:
                         </div>
-                        <InputForLogReg type="file" onChange={e => setTextInput(e.target.value)} /><br />
+                        <InputForLogReg type="file" onChange={fileToDataUrl} /><br />
                         <div>
                             alt tag for image:
                         </div>
-                        <InputForLogReg type="text" onChange={e => setTextFontSize(e.target.value)} /><br />
+                        <InputForLogReg type="text" onChange={e => setimageAltTag(e.target.value)} /><br />
                         <YesNoBtnStyle>
                             <button onClick={() => addImage()}>Submit</button>
                             <button onClick={() => setAddImagePopup(false)}>Cancel</button>
