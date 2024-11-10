@@ -72,8 +72,8 @@ const Image = ({ num, imgsrc, height, width, altTag, curStore, locationX, locati
             'height': newHeight,
             'width': newWidth,
             'altTag': newImgAltTag,
-            'locationX': newLocationX,
-            'locationY': newLocationY,
+            'locationX': locationX,
+            'locationY': locationY,
         }
         setStoreFn(newStore);
         console.log(newStore.allPres[params.presid].slides[params.editid]);

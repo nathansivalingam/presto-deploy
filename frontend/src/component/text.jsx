@@ -56,8 +56,8 @@ const Text = ({ num, input, textAreaSizeHeight, textAreaSizeWidth, fontSize, col
             'textAreaSizeWidth': newTextAreaSizeWidth,
             'textFontSize': newTextFontSize,
             'textColour': newTextColour,
-            'locationX': newLocationX,
-            'locationY': newLocationY,
+            'locationX': locationX,
+            'locationY': locationY,
         }
         setStoreFn(newStore);
         console.log(newStore.allPres[params.presid].slides[params.editid]);

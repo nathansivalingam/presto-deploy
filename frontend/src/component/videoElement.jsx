@@ -59,28 +59,36 @@ const VideoElement = ({ num, videoURL, height, width, autoPlay, curStore, locati
         }
         setStoreFn(newStore);
         console.log(newStore.allPres[params.presid].slides[params.editid]);
-        setEditImagePopup(false);
+        setEditVideoPopup(false);
     }
     
     const MyVideo = () => {
         const autoplayParam = newAutoPlay ? "1" : "0";
         console.log(autoplayParam);
         return <>
-            <iframe 
-                src={`${videoURL}?autoplay=${autoplayParam}`}
-                onClick={handleDoubleClick}
-                onContextMenu={handleRightClick}
-                style={{
-                    width: `${width}%`,
-                    height: `${height}%`,
-                    top: `${newLocationY}%`,
-                    left: `${newLocationX}%`,
-                    position: 'absolute',
-                }}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                frameBorder="0"
-            >
-            </iframe>
+            <div style={{
+                        width: `${width}%`,
+                        height: `${height}%`,
+                        top: `${locationX}%`,
+                        left: `${locationY}%`,
+                        position: 'absolute',
+                        backgroundColor: 'black',
+                        display: 'flex'
+                    }}>
+                <iframe 
+                    src={`${videoURL}?autoplay=${autoplayParam}`}
+                    onClick={handleDoubleClick}
+                    onContextMenu={handleRightClick}
+                    style={{
+                        maxHeight: '100%',
+                        padding: '6px',
+                        flex: '1',
+                    }}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    frameBorder="0"
+                >
+                </iframe>
+            </div>
         </>
     }
 
