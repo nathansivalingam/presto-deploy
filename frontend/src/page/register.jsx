@@ -2,6 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { Link } from "react-router-dom";
 import { Box, Background, InputForLogReg, LabelsForLogReg } from '../styles/styledComponents';
+import { BACKEND_PORT } from '../../backend.config.json';
 
 function Register({ handleSuccess }) {
   const [email, setEmail] = useState('');
@@ -19,7 +20,7 @@ function Register({ handleSuccess }) {
       setError("Passwords do NOT match");
       return;
     }
-    axios.post('http://localhost:5005/admin/auth/register', {
+    axios.post(`http://localhost:${BACKEND_PORT}/admin/auth/register`, {
       email: email,
       password: password,
       name: name,

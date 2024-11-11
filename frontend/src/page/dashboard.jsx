@@ -34,7 +34,7 @@ const Dashboard = function({ token, curStore, setStoreFn }) {
     }
 
     const showPresentations = (presentations) => {
-        console.log(presentations)
+        console.log(presentations);
         if (!presentations || Object.keys(presentations).length === 0) {
             return <p>No presentations available.</p>; 
         }

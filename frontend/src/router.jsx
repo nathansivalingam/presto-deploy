@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, useLocation, Routes, Route, Link } from 'react-router-dom';
 import { NavBar, NavBarBtn, GlobalBodyStyle } from './styles/styledComponents';
+import { BACKEND_PORT } from '../backend.config.json';
 
 import Register from './page/register';
 import Login from './page/login';
@@ -19,7 +20,7 @@ function Router() {
 
   const setStoreAll = (newStore) => {
       axios.put(
-          'http://localhost:5005/store',
+          `http://localhost:${BACKEND_PORT}/store`,
           {
               store: newStore,
           },
@@ -37,7 +38,7 @@ function Router() {
 
   React.useEffect(() => {
       if (token) {
-          axios.get('http://localhost:5005/store', {
+          axios.get(`http://localhost:${BACKEND_PORT}/store`, {
               headers: { Authorization: `Bearer ${token}` }
           })
           .then( (response) => {

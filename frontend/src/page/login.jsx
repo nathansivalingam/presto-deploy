@@ -2,6 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { Link } from "react-router-dom";
 import { Box, Background, InputForLogReg, LabelsForLogReg } from '../styles/styledComponents';
+import { BACKEND_PORT } from '../../backend.config.json';
 
 function Login({ handleSuccess }) {
   const [email, setEmail] = useState('');
@@ -9,7 +10,7 @@ function Login({ handleSuccess }) {
   const [error, setError] = useState(null);
 
   const login = () => {
-    axios.post('http://localhost:5005/admin/auth/login', {
+    axios.post(`http://localhost:${BACKEND_PORT}/admin/auth/login`, {
       email: email,
       password: password,
     })
