@@ -11,6 +11,9 @@ import { CurSlide,
     CodeInputTextArea,
     SlideNumberStyle } from '../styles/styledComponents';
 import { useParams } from 'react-router-dom';
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import hljs from 'highlight.js';
 
 const Code = ({ num, input, height, width, fontSize, curStore, locationX, locationY, setStoreFn }) => {
     const params = useParams();
@@ -64,27 +67,36 @@ const Code = ({ num, input, height, width, fontSize, curStore, locationX, locati
     }
     
     const MyCode = () => {
-        return <>
-            <div
-                onClick={handleDoubleClick}
-                onContextMenu={handleRightClick}
-                style={{
-                    width: `${width}%`,
-                    height: `${height}%`,
-                    top: `${locationX}%`,
-                    left: `${locationY}%`,
-                    fontSize: `${fontSize}em`,
-                    borderWidth: '1px',
-                    borderColor: 'lightgrey',
-                    borderStyle: 'solid',
-                    overflow: 'hidden',
-                    position: 'absolute',
-                }}
+        const customStyles = {
+            width: `${width}%`,
+            height: `${height}%`,
+            top: `${locationX}%`,
+            left: `${locationY}%`,
+            fontSize: `${fontSize}em`,
+            borderWidth: '1px',
+            borderColor: 'lightgrey',
+            borderStyle: 'solid',
+            overflow: 'hidden',
+            position: 'absolute',
+            marginTop: '0px',
+        };
+    
+        return (
+            <>
+                <SyntaxHighlighter
+                    language="python"
+                    onClick={handleDoubleClick}
+                    onContextMenu={handleRightClick}
+                    style={{
+                        ...docco,
+                    }}
+                    customStyle={customStyles}
                 >
-                {input}
-            </div>
-        </>
-    }
+                    {input}
+                </SyntaxHighlighter>
+            </>
+        );
+    };
 
     return <>
         <MyCode></MyCode>
