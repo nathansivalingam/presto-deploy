@@ -67,6 +67,15 @@ const Code = ({ num, input, height, width, fontSize, curStore, locationX, locati
     }
     
     const MyCode = () => {
+        const [language, setLanguage] = useState('python');
+
+        React.useEffect(() => {
+            // Detect language based on the input content
+            const detectedLanguage = hljs.highlightAuto(input).language;
+            setLanguage(detectedLanguage);
+            console.log(detectedLanguage);
+        }, [input]); // Re-run detection whenever the input changes
+        
         const customStyles = {
             width: `${width}%`,
             height: `${height}%`,
@@ -76,7 +85,6 @@ const Code = ({ num, input, height, width, fontSize, curStore, locationX, locati
             borderWidth: '1px',
             borderColor: 'lightgrey',
             borderStyle: 'solid',
-            overflow: 'hidden',
             position: 'absolute',
             marginTop: '0px',
         };
@@ -84,7 +92,7 @@ const Code = ({ num, input, height, width, fontSize, curStore, locationX, locati
         return (
             <>
                 <SyntaxHighlighter
-                    language="python"
+                    language={language}
                     onClick={handleDoubleClick}
                     onContextMenu={handleRightClick}
                     style={{
