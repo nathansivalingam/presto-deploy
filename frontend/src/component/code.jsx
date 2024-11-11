@@ -1,19 +1,13 @@
 import React, { useState } from 'react';
-import { CurSlide, 
-    PresPage,
-    NewPresPopUpDiv,
-    NewPresPopupStyle, 
-    BackDeleteBtnPagePosStyle,
+import { NewPresPopupStyle, 
     YesNoBtnStyle, 
     InputForLogReg, 
-    ThumbnailStyle, 
-    ThumbnailImg,
-    CodeInputTextArea,
-    SlideNumberStyle } from '../styles/styledComponents';
+    CodeInputTextArea } from '../styles/styledComponents';
 import { useParams } from 'react-router-dom';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import hljs from 'highlight.js';
+import Moveable from "react-moveable";
 
 const Code = ({ num, input, height, width, fontSize, curStore, locationX, locationY, setStoreFn }) => {
     const params = useParams();
@@ -68,13 +62,11 @@ const Code = ({ num, input, height, width, fontSize, curStore, locationX, locati
     
     const MyCode = () => {
         const [language, setLanguage] = useState('python');
-
         React.useEffect(() => {
-            // Detect language based on the input content
             const detectedLanguage = hljs.highlightAuto(input).language;
             setLanguage(detectedLanguage);
             console.log(detectedLanguage);
-        }, [input]); // Re-run detection whenever the input changes
+        }, [input]);
         
         const customStyles = {
             width: `${width}%`,
