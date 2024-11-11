@@ -69,14 +69,13 @@ const Edit = function ({ token, curStore, setStoreFn }) {
             <CurSlide>
                 {curStore.allPres[params.presid].slides[params.editid].map((element, index) => {
                     return <>
-                        
                         {(element.type === 'text') && (
                         <Text 
                             key={index} // generates warning cause key not unique enough
                             num={index}
                             input={element.textInput} 
-                            textAreaSizeHeight={element.textAreaSizeHeight}
-                            textAreaSizeWidth={element.textAreaSizeWidth}
+                            height={element.textAreaSizeHeight}
+                            width={element.textAreaSizeWidth}
                             fontSize={element.textFontSize}
                             colour={element.textColour}
                             curStore={curStore}
@@ -84,7 +83,6 @@ const Edit = function ({ token, curStore, setStoreFn }) {
                             locationY={element.locationY}
                             setStoreFn={setStoreFn}
                         ></Text>)}
-
                         {(element.type === 'image') && (
                         <Image 
                             key={index} // generates warning cause key not unique enough

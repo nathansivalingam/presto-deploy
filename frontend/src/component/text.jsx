@@ -65,6 +65,8 @@ const Text = ({ num, input, height, width, fontSize, colour, curStore, locationX
     }
     
     const MyText = () => {
+        console.log(width);
+        console.log(height);
         return <>
             <div
                 onClick={handleDoubleClick}
