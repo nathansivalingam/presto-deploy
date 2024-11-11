@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { NewPresPopupStyle, 
     YesNoBtnStyle, 
     InputForLogReg, 
@@ -20,6 +20,7 @@ const Code = ({ num, input, height, width, fontSize, curStore, locationX, locati
     const [newCodeFontSize, setNewCodeFontSize] = React.useState(fontSize);
     const [newLocationX, setNewLocationX] = React.useState(locationX);
     const [newLocationY, setNewLocationY] = React.useState(locationY);
+    const targetRef = useRef(null);
 
     const handleDoubleClick = () => {
         const currentTime = Date.now();
@@ -79,21 +80,42 @@ const Code = ({ num, input, height, width, fontSize, curStore, locationX, locati
             borderStyle: 'solid',
             position: 'absolute',
             marginTop: '0px',
+            backgroundColor: '#f7faf9',
         };
+
+        const handleDrag = () => {
+            
+        }
     
         return (
             <>
-                <SyntaxHighlighter
-                    language={language}
-                    onClick={handleDoubleClick}
-                    onContextMenu={handleRightClick}
-                    style={{
-                        ...docco,
+                <div ref={targetRef} style={customStyles} onClick={handleDoubleClick}>
+                    <SyntaxHighlighter
+                        language={language}
+                        onContextMenu={handleRightClick}
+                        style={{
+                            ...docco,
+                        }}
+                    >
+                        {input}
+                    </SyntaxHighlighter>
+                </div>
+                <Moveable
+                    style={customStyles}
+                    target={targetRef.current}
+                    draggable={true}
+                    throttleDrag={1}
+                    edgeDraggable={false}
+                    startDragRotate={0}
+                    throttleDragRotate={0}
+                    onDrag={e => {
+                        console.log(window.innerWidth);
+                        console.log(window.innerHeight);
+                        console.log('Transform data:', e.transform);
+                        e.target.style.transform = e.transform;
+                        
                     }}
-                    customStyle={customStyles}
-                >
-                    {input}
-                </SyntaxHighlighter>
+                />
             </>
         );
     };
