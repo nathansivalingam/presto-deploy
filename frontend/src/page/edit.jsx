@@ -24,6 +24,7 @@ const Edit = function ({ token, curStore, setStoreFn }) {
     const [addImagePopup, setAddImagePopup] = React.useState(false);
     const [addVideoPopup, setAddVideoPopup] = React.useState(false);
     const [addCodePopup, setAddCodePopup] = React.useState(false);
+    const curSlideRef = React.useRef(null);
 
     // General Variables
     const [elementHeight, setElementHeight] = React.useState('');
@@ -66,7 +67,7 @@ const Edit = function ({ token, curStore, setStoreFn }) {
 
     const displayCurSlide = () => {
         return <>
-            <CurSlide>
+            <CurSlide ref={curSlideRef}>
                 {curStore.allPres[params.presid].slides[params.editid].map((element, index) => {
                     return <>
                         {(element.type === 'text') && (
@@ -121,6 +122,7 @@ const Edit = function ({ token, curStore, setStoreFn }) {
                             locationX={element.locationX}
                             locationY={element.locationY}
                             setStoreFn={setStoreFn}
+                            curSlideRef={curSlideRef}
                         ></Code>)}
                     </>
                 })}

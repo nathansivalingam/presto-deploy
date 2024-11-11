@@ -9,7 +9,7 @@ import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import hljs from 'highlight.js';
 import Moveable from "react-moveable";
 
-const Code = ({ num, input, height, width, fontSize, curStore, locationX, locationY, setStoreFn }) => {
+const Code = ({ num, input, height, width, fontSize, curStore, locationX, locationY, setStoreFn, curSlideRef }) => {
     const params = useParams();
     const [clickTimeout, setClickTimeout] = useState(null);
     const [finalClickTime, setFinalClickTime] = useState(0);
@@ -21,6 +21,7 @@ const Code = ({ num, input, height, width, fontSize, curStore, locationX, locati
     const [newLocationX, setNewLocationX] = React.useState(locationX);
     const [newLocationY, setNewLocationY] = React.useState(locationY);
     const targetRef = useRef(null);
+    const [newElementPosition, setNewElementPosition] = React.useState('');
 
     const handleDoubleClick = () => {
         const currentTime = Date.now();
@@ -46,6 +47,7 @@ const Code = ({ num, input, height, width, fontSize, curStore, locationX, locati
     }
 
     const editCode = () => {
+        console.log('Hi');
         const newStore = {...curStore};
         newStore.allPres[params.presid].slides[params.editid][num] = {
             'type': 'code',
@@ -60,8 +62,9 @@ const Code = ({ num, input, height, width, fontSize, curStore, locationX, locati
         console.log(newStore.allPres[params.presid].slides[params.editid]);
         setEditCodePopup(false);
     }
-    
+
     const MyCode = () => {
+
         const [language, setLanguage] = useState('python');
         React.useEffect(() => {
             const detectedLanguage = hljs.highlightAuto(input).language;
@@ -83,8 +86,22 @@ const Code = ({ num, input, height, width, fontSize, curStore, locationX, locati
             backgroundColor: '#f7faf9',
         };
 
-        const handleDrag = () => {
-            
+        const handleDrag = (e) => {
+            React.useEffect(() => {
+                editCode();
+            }, [newLocationX, newLocationY])
+
+            const slideWidth = curSlideRef.current.clientWidth;
+            const slideHeight = curSlideRef.current.clientHeight;
+            const result = e.target.style.transform.match(/translate\((\d+)px,\s*(\d+)px\)/);
+            const x = parseInt(result[1]);
+            const y = parseInt(result[2]);
+            const xPercentage = Math.round(x / slideWidth * 100 + newLocationX, 0);
+            const yPercentage = Math.round(y / slideHeight * 100 + newLocationY, 0);
+            console.log(xPercentage);
+            console.log(yPercentage);
+            setNewLocationX(xPercentage);
+            setNewLocationY(yPercentage);
         }
     
         return (
@@ -109,11 +126,10 @@ const Code = ({ num, input, height, width, fontSize, curStore, locationX, locati
                     startDragRotate={0}
                     throttleDragRotate={0}
                     onDrag={e => {
-                        console.log(window.innerWidth);
-                        console.log(window.innerHeight);
-                        console.log('Transform data:', e.transform);
                         e.target.style.transform = e.transform;
-                        
+                    }}
+                    onDragEnd={e => {
+                        handleDrag(e);
                     }}
                 />
             </>
