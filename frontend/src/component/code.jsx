@@ -98,35 +98,27 @@ const Code = ({ num, input, height, width, fontSize, curStore, locationX, locati
 
         const handleDrag = (e) => {
 
-            const slideWidth = curSlideRef.current.clientWidth;
-            const slideHeight = curSlideRef.current.clientHeight;
+            const slideWidth = curSlideRef.current.offsetWidth;
+            const slideHeight = curSlideRef.current.offsetHeight;
             const result = e.target.style.transform.match(/translate\((-?\d+)px,\s*(-?\d+)px\)/); // /translate\((\d+)px,\s*(\d+)px\)/
             if (result === null) {
                 return;
             }
-            console.log(result)
+            console.log(curSlideRef)
             console.log(e.target.style.transform)
             console.log(slideWidth)
             console.log(slideHeight)
             console.log(e.clientY)
             console.log(curSlideRef.current.offsetLeft)
             console.log(e)
+
             const y = parseInt(result[1]);
             const x = parseInt(result[2]);
-            // const y = e.clientY - curSlideRef.offsetTop;
-            // const x = e.clientX - curSlideRef.offsetLeft;
-            console.log(Math.round((x / slideWidth) * 100, 0))
-            console.log(Math.round((y / slideHeight) * 100, 0))
-            console.log(newLocationX)
 
-            // const xPercentage = Math.round(Math.round(x / slideWidth, 0) * 100 + locationX,0);
-            // const yPercentage =Math.round(Math.round(y / slideHeight, 0) * 100 + locationY,0);
-            // const xPercentage = Math.round(Math.round((x / slideWidth) * 100, 0) * 1.75,0) + parseInt(locationX);
-            // const yPercentage = Math.round(Math.round((y / slideHeight) * 100, 0) / 1.75,0) + parseInt(locationY);
             const xPercentage = Math.round((x / slideWidth) * 100, 0) + parseInt(newLocationX);
             const yPercentage = Math.round((y / slideHeight) * 100, 0) + parseInt(newLocationY);
-            console.log(xPercentage);
-            console.log(yPercentage);
+            // console.log(xPercentage);
+            // console.log(yPercentage);
 
             setNewLocationX(xPercentage);
             setNewLocationY(yPercentage);
