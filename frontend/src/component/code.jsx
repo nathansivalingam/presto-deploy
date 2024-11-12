@@ -132,12 +132,21 @@ const Code = ({ num, input, height, width, fontSize, curStore, locationX, locati
             console.log(curSlideRef.current.offsetLeft)
             console.log(e)
 
-            const y = parseInt(result[1]);
-            const x = parseInt(result[2]);
+            // const y = parseInt(result[1]);
+            // const x = parseInt(result[2]);
+            // const x = e.lastEvent.top;
+            // const y = e.lastEvent.left;
+            const y = 1*(e.lastEvent.beforeTranslate[0]);
+            const x = 1*(e.lastEvent.beforeTranslate[1]);
+            console.log(x)
+            console.log(y)
 
             let xPercentage = Math.round((x / slideWidth) * 100, 0) + parseInt(newLocationX);
             let yPercentage = Math.round((y / slideHeight) * 100, 0) + parseInt(newLocationY);
-
+            // let xPercentage = Math.round((x / slideWidth) * 100, 0) ;
+            // let yPercentage = Math.round((y / slideHeight) * 100, 0);
+            console.log(xPercentage)
+            console.log(yPercentage)
 
             let newHeight = parseInt(e.target.style.height.slice(0,-2));
             let newWidth = parseInt(e.target.style.width.slice(0,-2));
