@@ -23,6 +23,12 @@ const Code = ({ num, input, height, width, fontSize, curStore, locationX, locati
     const targetRef = useRef(null);
     const [newElementPosition, setNewElementPosition] = React.useState('');
 
+    React.useEffect(() => {
+            console.log("HIT")
+            editCode();
+        }, [newLocationX, newLocationY])
+    
+
     const handleDoubleClick = () => {
         const currentTime = Date.now();
         if (currentTime - finalClickTime <= 500) {
@@ -47,7 +53,7 @@ const Code = ({ num, input, height, width, fontSize, curStore, locationX, locati
     }
 
     const editCode = () => {
-        console.log('Hi');
+        //console.log('Hi');
         const newStore = {...curStore};
         newStore.allPres[params.presid].slides[params.editid][num] = {
             'type': 'code',
@@ -59,7 +65,7 @@ const Code = ({ num, input, height, width, fontSize, curStore, locationX, locati
             'locationY': newLocationY,
         }
         setStoreFn(newStore);
-        console.log(newStore.allPres[params.presid].slides[params.editid]);
+        //console.log(newStore.allPres[params.presid].slides[params.editid]);
         setEditCodePopup(false);
     }
 
@@ -69,14 +75,18 @@ const Code = ({ num, input, height, width, fontSize, curStore, locationX, locati
         React.useEffect(() => {
             const detectedLanguage = hljs.highlightAuto(input).language;
             setLanguage(detectedLanguage);
-            console.log(detectedLanguage);
+            //console.log(detectedLanguage);
         }, [input]);
+        // React.useEffect(() => {
+        //     console.log("HIT")
+        //     editCode();
+        // }, [newLocationX, newLocationY])
         
         const customStyles = {
             width: `${width}%`,
             height: `${height}%`,
-            top: `${locationX}%`,
-            left: `${locationY}%`,
+            top: `${newLocationX}%`,
+            left: `${newLocationY}%`,
             fontSize: `${fontSize}em`,
             borderWidth: '1px',
             borderColor: 'lightgrey',
@@ -87,19 +97,37 @@ const Code = ({ num, input, height, width, fontSize, curStore, locationX, locati
         };
 
         const handleDrag = (e) => {
-            React.useEffect(() => {
-                editCode();
-            }, [newLocationX, newLocationY])
 
             const slideWidth = curSlideRef.current.clientWidth;
             const slideHeight = curSlideRef.current.clientHeight;
-            const result = e.target.style.transform.match(/translate\((\d+)px,\s*(\d+)px\)/);
-            const x = parseInt(result[1]);
-            const y = parseInt(result[2]);
-            const xPercentage = Math.round(x / slideWidth * 100 + newLocationX, 0);
-            const yPercentage = Math.round(y / slideHeight * 100 + newLocationY, 0);
+            const result = e.target.style.transform.match(/translate\((-?\d+)px,\s*(-?\d+)px\)/); // /translate\((\d+)px,\s*(\d+)px\)/
+            if (result === null) {
+                return;
+            }
+            console.log(result)
+            console.log(e.target.style.transform)
+            console.log(slideWidth)
+            console.log(slideHeight)
+            console.log(e.clientY)
+            console.log(curSlideRef.current.offsetLeft)
+            console.log(e)
+            const y = parseInt(result[1]);
+            const x = parseInt(result[2]);
+            // const y = e.clientY - curSlideRef.offsetTop;
+            // const x = e.clientX - curSlideRef.offsetLeft;
+            console.log(Math.round((x / slideWidth) * 100, 0))
+            console.log(Math.round((y / slideHeight) * 100, 0))
+            console.log(newLocationX)
+
+            // const xPercentage = Math.round(Math.round(x / slideWidth, 0) * 100 + locationX,0);
+            // const yPercentage =Math.round(Math.round(y / slideHeight, 0) * 100 + locationY,0);
+            // const xPercentage = Math.round(Math.round((x / slideWidth) * 100, 0) * 1.75,0) + parseInt(locationX);
+            // const yPercentage = Math.round(Math.round((y / slideHeight) * 100, 0) / 1.75,0) + parseInt(locationY);
+            const xPercentage = Math.round((x / slideWidth) * 100, 0) + parseInt(newLocationX);
+            const yPercentage = Math.round((y / slideHeight) * 100, 0) + parseInt(newLocationY);
             console.log(xPercentage);
             console.log(yPercentage);
+
             setNewLocationX(xPercentage);
             setNewLocationY(yPercentage);
         }
