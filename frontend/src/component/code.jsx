@@ -8,6 +8,24 @@ import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import hljs from 'highlight.js';
 import Moveable from "react-moveable";
+import styled, { createGlobalStyle } from 'styled-components';
+
+
+const GlobalStyle = createGlobalStyle`
+  /* Customize the resize handles to be black squares */
+  .moveable-handle {
+    width: 50px;
+    height: 50px;
+    background-color: black;
+    border-radius: 0; /* Ensure the handles are squares */
+    transition: background-color 0.2s ease-in-out;
+  }
+
+  /* Optional: Style hover effect */
+  .moveable-handle:hover {
+    background-color: #333;
+  }`
+;
 
 const Code = ({ num, input, height, width, fontSize, curStore, locationX, locationY, setStoreFn, curSlideRef }) => {
     const params = useParams();
@@ -22,11 +40,12 @@ const Code = ({ num, input, height, width, fontSize, curStore, locationX, locati
     const [newLocationY, setNewLocationY] = React.useState(locationY);
     const targetRef = useRef(null);
     const [newElementPosition, setNewElementPosition] = React.useState('');
+    const [moveResizeable, setMoveResizeable] = React.useState(false);
 
     React.useEffect(() => {
             console.log("HIT")
             editCode();
-        }, [newLocationX, newLocationY])
+        }, [newLocationX, newLocationY, newWidth, newHeight])
     
 
     const handleDoubleClick = () => {
@@ -39,7 +58,8 @@ const Code = ({ num, input, height, width, fontSize, curStore, locationX, locati
             }
         } else {
             const timeout = setTimeout(() => {
-                setClickTimeout(null);
+                // setClickTimeout(null);
+                setMoveResizeable(!moveResizeable);
             }, 500);
             setClickTimeout(timeout);
         }
@@ -83,8 +103,8 @@ const Code = ({ num, input, height, width, fontSize, curStore, locationX, locati
         // }, [newLocationX, newLocationY])
         
         const customStyles = {
-            width: `${width}%`,
-            height: `${height}%`,
+            width: `${newWidth}%`,
+            height: `${newHeight}%`,
             top: `${newLocationX}%`,
             left: `${newLocationY}%`,
             fontSize: `${fontSize}em`,
@@ -115,17 +135,44 @@ const Code = ({ num, input, height, width, fontSize, curStore, locationX, locati
             const y = parseInt(result[1]);
             const x = parseInt(result[2]);
 
-            const xPercentage = Math.round((x / slideWidth) * 100, 0) + parseInt(newLocationX);
-            const yPercentage = Math.round((y / slideHeight) * 100, 0) + parseInt(newLocationY);
-            // console.log(xPercentage);
-            // console.log(yPercentage);
+            let xPercentage = Math.round((x / slideWidth) * 100, 0) + parseInt(newLocationX);
+            let yPercentage = Math.round((y / slideHeight) * 100, 0) + parseInt(newLocationY);
+
+
+            let newHeight = parseInt(e.target.style.height.slice(0,-2));
+            let newWidth = parseInt(e.target.style.width.slice(0,-2));
+
+            if (xPercentage < 0) {
+                xPercentage = 0;
+            } else if (xPercentage + Math.round(newWidth / slideWidth * 100,0) > 100) {
+                xPercentage = 100 - Math.round(newWidth / slideWidth * 100,0);
+            }
+            if (yPercentage < 0) {
+                yPercentage = 0;
+            } else if (yPercentage + Math.round(newHeight / slideHeight * 100,0) > 100) {
+                yPercentage = 100 - Math.round(newHeight / slideHeight * 100,0);
+            }
 
             setNewLocationX(xPercentage);
             setNewLocationY(yPercentage);
         }
+
+        const handleResize = (e) => {
+            const slideWidth = curSlideRef.current.offsetWidth;
+            const slideHeight = curSlideRef.current.offsetHeight;
+            let newHeight = parseInt(e.target.style.height.slice(0,-2));
+            let newWidth = parseInt(e.target.style.width.slice(0,-2));
+
+            newHeight = Math.round(newHeight / slideHeight * 100,0) ;
+            newWidth = Math.round(newWidth / slideWidth * 100,0);
+            setNewHeight(newHeight);
+            setNewWidth(newWidth);
+        }
+
     
         return (
             <>
+                <GlobalStyle/>
                 <div ref={targetRef} style={customStyles} onClick={handleDoubleClick}>
                     <SyntaxHighlighter
                         language={language}
@@ -137,6 +184,7 @@ const Code = ({ num, input, height, width, fontSize, curStore, locationX, locati
                         {input}
                     </SyntaxHighlighter>
                 </div>
+                {moveResizeable &&
                 <Moveable
                     style={customStyles}
                     target={targetRef.current}
@@ -151,7 +199,20 @@ const Code = ({ num, input, height, width, fontSize, curStore, locationX, locati
                     onDragEnd={e => {
                         handleDrag(e);
                     }}
-                />
+                    resizable={true}
+                    keepRatio={false}
+                    throttleResize={1}
+                    renderDirections={["nw","ne","sw","se"]}
+                    onResize={e => {
+                        e.target.style.width = `${e.width}px`;
+                        e.target.style.height = `${e.height}px`;
+                        e.target.style.transform = e.drag.transform;
+                    }}
+                    onResizeEnd={e => {
+                        handleResize(e);
+                        handleDrag(e);
+                    }}
+                />}
             </>
         );
     };
