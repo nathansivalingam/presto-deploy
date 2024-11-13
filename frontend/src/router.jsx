@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate, useLocation, Routes, Route, Link } from 'react-router-dom';
+import { useNavigate, useLocation, Routes, Route, Link, useParams } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import { NavBar, NavBarBtn, GlobalBodyStyle, Logo, StyledButton, DarkGlobalBodyStyle, GlobalStyles, BackgroundMainDiv } from './styles/styledComponents';
 import { BACKEND_PORT } from '../backend.config.json';
@@ -19,8 +19,20 @@ function Router() {
   const location = useLocation();
   const [store, setStore] = React.useState({});
   const [darkMode, setDarkMode] = React.useState(false);
+  // const params = useParams(); 
+  // console.log(params)
+  // React.useEffect(() => {
+  //   const handleBeforeUnload = (event) => {
+  //     // Place in here the navigate
+  //     // console.log(params)
+  //   };
 
- 
+  //   window.addEventListener('beforeunload', handleBeforeUnload);
+
+  //   return () => {
+  //     window.removeEventListener('beforeunload', handleBeforeUnload);
+  //   };
+  // }, []);
 
 
   const setStoreAll = (newStore) => {
