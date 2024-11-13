@@ -17,12 +17,12 @@ import VideoElement from '../component/videoElement';
 import Code from '../component/code';
 
 
-const Slide = function ({ token, curStore, setStoreFn, editable, curSlideNum }) { 
+const Slide = function ({ token, curStore, setStoreFn, editable, curSlideNum, darkMode }) { 
     const curSlideRef = React.useRef(null);
     const params = useParams();
     const displayCurSlide = () => {
         return <>
-            <CurSlide ref={curSlideRef}>
+            <CurSlide ref={curSlideRef} darkMode={darkMode}>
                 {curStore.allPres[params.presid].slides[curSlideNum].map((element, index) => {
                     return <>
                         {(element.type === 'text') && (

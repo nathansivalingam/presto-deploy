@@ -16,7 +16,7 @@ import { CurSlide,
     SlideNumberStyle } from '../styles/styledComponents';
 import Slide from '../component/slide';
 
-const Edit = function ({ token, curStore, setStoreFn }) {
+const Edit = function ({ token, curStore, setStoreFn, darkMode }) {
     
     const params = useParams();    
     const navigate = useNavigate();
@@ -138,7 +138,7 @@ const Edit = function ({ token, curStore, setStoreFn }) {
             <InvertStyledButton onClick={() => navigate(`/Pres/${params.presid}`)}>Back to Presentation</InvertStyledButton>
         </BackDeleteBtnPagePosStyle>
         <PresPage>
-            <Slide curStore={curStore} setStoreFn={setStoreFn} editable={true} curSlideNum={params.editid}/>
+            <Slide curStore={curStore} setStoreFn={setStoreFn} editable={true} curSlideNum={params.editid} darkMode={darkMode}/>
         </PresPage>
         <BackDeleteBtnPagePosStyle>
             <StyledButton onClick={() => setAddTextPopup(true)}>Add Text Box</StyledButton>

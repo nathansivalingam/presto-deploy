@@ -18,8 +18,9 @@ import { CurSlide,
     SlideNumberStyle, 
     MainBody} from '../styles/styledComponents';
 import Slide from '../component/slide'
+import { dark } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
-const Pres = function ({ token, curStore, setStoreFn }) {
+const Pres = function ({ token, curStore, setStoreFn, darkMode }) {
     
     const params = useParams();
     
@@ -131,7 +132,7 @@ const Pres = function ({ token, curStore, setStoreFn }) {
 
     return <>  
         
-        <StyledHeader>
+        <StyledHeader darkMode={darkMode}>
             <Subheading>Details:</Subheading>
             <div style={{display: "flex", gap: '5px'}}>
                 <div  style={{display: "flex", flexDirection: "column", alignItems: 'center', gap: "3px"}}>
@@ -142,7 +143,7 @@ const Pres = function ({ token, curStore, setStoreFn }) {
                 </div>
                 <div  style={{display: "flex", flexDirection: "column", alignItems: 'center', gap: "3px"}}>
                         <div style={{height: '50px'}}>
-                            <MainBody>{title}</MainBody>
+                            <MainBody darkMode={darkMode}>{title}</MainBody>
                         </div>
                         
                 </div>
@@ -156,7 +157,7 @@ const Pres = function ({ token, curStore, setStoreFn }) {
         </BackDeleteBtnPagePosStyle>
 
         <PresPage>
-            <Slide curStore={curStore} setStoreFn={setStoreFn} editable={false} curSlideNum={curSlideNum}/>
+            <Slide curStore={curStore} setStoreFn={setStoreFn} editable={false} curSlideNum={curSlideNum} darkMode={darkMode}/>
         </PresPage>
         <BackDeleteBtnPagePosStyle>
             <StyledButton onClick={() => navigate(`/Pres/${params.presid}/Edit/${curSlideNum}`)}>Edit Screen</StyledButton>

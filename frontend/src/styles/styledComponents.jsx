@@ -42,20 +42,13 @@ export const GlobalBodyStyle = createGlobalStyle`
         margin: 0px;
         font-family: 'Arial';
         color: '#4A628A';
+        background-color: 'black';
+
     }
 `;
 
 // Dashboard Styles
-export const NavBar = styled.div(() => ({
-    backgroundColor: '#D1EEFC',
-    display: 'flex',
-    height: '60px',
-    width: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: '10px',
-    padding: '0px 30px'
-}));
+
 
 export const NavBarBtn = styled.div(() => ({
     display: 'flex',
@@ -151,14 +144,14 @@ export const TrailOffWrap = styled.div(() => ({
 }));
 
 // Current Presentation
-export const CurSlide = styled.div(() => ({
+export const CurSlide = styled.div(({darkMode}) => ({
     height: '100%',
     width: '80%',
     display: 'flex',
     borderWidth: '2px',
     borderColor: '#4A628A',
     borderStyle: 'solid',
-    backgroundColor: 'white',
+    backgroundColor: darkMode ? "#333333" : "white",
     position: 'relative',
     overflow: 'hidden',
 }));
@@ -253,14 +246,14 @@ export const Subheading = styled.h3(() => ({
     textTransform: 'uppercase',
 }));
 
-export const Logo = styled.h3(() => ({
+export const Logo = styled.h3(({darkMode}) => ({
     fontSize: '1.5em',
     fontWeight: '600',
     margin: '5px 0',
     color: '#4A628A',
     textAlign: 'left',
     textTransform: 'uppercase',
-    backgroundColor: 'white', 
+    backgroundColor: darkMode? '#0a0a0a':'white', 
     borderRadius:'5px',
     padding:'5px',
     border: "2px solid #4A628A",
@@ -281,12 +274,12 @@ export const MainHeading = styled.h2(() => ({
     textDecoration: "underline"
 }));
 
-export const MainBody = styled.div(() => ({
+export const MainBody = styled.div(({darkMode}) => ({
     fontWeight: '600',
     margin: '5px 0',
     color: '#4A628A',
     textTransform: 'uppercase',
-    backgroundColor: 'white', 
+    backgroundColor: darkMode ? "#0a0a0a" : "white",
     borderRadius:'5px',
     padding:'5px',
     marginBottom: "0px",
@@ -294,8 +287,8 @@ export const MainBody = styled.div(() => ({
     flexDirection: 'column',
     gap: "7px"
 }));
-export const StyledHeader = styled.div(() => ({
-    backgroundColor: "white",
+export const StyledHeader = styled.div(({darkMode}) => ({
+    backgroundColor: darkMode ? "#0a0a0a" : "white",
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
@@ -304,7 +297,15 @@ export const StyledHeader = styled.div(() => ({
     padding: "4px 0px",
 }));
 
-
+export const GlobalStyles = createGlobalStyle`
+  body {
+    background-color: ${(props) => props.theme.bodyBg || '#ffffff'};
+    color: ${(props) => props.theme.textColor || '#000000'};
+    margin: 0;
+    font-family: Arial, sans-serif;
+    transition: background-color 0.3s ease;
+  }
+`;
 
 export const DarkGlobalBodyStyle = createGlobalStyle`
     body{
@@ -314,16 +315,19 @@ export const DarkGlobalBodyStyle = createGlobalStyle`
         backgroundColour:'#4A628A';
     }
 `;
-export const lightTheme = {
-    background: "#ffffff",
-    text: "#000000",
-    buttonBackground: "#e0e0e0",
-    buttonText: "#000000",
-  };
-  
-  export const darkTheme = {
-    background: "#000000",
-    text: "#ffffff",
-    buttonBackground: "#333333",
-    buttonText: "#ffffff",
-  };
+export const BackgroundMainDiv = styled.div`
+  background-color: ${(props) => (props.darkMode ? '#0a0a0a' : '#ffffff')};
+  transition: background-color 0.3s ease;
+  min-height: 100vh;
+`;
+
+export const NavBar = styled.div(({darkMode}) => ({
+    backgroundColor: darkMode ? '#121212' : '#D1EEFC',
+    display: 'flex',
+    height: '60px',
+    
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: '10px',
+    padding: '0px 30px'
+}));

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, useLocation, Routes, Route, Link } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
-import { NavBar, NavBarBtn, GlobalBodyStyle, Logo, StyledButton, DarkGlobalBodyStyle, darkTheme, lightTheme } from './styles/styledComponents';
+import { NavBar, NavBarBtn, GlobalBodyStyle, Logo, StyledButton, DarkGlobalBodyStyle, GlobalStyles, BackgroundMainDiv } from './styles/styledComponents';
 import { BACKEND_PORT } from '../backend.config.json';
 
 import Register from './page/register';
@@ -19,6 +19,9 @@ function Router() {
   const location = useLocation();
   const [store, setStore] = React.useState({});
   const [darkMode, setDarkMode] = React.useState(false);
+
+ 
+
 
   const setStoreAll = (newStore) => {
       axios.put(
@@ -68,12 +71,16 @@ function Router() {
   console.log(darkMode)
   return (
     <>
+        {/* <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
+        <GlobalStyles/> */}
+        <GlobalBodyStyle/>
+        <BackgroundMainDiv darkMode={darkMode}>
         <div>
           {token && (
             <>
-              <NavBar>
+              <NavBar darkMode={darkMode}>
                 <NavBarBtn>
-                  <Logo>Presto</Logo>
+                  <Logo darkMode={darkMode}>Presto</Logo>
                 </NavBarBtn>
                 <NavBarBtn>
                   <Logout token={token} setToken={setToken} />
@@ -86,16 +93,18 @@ function Router() {
           )}
         </div>
         {/* {darkMode ? (<DarkGlobalBodyStyle/>) : (<GlobalBodyStyle/>)} */}
-        <GlobalBodyStyle/>
+        {/* <GlobalBodyStyle/> */}
+        
         <Routes>
           <Route path="/" element={<Landingpage />} />
           <Route path="/dashboard" element={<Dashboard token={token} curStore={store} setStoreFn={setStoreAll} darkMode={darkMode} />} />
-          <Route path="/pres/:presid" element={<Pres token={token} curStore={store} setStoreFn={setStoreAll} />} />
+          <Route path="/pres/:presid" element={<Pres token={token} curStore={store} setStoreFn={setStoreAll} darkMode={darkMode} />} />
           <Route path="/register" element={<Register handleSuccess={handleNewToken}/>} />
           <Route path="/login" element={<Login handleSuccess={handleNewToken}/>} />
-          <Route path="/pres/:presid/edit/:editid" element={<Edit token={token} curStore={store} setStoreFn={setStoreAll} />} />
+          <Route path="/pres/:presid/edit/:editid" element={<Edit token={token} curStore={store} setStoreFn={setStoreAll} darkMode={darkMode} />} />
         </Routes>
-
+        </BackgroundMainDiv>
+        {/* </ThemeProvider> */}
     </>
   )
 }

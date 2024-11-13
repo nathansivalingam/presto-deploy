@@ -13,8 +13,6 @@ import { NewPresPopupStyle,
     Subheading,
     DarkGlobalBodyStyle,
     GlobalBodyStyle,
-    darkTheme,
-    lightTheme,
     PresentationBtnHeadingStyle, ThumbnailImg } from '../styles/styledComponents';
 import styled, { ThemeProvider } from 'styled-components';
 
@@ -68,6 +66,7 @@ const Dashboard = function({ token, curStore, setStoreFn, darkMode }) {
     }
 
     return <>
+        
         <>
             <PresentationBtnHeadingStyle style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', flexWrap: 'wrap'}}>
                 <Subheading>All Presentations</Subheading>
