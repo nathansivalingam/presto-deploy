@@ -15,6 +15,7 @@ import Text from '../component/text';
 import Image from '../component/image';
 import VideoElement from '../component/videoElement';
 import Code from '../component/code';
+import Slide from '../component/slide';
 
 const Edit = function ({ token, curStore, setStoreFn }) {
     
@@ -24,7 +25,6 @@ const Edit = function ({ token, curStore, setStoreFn }) {
     const [addImagePopup, setAddImagePopup] = React.useState(false);
     const [addVideoPopup, setAddVideoPopup] = React.useState(false);
     const [addCodePopup, setAddCodePopup] = React.useState(false);
-    const curSlideRef = React.useRef(null);
 
     // General Variables
     const [elementHeight, setElementHeight] = React.useState('');
@@ -63,71 +63,6 @@ const Edit = function ({ token, curStore, setStoreFn }) {
             };
             reader.readAsDataURL(file); // Convert file to Data URL
         }
-    }
-
-    const displayCurSlide = () => {
-        return <>
-            <CurSlide ref={curSlideRef}>
-                {curStore.allPres[params.presid].slides[params.editid].map((element, index) => {
-                    return <>
-                        {(element.type === 'text') && (
-                        <Text 
-                            key={index} // generates warning cause key not unique enough
-                            num={index}
-                            input={element.textInput} 
-                            height={element.textAreaSizeHeight}
-                            width={element.textAreaSizeWidth}
-                            fontSize={element.textFontSize}
-                            colour={element.textColour}
-                            curStore={curStore}
-                            locationX={element.locationX}
-                            locationY={element.locationY}
-                            setStoreFn={setStoreFn}
-                        ></Text>)}
-                        {(element.type === 'image') && (
-                        <Image 
-                            key={index} // generates warning cause key not unique enough
-                            num={index}
-                            imgsrc={element.imgsrc} 
-                            height={element.height}
-                            width={element.width}
-                            altTag={element.altTag}
-                            curStore={curStore}
-                            locationX={element.locationX}
-                            locationY={element.locationY}
-                            setStoreFn={setStoreFn}
-                        ></Image>)}
-                        {(element.type === 'video') && (
-                        <VideoElement 
-                            key={index} // generates warning cause key not unique enough
-                            num={index}
-                            videoURL={element.url} 
-                            height={element.height}
-                            width={element.width}
-                            autoPlay={element.autoPlay}
-                            curStore={curStore}
-                            locationX={element.locationX}
-                            locationY={element.locationY}
-                            setStoreFn={setStoreFn}
-                        ></VideoElement>)}
-                        {(element.type === 'code') && (
-                        <Code 
-                            key={index} // generates warning cause key not unique enough
-                            num={index}
-                            input={element.codeInput} 
-                            height={element.height}
-                            width={element.width}
-                            fontSize={element.codeFontSize}
-                            curStore={curStore}
-                            locationX={element.locationX}
-                            locationY={element.locationY}
-                            setStoreFn={setStoreFn}
-                            curSlideRef={curSlideRef}
-                        ></Code>)}
-                    </>
-                })}
-            </CurSlide>
-        </>
     }
 
     const addText = () => {
@@ -204,7 +139,7 @@ const Edit = function ({ token, curStore, setStoreFn }) {
             <button onClick={() => navigate(`/Pres/${params.presid}`)}>Back to Presentation</button>
         </BackDeleteBtnPagePosStyle>
         <PresPage>
-            {displayCurSlide()}
+            <Slide curStore={curStore} setStoreFn={setStoreFn} editable={true}/>
         </PresPage>
         <BackDeleteBtnPagePosStyle>
             <button onClick={() => setAddTextPopup(true)}>Add Text Box</button>
