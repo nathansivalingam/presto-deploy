@@ -44,15 +44,15 @@ function Register({ handleSuccess }) {
           <MainBody>
             <MainHeading>Register</MainHeading>
             <LabelsForLogReg>Email:</LabelsForLogReg>
-            <div><InputForLogReg type="text" value={email} onChange={e => setEmail(e.target.value)} /><br /></div>
+            <div><InputForLogReg type="text" data-testid="email-input" value={email} onChange={e => setEmail(e.target.value)} /><br /></div>
             <LabelsForLogReg>Password: </LabelsForLogReg>
-            <div><InputForLogReg type="text" value={password} onChange={e => setPassword(e.target.value)} /><br /></div>
+            <div><InputForLogReg type="text" data-testid="password-input" value={password} onChange={e => setPassword(e.target.value)} /><br /></div>
             <LabelsForLogReg>Confirm Password:</LabelsForLogReg>
-            <div><InputForLogReg type="text" value={confPassword} onChange={e => setConfPassword(e.target.value)} /><br /></div>
+            <div><InputForLogReg type="text" data-testid="confirm-password-input" value={confPassword} onChange={e => setConfPassword(e.target.value)} /><br /></div>
             <LabelsForLogReg>Name: </LabelsForLogReg>
-            <div><InputForLogReg type="text" value={name} onChange={e => setName(e.target.value)} /><br /></div>
+            <div><InputForLogReg type="text" data-testid="name-input" value={name} onChange={e => setName(e.target.value)} /><br /></div>
             <div>{error && <div style={{color: 'red'}}>Error: {error} </div>}</div>
-            <div><StyledButton onClick={register}>Register</StyledButton></div>
+            <div><StyledButton data-testid="register-btn" onClick={register}>Register</StyledButton></div>
             <Link to='/login'>Already have an account? Login Here</Link>
           </MainBody>
         </Box>
