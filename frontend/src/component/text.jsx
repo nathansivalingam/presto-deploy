@@ -10,19 +10,27 @@ import { CurSlide,
     ThumbnailImg, 
     SlideNumberStyle } from '../styles/styledComponents';
 import { useParams } from 'react-router-dom';
+import MoveableElement from '../component/moveableElement';
 
-const Text = ({ num, input, height, width, fontSize, colour, curStore, locationX, locationY, setStoreFn }) => {
+const Text = ({ num, input, height, width, fontSize, colour, curStore, locationX, locationY, setStoreFn, curSlideRef, curSlideNum, editable }) => {
     const params = useParams();
     const [clickTimeout, setClickTimeout] = useState(null);
     const [finalClickTime, setFinalClickTime] = useState(0);
     const [editTextPopup, setEditTextPopup] = React.useState(false);
-    const [newTextAreaSizeHeight, setNewTextAreaSizeHeight] = React.useState(height);
-    const [newTextAreaSizeWidth, setNewTextAreaSizeWidth] = React.useState(width);
+    const [newHeight, setNewHeight] = React.useState(height);
+    const [newWidth, setNewWidth] = React.useState(width);
     const [newTextInput, setNewTextInput] = React.useState(input);
     const [newTextFontSize, setNewTextFontSize] = React.useState(fontSize);
     const [newTextColour, setNewTextColour] = React.useState(colour);
     const [newLocationX, setNewLocationX] = React.useState(locationX);
     const [newLocationY, setNewLocationY] = React.useState(locationY);
+    const targetRef = React.useRef(null);
+    const [moveResizeable, setMoveResizeable] = React.useState(false);
+
+    React.useEffect(() => {
+        console.log("HIT")
+        editText();
+    }, [newLocationX, newLocationY, newWidth, newHeight])
 
     const handleDoubleClick = () => {
         const currentTime = Date.now();
@@ -34,7 +42,7 @@ const Text = ({ num, input, height, width, fontSize, colour, curStore, locationX
             }
         } else {
             const timeout = setTimeout(() => {
-                setClickTimeout(null);
+                setMoveResizeable(!moveResizeable);
             }, 500);
             setClickTimeout(timeout);
         }
@@ -42,58 +50,78 @@ const Text = ({ num, input, height, width, fontSize, colour, curStore, locationX
     };
 
     const handleRightClick = () => {
+        if (!editable) {
+            return;
+        }
         const newStore = {...curStore};
-        newStore.allPres[params.presid].slides[params.editid].splice(num, 1);
+        newStore.allPres[params.presid].slides[curSlideNum].splice(num, 1);
         setStoreFn(newStore);
     }
 
     const editText = () => {
         const newStore = {...curStore};
-        newStore.allPres[params.presid].slides[params.editid][num] = {
+        newStore.allPres[params.presid].slides[curSlideNum][num] = {
             'type': 'text',
             'textInput': newTextInput,
-            'textAreaSizeHeight': newTextAreaSizeHeight,
-            'textAreaSizeWidth': newTextAreaSizeWidth,
+            'textAreaSizeHeight': newHeight,
+            'textAreaSizeWidth': newWidth,
             'textFontSize': newTextFontSize,
             'textColour': newTextColour,
             'locationX': newLocationX,
             'locationY': newLocationY,
         }
         setStoreFn(newStore);
-        console.log(newStore.allPres[params.presid].slides[params.editid]);
+        //console.log(newStore.allPres[params.presid].slides[params.editid]);
         setEditTextPopup(false);
     }
     
     const MyText = () => {
         console.log(width);
-        console.log(height);
+        console.log(editable);
+        console.log(moveResizeable)
+
+        const customStyles = {
+            width: `${newWidth}%`,
+            height: `${newHeight}%`,
+            top: `${newLocationX}%`,
+            left: `${newLocationY}%`,
+            fontSize: `${fontSize}em`,
+            color: `${colour}`,
+            borderWidth: '1px',
+            borderColor: 'lightgrey',
+            borderStyle: 'solid',
+            overflow: 'hidden',
+            position: 'absolute',
+        };
+
         return <>
             <div
+                ref={targetRef}
                 onClick={handleDoubleClick}
                 onContextMenu={handleRightClick}
-                style={{
-                    width: `${width}%`,
-                    height: `${height}%`,
-                    top: `${locationX}%`,
-                    left: `${locationY}%`,
-                    fontSize: `${fontSize}em`,
-                    color: `${colour}`,
-                    borderWidth: '1px',
-                    borderColor: 'lightgrey',
-                    borderStyle: 'solid',
-                    overflow: 'hidden',
-                    position: 'absolute',
-                }}
+                style={customStyles}
                 >
                 {input}
             </div>
+            {editable && moveResizeable &&
+                (<MoveableElement
+                    curSlideRef={curSlideRef}
+                    editable={editable}
+                    targetRef={targetRef}
+                    customStyles={customStyles}
+                    newLocationX={newLocationX}
+                    newLocationY={newLocationY}
+                    setNewLocationX={setNewLocationX}
+                    setNewLocationY={setNewLocationY}
+                />)
+            }
         </>
     }
 
     return <>
         <MyText></MyText>
 
-        {editTextPopup && (
+        {editable && editTextPopup && (
             <>
                 <NewPresPopupStyle>
                     <NewPresPopupStyle>
@@ -101,11 +129,11 @@ const Text = ({ num, input, height, width, fontSize, colour, curStore, locationX
                         <div>
                             Textarea Size Height {'[0 < % < 100]'}:
                         </div>
-                        <InputForLogReg type="number" value={newTextAreaSizeHeight} onChange={e => setNewTextAreaSizeHeight(e.target.value)} /><br />
+                        <InputForLogReg type="number" value={newHeight} onChange={e => setNewHeight(e.target.value)} /><br />
                         <div>
                             Textarea Size Width {'[0 < % < 100]'}:
                         </div>
-                        <InputForLogReg type="number" value={newTextAreaSizeWidth} onChange={e => setNewTextAreaSizeWidth(e.target.value)} /><br />
+                        <InputForLogReg type="number" value={newWidth} onChange={e => setNewWidth(e.target.value)} /><br />
                         <div>
                             Textarea Input:
                         </div>

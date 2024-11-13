@@ -38,6 +38,9 @@ const Slide = function ({ token, curStore, setStoreFn, editable, curSlideNum }) 
                             locationX={element.locationX}
                             locationY={element.locationY}
                             setStoreFn={setStoreFn}
+                            curSlideRef={curSlideRef}
+                            curSlideNum={curSlideNum}
+                            editable={editable}
                         ></Text>)}
                         {(element.type === 'image') && (
                         <Image 
