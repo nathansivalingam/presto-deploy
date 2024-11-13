@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, useLocation, Routes, Route, Link } from 'react-router-dom';
-import { NavBar, NavBarBtn, GlobalBodyStyle } from './styles/styledComponents';
+import { NavBar, NavBarBtn, GlobalBodyStyle, Logo } from './styles/styledComponents';
 import { BACKEND_PORT } from '../backend.config.json';
 
 import Register from './page/register';
@@ -71,7 +71,7 @@ function Router() {
             <>
               <NavBar>
                 <NavBarBtn>
-                  <div>Presto</div>
+                  <Logo>Presto</Logo>
                 </NavBarBtn>
                 <NavBarBtn>
                   <Logout token={token} setToken={setToken} />

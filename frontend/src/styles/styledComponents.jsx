@@ -45,11 +45,12 @@ export const GlobalBodyStyle = createGlobalStyle`
 export const NavBar = styled.div(() => ({
     backgroundColor: '#D1EEFC',
     display: 'flex',
-    height: '40px',
+    height: '60px',
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
     gap: '10px',
+    padding: '0px 30px'
 }));
 
 export const NavBarBtn = styled.div(() => ({
@@ -86,12 +87,14 @@ export const CodeInputTextArea = styled.textarea(() => ({
 }))
 
 export const DashboardCardStyleDiv = styled.div(() => ({
-    border: "1px solid #ddd", 
+    border: "1px solid #4A628A",
+    color: "#4A628A",
     padding: "10px",
     display: 'flex',
     height: '100px',
     width: '200px',
     flexDirection: 'column',
+    borderRadius: '10px'
 }));
 
 export const DashboardCardTopHalf = styled.div(() => ({
@@ -191,7 +194,7 @@ export const YesNoBtnStyle = styled.div(() => ({
 
 
 export const StyledButton = styled.button(() => ({
-    backgroundColor: 'lightblue',
+    backgroundColor: '#4A628A',
     color: 'white',
     border: 'none',
     padding: '10px 20px',
@@ -218,4 +221,17 @@ export const Subheading = styled.h3(() => ({
     color: '#4A628A',
     textAlign: 'left',
     textTransform: 'uppercase',
+}));
+
+export const Logo = styled.h3(() => ({
+    fontSize: '1.5em',
+    fontWeight: '600',
+    margin: '5px 0',
+    color: '#4A628A',
+    textAlign: 'left',
+    textTransform: 'uppercase',
+    backgroundColor: 'white', 
+    borderRadius:'5px',
+    padding:'5px',
+    border: "2px solid #4A628A",
 }));
