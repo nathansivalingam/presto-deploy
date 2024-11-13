@@ -3,7 +3,7 @@ import styled, { createGlobalStyle } from 'styled-components';
 
 export const Box = styled.div(() => ({
     width: '400px',
-    maxHeight: '300px',
+    maxHeight: '400px',
     backgroundColor: 'white',
     borderRadius: '10px',
     padding: '20px 35px',
@@ -18,7 +18,7 @@ export const Box = styled.div(() => ({
 }));
 
 export const Background = styled.div(() => ({
-    backgroundColor: '#B9E5E8',
+    backgroundColor: '#D1EEFC',
     textAlign: 'center',
     alignContent: 'center',
     display: 'flex',
@@ -97,7 +97,12 @@ export const DashboardCardStyleDiv = styled.div(() => ({
     height: '100px',
     width: '200px',
     flexDirection: 'column',
-    borderRadius: '10px'
+    borderRadius: '10px',
+
+    '@media (min-width: 750px)': {
+        height: '150px',    // Increase height when screen width is above 800px
+        width: '300px',     // Increase width when screen width is above 800px
+    }
 }));
 
 export const DashboardCardTopHalf = styled.div(() => ({
@@ -212,7 +217,7 @@ export const StyledButton = styled.button(() => ({
 
 export const StyledHr = styled.hr(() => ({
     border: 'none',
-    borderTop: '2px solid deepskyblue',
+    borderTop: '2px solid #7AB2D3',
     margin: '10px 80px',
     width: 'auto',
 }));
@@ -266,4 +271,12 @@ export const MainBody = styled.div(() => ({
     display: "flex",
     flexDirection: 'column',
     gap: "7px"
+}));
+export const StyledHeader = styled.div(() => ({
+    backgroundColor: "lightGrey",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    gap: "5px",
+    padding: "10px 0px"
 }));

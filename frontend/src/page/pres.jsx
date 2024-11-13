@@ -9,6 +9,10 @@ import { CurSlide,
     InputForLogReg, 
     ThumbnailStyle, 
     ThumbnailImg, 
+    StyledButton,
+    StyledHeader,
+    MainHeading,
+    SubHeading,
     SlideNumberStyle } from '../styles/styledComponents';
 import Slide from '../component/slide'
 
@@ -123,31 +127,32 @@ const Pres = function ({ token, curStore, setStoreFn }) {
 
 
     return <>  
-        <BackDeleteBtnPagePosStyle>
-            <div>{title}</div>
-            <button onClick={() => setEditTitlePopup(true)}>Edit Title</button>
-        </BackDeleteBtnPagePosStyle>
-        <BackDeleteBtnPagePosStyle>
+        <StyledHeader>
+            <SubHeading>Presentation Details</SubHeading>
             <ThumbnailStyle>
                 {thumbnail && <ThumbnailImg src={thumbnail}></ThumbnailImg>} 
             </ThumbnailStyle>
-            <button onClick={() => setEditThumbnailPopup(true)}>Edit Thumbnail</button>
+            <div>{title}</div>
+        </StyledHeader>
+        <BackDeleteBtnPagePosStyle>
+            <StyledButton onClick={() => navigate('/Dashboard')}>Back to Dashboard</StyledButton>
+            <StyledButton onClick={() => setDeletePresPopup(true)}>Delete Presentation</StyledButton>
         </BackDeleteBtnPagePosStyle>
         <BackDeleteBtnPagePosStyle>
-            <button onClick={() => navigate('/Dashboard')}>Back to Dashboard</button>
-            <button onClick={() => setDeletePresPopup(true)}>Delete Presentation</button>
+            <button onClick={() => setEditThumbnailPopup(true)}>Edit Thumbnail</button>
+            <button onClick={() => setEditTitlePopup(true)}>Edit Title</button>
         </BackDeleteBtnPagePosStyle>
         <PresPage>
             <Slide curStore={curStore} setStoreFn={setStoreFn} editable={false} curSlideNum={curSlideNum}/>
         </PresPage>
         <BackDeleteBtnPagePosStyle>
-            <button onClick={() => navigate(`/Pres/${params.presid}/Edit/${curSlideNum}`)}>Edit Screen</button>
+            <StyledButton onClick={() => navigate(`/Pres/${params.presid}/Edit/${curSlideNum}`)}>Edit Screen</StyledButton>
         </BackDeleteBtnPagePosStyle>
         <BackDeleteBtnPagePosStyle >
-            {!(curSlideNum == 0) ? ( <button onClick={() => prevSlide()}> {'<'} </button>) : (<button style={{ opacity: 0.5 }}> {'<'} </button>)}
-            <button onClick={() => createNewSlide()}>Create New Slide</button>
-            <button onClick={() => deleteSlide()}>Delete Slide</button>
-            {!(curSlideNum == (curSlidesCount - 1)) ? (<button onClick={() => nextSlide()}>{'>'}</button>) : (<button style={{ opacity: 0.5 }}> {'>'} </button>)}
+            {!(curSlideNum == 0) ? ( <StyledButton onClick={() => prevSlide()}> {'<'} </StyledButton>) : (<StyledButton style={{ opacity: 0.5 }}> {'<'} </StyledButton>)}
+            <StyledButton onClick={() => createNewSlide()}>Create New Slide</StyledButton>
+            <StyledButton onClick={() => deleteSlide()}>Delete Slide</StyledButton>
+            {!(curSlideNum == (curSlidesCount - 1)) ? (<StyledButton onClick={() => nextSlide()}>{'>'}</StyledButton>) : (<StyledButton style={{ opacity: 0.5 }}> {'>'} </StyledButton>)}
         </BackDeleteBtnPagePosStyle>
 
         {deletePresPopup && (

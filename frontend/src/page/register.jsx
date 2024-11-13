@@ -40,8 +40,9 @@ function Register({ handleSuccess }) {
       <Background>
         <Box>
           <div><Logo>Presto</Logo></div>
-          <MainHeading>Register</MainHeading>
+          
           <MainBody>
+            <MainHeading>Register</MainHeading>
             <LabelsForLogReg>Email:</LabelsForLogReg>
             <div><InputForLogReg type="text" value={email} onChange={e => setEmail(e.target.value)} /><br /></div>
             <LabelsForLogReg>Password: </LabelsForLogReg>
@@ -51,7 +52,7 @@ function Register({ handleSuccess }) {
             <LabelsForLogReg>Name: </LabelsForLogReg>
             <div><InputForLogReg type="text" value={name} onChange={e => setName(e.target.value)} /><br /></div>
             <div>{error && <div style={{color: 'red'}}>Error: {error} </div>}</div>
-            <div><button onClick={register}>Register</button></div>
+            <div><StyledButton onClick={register}>Register</StyledButton></div>
             <Link to='/login'>Already have an account? Login Here</Link>
           </MainBody>
         </Box>

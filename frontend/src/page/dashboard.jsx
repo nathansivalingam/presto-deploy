@@ -65,7 +65,7 @@ const Dashboard = function({ token, curStore, setStoreFn }) {
     return <>
         <>
         
-            <PresentationBtnHeadingStyle style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
+            <PresentationBtnHeadingStyle style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', flexWrap: 'wrap'}}>
                 <Subheading>All Presentations</Subheading>
                 <div>
                     <StyledButton onClick={() => setNewPresPopup(!newPresPopup)}>New Presentation +</StyledButton>
