@@ -226,7 +226,6 @@ export const StyledButton = styled.button(() => ({
 export const InvertStyledButton = styled.button(() => ({
     backgroundColor: 'white',
     color: '#4A628A',
-    border: 'none',
     padding: '10px 20px',
     cursor: 'pointer',
     borderRadius: '5px',
@@ -301,7 +300,6 @@ export const StyledHeader = styled.div(() => ({
     flexDirection: "row",
     justifyContent: "center",
     gap: "25px",
-    padding: "10px 0px",
     flexWrap: "wrap",
     padding: "4px 0px",
 }));

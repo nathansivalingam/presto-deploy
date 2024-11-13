@@ -126,7 +126,6 @@ const Code = ({ num, input, height, width, fontSize, curStore, locationX, locati
                     >
                         {input}
                     </SyntaxHighlighter>
-                    {input}
                 </div>
                 {editable && moveResizeable &&
                     (<MoveableElement
