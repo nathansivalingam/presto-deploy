@@ -17,13 +17,13 @@ import VideoElement from '../component/videoElement';
 import Code from '../component/code';
 
 
-const Slide = function ({ token, curStore, setStoreFn, editable }) { 
+const Slide = function ({ token, curStore, setStoreFn, editable, curSlideNum }) { 
     const curSlideRef = React.useRef(null);
     const params = useParams();
     const displayCurSlide = () => {
         return <>
             <CurSlide ref={curSlideRef}>
-                {curStore.allPres[params.presid].slides[params.editid].map((element, index) => {
+                {curStore.allPres[params.presid].slides[curSlideNum].map((element, index) => {
                     return <>
                         {(element.type === 'text') && (
                         <Text 
@@ -78,9 +78,17 @@ const Slide = function ({ token, curStore, setStoreFn, editable }) {
                             locationY={element.locationY}
                             setStoreFn={setStoreFn}
                             curSlideRef={curSlideRef}
+                            curSlideNum={curSlideNum}
                         ></Code>)}
                     </>
                 })}
+                {!editable && (
+                <> 
+                    <SlideNumberStyle>
+                    {curSlideNum + 1}
+                    </SlideNumberStyle>
+                </>
+        )}
             </CurSlide>
         </>
     }

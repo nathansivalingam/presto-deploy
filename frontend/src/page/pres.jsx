@@ -10,7 +10,7 @@ import { CurSlide,
     ThumbnailStyle, 
     ThumbnailImg, 
     SlideNumberStyle } from '../styles/styledComponents';
-
+import Slide from '../component/slide'
 
 const Pres = function ({ token, curStore, setStoreFn }) {
     
@@ -25,16 +25,6 @@ const Pres = function ({ token, curStore, setStoreFn }) {
     const [thumbnail, setThumbnail] = React.useState(((curStore.allPres)[params.presid])['thumbnail']);
 
     const navigate = useNavigate();
-
-    const displayCurSlide = () => {
-        return <>
-            <CurSlide>
-                <SlideNumberStyle>
-                    {curSlideNum + 1}
-                </SlideNumberStyle>
-            </CurSlide>
-        </>
-    }
 
     // This function is in charge of deleting the presentation
     const deletePres = () => {
@@ -148,7 +138,7 @@ const Pres = function ({ token, curStore, setStoreFn }) {
             <button onClick={() => setDeletePresPopup(true)}>Delete Presentation</button>
         </BackDeleteBtnPagePosStyle>
         <PresPage>
-            {displayCurSlide()}
+            <Slide curStore={curStore} setStoreFn={setStoreFn} editable={false} curSlideNum={curSlideNum}/>
         </PresPage>
         <BackDeleteBtnPagePosStyle>
             <button onClick={() => navigate(`/Pres/${params.presid}/Edit/${curSlideNum}`)}>Edit Screen</button>

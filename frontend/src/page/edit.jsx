@@ -11,10 +11,6 @@ import { CurSlide,
     ThumbnailImg,
     CodeInputTextArea,
     SlideNumberStyle } from '../styles/styledComponents';
-import Text from '../component/text';
-import Image from '../component/image';
-import VideoElement from '../component/videoElement';
-import Code from '../component/code';
 import Slide from '../component/slide';
 
 const Edit = function ({ token, curStore, setStoreFn }) {
@@ -139,7 +135,7 @@ const Edit = function ({ token, curStore, setStoreFn }) {
             <button onClick={() => navigate(`/Pres/${params.presid}`)}>Back to Presentation</button>
         </BackDeleteBtnPagePosStyle>
         <PresPage>
-            <Slide curStore={curStore} setStoreFn={setStoreFn} editable={true}/>
+            <Slide curStore={curStore} setStoreFn={setStoreFn} editable={true} curSlideNum={params.editid}/>
         </PresPage>
         <BackDeleteBtnPagePosStyle>
             <button onClick={() => setAddTextPopup(true)}>Add Text Box</button>

@@ -27,7 +27,7 @@ const GlobalStyle = createGlobalStyle`
   }`
 ;
 
-const Code = ({ num, input, height, width, fontSize, curStore, locationX, locationY, setStoreFn, curSlideRef }) => {
+const Code = ({ num, input, height, width, fontSize, curStore, locationX, locationY, setStoreFn, curSlideRef, curSlideNum }) => {
     const params = useParams();
     const [clickTimeout, setClickTimeout] = useState(null);
     const [finalClickTime, setFinalClickTime] = useState(0);
@@ -68,14 +68,14 @@ const Code = ({ num, input, height, width, fontSize, curStore, locationX, locati
 
     const handleRightClick = () => {
         const newStore = {...curStore};
-        newStore.allPres[params.presid].slides[params.editid].splice(num, 1);
+        newStore.allPres[params.presid].slides[curSlideNum].splice(num, 1);
         setStoreFn(newStore);
     }
 
     const editCode = () => {
         //console.log('Hi');
         const newStore = {...curStore};
-        newStore.allPres[params.presid].slides[params.editid][num] = {
+        newStore.allPres[params.presid].slides[curSlideNum][num] = {
             'type': 'code',
             'codeInput': newCodeInput,
             'height': newHeight,
