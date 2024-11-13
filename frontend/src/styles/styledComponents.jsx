@@ -56,14 +56,15 @@ export const NavBarBtn = styled.div(() => ({
 }));
 
 export const NewPresPopUpDiv = styled.div(() => ({
+    
     display: 'flex',
     justifyContent: 'center',
 }));
 
-export const NewPresPopupStyle = styled.div(() => ({
+export const NewPresPopupStyle = styled.div(({darkMode}) => ({
     border: '10px',
-    backgroundColor: 'white',
-    colour: '#4A628A',
+    backgroundColor:darkMode ? "#1a1a1a": "white",
+    color: '#4A628A',
     display: 'flex',
     flexDirection: 'column',
     position: 'fixed',
@@ -86,7 +87,7 @@ export const CodeInputTextArea = styled.textarea(() => ({
     width: '100%',
 }))
 
-export const DashboardCardStyleDiv = styled.div(() => ({
+export const DashboardCardStyleDiv = styled.div(({darkMode}) => ({
     border: "1px solid #4A628A",
     color: "#4A628A",
     padding: "10px",
@@ -95,6 +96,7 @@ export const DashboardCardStyleDiv = styled.div(() => ({
     width: '200px',
     flexDirection: 'column',
     borderRadius: '10px',
+    backgroundColor: darkMode ? "#1a1a1a":"white",
 
     '@media (min-width: 750px)': {
         height: '150px',

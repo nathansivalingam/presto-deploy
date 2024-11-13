@@ -1,4 +1,4 @@
-UI/UX
+## UI/UX
 THe app uses alignment on the dashbaord when there are multiple slides. This means that the dashboard is always presented symmetrically.
 THe presto app also uses harmonious colour combinations in order to make the app easy on users eyes.
 THe app also uses consistent fonts throughout in order to reduce user confusion.

@@ -47,7 +47,7 @@ const Dashboard = function({ token, curStore, setStoreFn, darkMode }) {
     
         return Object.entries(presentations).map(([key, presentation]) => (
             <div key={key}>
-                <DashboardCardStyleDiv onClick={() => {navigate(`/pres/${key}`)}}>
+                <DashboardCardStyleDiv darkMode={darkMode} onClick={() => {navigate(`/pres/${key}`)}}>
                     <DashboardCardTopHalf>
                         <ThumbnailStyle>
                             {presentation.thumbnail && <ThumbnailImg src={presentation.thumbnail}></ThumbnailImg>}   
@@ -84,8 +84,8 @@ const Dashboard = function({ token, curStore, setStoreFn, darkMode }) {
         <StyledHr/>
         {newPresPopup && (
             <>
-                <NewPresPopUpDiv>
-                    <NewPresPopupStyle>
+                <NewPresPopUpDiv >
+                    <NewPresPopupStyle darkMode={darkMode}>
                         <div>
                             New presentation name:
                         </div>
