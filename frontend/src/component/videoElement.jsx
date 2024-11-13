@@ -29,13 +29,13 @@ const VideoElement = ({ num, videoURL, height, width, autoPlay, curStore, locati
     const targetRef = React.useRef(null);
     
     React.useEffect(() => {
-        console.log("HIT")
         editVideo();
     }, [newLocationX, newLocationY, newWidth, newHeight])
 
     const handleDoubleClick = () => {
         const currentTime = Date.now();
         if (currentTime - finalClickTime <= 500) {
+            console.log('double cliock happened')
             setEditVideoPopup(true);
             if (clickTimeout) {
                 clearTimeout(clickTimeout);
@@ -78,7 +78,6 @@ const VideoElement = ({ num, videoURL, height, width, autoPlay, curStore, locati
     
     const MyVideo = () => {
         const autoplayParam = newAutoPlay ? "1" : "0";
-        console.log(autoplayParam);
         const customStyles = {
             width: `${newWidth}%`,
             height: `${newHeight}%`,
@@ -98,7 +97,7 @@ const VideoElement = ({ num, videoURL, height, width, autoPlay, curStore, locati
                     style={{
                         maxHeight: '100%',
                         maxWidth: '100%',
-                        padding: '6px',
+                        padding: '10px',
                         flex: '1',
                     }}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
