@@ -35,7 +35,7 @@ function Login({ handleSuccess }) {
             <div><InputForLogReg type="text" data-testid="email-input" value={email} onChange={e => setEmail(e.target.value)} /><br /></div>
             <LabelsForLogReg>Password: </LabelsForLogReg>
             <div><InputForLogReg type="text" data-testid="password-input" value={password} onChange={e => setPassword(e.target.value)} /><br /></div>
-            <div>{error && <div data-testid="error-msg" style={{color: 'red'}}>Error: {error} </div>}</div>
+            <div>{error && <div data-testid="error-message" style={{color: 'red'}}>Error: {error} </div>}</div>
             <div><StyledButton data-testid="login-btn" onClick={login}>Login</StyledButton></div>
             <Link to='/register'>Don't have an account? Register Here</Link>
           </MainBody>
