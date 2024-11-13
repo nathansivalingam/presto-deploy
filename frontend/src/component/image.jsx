@@ -70,6 +70,7 @@ const Image = ({ num, imgsrc, height, width, altTag, curStore, locationX, locati
     };
 
     const handleRightClick = () => {
+        console.log("RIGHT CLICK")
         if (!editable) {
             return;
         }

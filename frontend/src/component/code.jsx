@@ -116,10 +116,9 @@ const Code = ({ num, input, height, width, fontSize, curStore, locationX, locati
         return (
             <>
                 <GlobalStyle/>
-                <div ref={targetRef} style={customStyles} onClick={handleDoubleClick}>
+                <div ref={targetRef} style={customStyles} onClick={handleDoubleClick} onContextMenu={handleRightClick}>
                     <SyntaxHighlighter
                         language={language}
-                        onContextMenu={handleRightClick}
                         style={{
                             ...docco,
                         }}
