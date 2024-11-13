@@ -27,7 +27,7 @@ const GlobalStyle = createGlobalStyle`
   }`
 ;
 
-const Code = ({ num, input, height, width, fontSize, curStore, locationX, locationY, setStoreFn, curSlideRef, curSlideNum }) => {
+const Code = ({ num, input, height, width, fontSize, curStore, locationX, locationY, setStoreFn, curSlideRef, curSlideNum, editable }) => {
     const params = useParams();
     const [clickTimeout, setClickTimeout] = useState(null);
     const [finalClickTime, setFinalClickTime] = useState(0);
@@ -67,6 +67,9 @@ const Code = ({ num, input, height, width, fontSize, curStore, locationX, locati
     };
 
     const handleRightClick = () => {
+        if (!editable) {
+            return;
+        }
         const newStore = {...curStore};
         newStore.allPres[params.presid].slides[curSlideNum].splice(num, 1);
         setStoreFn(newStore);
@@ -193,11 +196,11 @@ const Code = ({ num, input, height, width, fontSize, curStore, locationX, locati
                         {input}
                     </SyntaxHighlighter>
                 </div>
-                {moveResizeable &&
+                {editable && moveResizeable &&
                 <Moveable
                     style={customStyles}
                     target={targetRef.current}
-                    draggable={true}
+                    draggable={editable}
                     throttleDrag={1}
                     edgeDraggable={false}
                     startDragRotate={0}
@@ -208,7 +211,7 @@ const Code = ({ num, input, height, width, fontSize, curStore, locationX, locati
                     onDragEnd={e => {
                         handleDrag(e);
                     }}
-                    resizable={true}
+                    resizable={editable}
                     keepRatio={false}
                     throttleResize={1}
                     renderDirections={["nw","ne","sw","se"]}
@@ -229,7 +232,7 @@ const Code = ({ num, input, height, width, fontSize, curStore, locationX, locati
     return <>
         <MyCode></MyCode>
 
-        {editCodePopup && (
+        {(editable && editCodePopup) && (
             <>
                 <NewPresPopupStyle>
                     <NewPresPopupStyle>

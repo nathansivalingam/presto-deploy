@@ -79,6 +79,7 @@ const Slide = function ({ token, curStore, setStoreFn, editable, curSlideNum }) 
                             setStoreFn={setStoreFn}
                             curSlideRef={curSlideRef}
                             curSlideNum={curSlideNum}
+                            editable={editable}
                         ></Code>)}
                     </>
                 })}
