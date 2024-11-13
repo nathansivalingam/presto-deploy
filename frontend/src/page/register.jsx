@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { Link } from "react-router-dom";
-import { Box, Background, InputForLogReg, LabelsForLogReg } from '../styles/styledComponents';
+import { Box, Background, InputForLogReg, LabelsForLogReg, Logo, StyledButton, MainBody, MainHeading } from '../styles/styledComponents';
 import { BACKEND_PORT } from '../../backend.config.json';
 
 function Register({ handleSuccess }) {
@@ -39,18 +39,21 @@ function Register({ handleSuccess }) {
     <>
       <Background>
         <Box>
-          <h2>Register</h2>
-          <LabelsForLogReg>Email:</LabelsForLogReg>
-          <div><InputForLogReg type="text" value={email} onChange={e => setEmail(e.target.value)} /><br /></div>
-          <LabelsForLogReg>Password: </LabelsForLogReg>
-          <div><InputForLogReg type="text" value={password} onChange={e => setPassword(e.target.value)} /><br /></div>
-          <LabelsForLogReg>Confirm Password:</LabelsForLogReg>
-          <div><InputForLogReg type="text" value={confPassword} onChange={e => setConfPassword(e.target.value)} /><br /></div>
-          <LabelsForLogReg>Name: </LabelsForLogReg>
-          <div><InputForLogReg type="text" value={name} onChange={e => setName(e.target.value)} /><br /></div>
-          <div>{error && <div style={{color: 'red'}}>Error: {error} </div>}</div>
-          <div><button onClick={register}>Register</button></div>
-          <Link to='/login'>Already have an account? Login Here</Link>
+          <div><Logo>Presto</Logo></div>
+          <MainHeading>Register</MainHeading>
+          <MainBody>
+            <LabelsForLogReg>Email:</LabelsForLogReg>
+            <div><InputForLogReg type="text" value={email} onChange={e => setEmail(e.target.value)} /><br /></div>
+            <LabelsForLogReg>Password: </LabelsForLogReg>
+            <div><InputForLogReg type="text" value={password} onChange={e => setPassword(e.target.value)} /><br /></div>
+            <LabelsForLogReg>Confirm Password:</LabelsForLogReg>
+            <div><InputForLogReg type="text" value={confPassword} onChange={e => setConfPassword(e.target.value)} /><br /></div>
+            <LabelsForLogReg>Name: </LabelsForLogReg>
+            <div><InputForLogReg type="text" value={name} onChange={e => setName(e.target.value)} /><br /></div>
+            <div>{error && <div style={{color: 'red'}}>Error: {error} </div>}</div>
+            <div><button onClick={register}>Register</button></div>
+            <Link to='/login'>Already have an account? Login Here</Link>
+          </MainBody>
         </Box>
       </Background>
     </>

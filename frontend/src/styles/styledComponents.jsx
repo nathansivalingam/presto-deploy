@@ -6,16 +6,19 @@ export const Box = styled.div(() => ({
     maxHeight: '300px',
     backgroundColor: 'white',
     borderRadius: '10px',
-    padding: '35px',
+    padding: '20px 35px',
     display:'flex',
     flexDirection:'column',
     gap: '3px',
     marginTop: '100px',
     fontFamily: 'Arial',
+    border: "2px solid #4A628A",
+    color: "#4A628A",
+    alignItems: "center"
 }));
 
 export const Background = styled.div(() => ({
-    backgroundColor: '#d9d9d9',
+    backgroundColor: '#B9E5E8',
     textAlign: 'center',
     alignContent: 'center',
     display: 'flex',
@@ -234,4 +237,33 @@ export const Logo = styled.h3(() => ({
     borderRadius:'5px',
     padding:'5px',
     border: "2px solid #4A628A",
+    width: "98px",
+    marginBottom: "0px",
+}));
+
+export const MainHeading = styled.h2(() => ({
+    fontWeight: '600',
+    margin: '5px 0',
+    color: '#4A628A',
+    textTransform: 'uppercase',
+    backgroundColor: 'white', 
+    borderRadius:'5px',
+    padding:'5px',
+    width: "98px",
+    marginBottom: "0px",
+    textDecoration: "underline"
+}));
+
+export const MainBody = styled.div(() => ({
+    fontWeight: '600',
+    margin: '5px 0',
+    color: '#4A628A',
+    textTransform: 'uppercase',
+    backgroundColor: 'white', 
+    borderRadius:'5px',
+    padding:'5px',
+    marginBottom: "0px",
+    display: "flex",
+    flexDirection: 'column',
+    gap: "7px"
 }));
