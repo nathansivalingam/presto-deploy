@@ -41,6 +41,7 @@ const Slide = function ({ token, curStore, setStoreFn, editable, curSlideNum, da
                             curSlideRef={curSlideRef}
                             curSlideNum={curSlideNum}
                             editable={editable}
+                            font={curStore.allPres[params.presid].fonts[curSlideNum]}
                         ></Text>)}
                         {(element.type === 'image') && (
                         <Image 

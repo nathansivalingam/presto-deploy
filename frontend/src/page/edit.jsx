@@ -24,7 +24,7 @@ const Edit = function ({ token, curStore, setStoreFn, darkMode }) {
     const [addImagePopup, setAddImagePopup] = React.useState(false);
     const [addVideoPopup, setAddVideoPopup] = React.useState(false);
     const [addCodePopup, setAddCodePopup] = React.useState(false);
-
+    const [changeFontPopup, setChangeFontPopup] = React.useState('');
     // General Variables
     const [elementHeight, setElementHeight] = React.useState('');
     const [elementWidth, setElementWidth] = React.useState('');
@@ -33,6 +33,7 @@ const Edit = function ({ token, curStore, setStoreFn, darkMode }) {
     const [textInput, setTextInput] = React.useState('');
     const [textFontSize, setTextFontSize] = React.useState('');
     const [textColour, setTextColour] = React.useState('');
+    const [textFont, setTextFont] = React.useState('');
 
     // Image Varaibles
     const [imageSrc, setImageSrc] = React.useState('');
@@ -128,6 +129,13 @@ const Edit = function ({ token, curStore, setStoreFn, darkMode }) {
         setAddCodePopup(false);    
     }
 
+    const changeFont = () => {
+        const newStore = {...curStore};
+        newStore.allPres[params.presid].fonts[params.editid] = textFont;
+        setStoreFn(newStore);
+        setChangeFontPopup(false);    
+    }
+
 
     return <>
         <BackDeleteBtnPagePosStyle>
@@ -145,7 +153,41 @@ const Edit = function ({ token, curStore, setStoreFn, darkMode }) {
             <StyledButton onClick={() => setAddImagePopup(true)}>Add Image</StyledButton>
             <StyledButton onClick={() => setAddVideoPopup(true)}>Add Video</StyledButton>
             <StyledButton onClick={() => setAddCodePopup(true)}>Add Code</StyledButton>
+            <StyledButton onClick={() => setChangeFontPopup(true)}>Change Font</StyledButton>
         </BackDeleteBtnPagePosStyle>
+
+        {changeFontPopup && (
+            <>
+                <NewPresPopUpDiv>
+                    <NewPresPopupStyle darkMode={darkMode}>
+                        <div>Select Font for Slide</div>
+                        
+                        <select
+                            value={textFont}
+                            onChange={(e)=>{setTextFont(e.target.value)}}
+                            style={{
+                            padding: '10px',
+                            fontSize: '16px',
+                            borderRadius: '5px',
+                            border: '1px solid #ccc',
+                            backgroundColor: '#f9f9f9',
+                            }}
+                        >
+                            <option value="Arial">Arial</option>
+                            <option value="Impact">Impact</option>
+                            <option value="serif">serif</option>
+                        </select>
+
+                        
+                        <YesNoBtnStyle>
+                            <StyledButton onClick={() => changeFont()}>Submit</StyledButton>
+                            <StyledButton onClick={() => setChangeFontPopup(false)}>Cancel</StyledButton>
+                        </YesNoBtnStyle>
+                    </NewPresPopupStyle> 
+                </NewPresPopUpDiv>
+            </>
+        )}
+
 
         {addTextPopup && (
             <>

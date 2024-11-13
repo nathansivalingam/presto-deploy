@@ -13,7 +13,7 @@ import { useParams } from 'react-router-dom';
 import MoveableElement from '../component/moveableElement';
 // import hljs from 'highlight.js';;
 
-const Text = ({ num, input, height, width, fontSize, colour, curStore, locationX, locationY, setStoreFn, curSlideRef, curSlideNum, editable }) => {
+const Text = ({ num, input, height, width, fontSize, colour, curStore, locationX, locationY, setStoreFn, curSlideRef, curSlideNum, editable, font }) => {
     const params = useParams();
     const [clickTimeout, setClickTimeout] = useState(null);
     const [finalClickTime, setFinalClickTime] = useState(0);
@@ -90,6 +90,7 @@ const Text = ({ num, input, height, width, fontSize, colour, curStore, locationX
             // overflow: 'hidden',
             position: 'absolute',
             marginTop: '0px',
+            fontFamily: font,
         };
 
         return (

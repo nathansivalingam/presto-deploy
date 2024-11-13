@@ -35,6 +35,7 @@ const Dashboard = function({ token, curStore, setStoreFn, darkMode }) {
                 "description": '',
                 "numSlides": 1,
                 "slides": [[]],
+                "fonts": [],
         };
         setStoreFn(newStore);
     }

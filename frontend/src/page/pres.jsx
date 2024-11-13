@@ -79,6 +79,7 @@ const Pres = function ({ token, curStore, setStoreFn, darkMode }) {
         console.log(newStore.allPres)
         console.log(Object.keys(newStore['allPres'][params.presid]['slides']).length);
         newStore.allPres[params.presid].slides.push([]);
+        newStore.allPres[params.presid].fonts.push("Arial");
         newStore.allPres[params.presid]['numSlides'] +=1;
         console.log(newStore.allPres);
         setStoreFn(newStore);
@@ -98,6 +99,7 @@ const Pres = function ({ token, curStore, setStoreFn, darkMode }) {
         console.log(Object.keys(newStore['allPres'][params.presid]['slides']).length);
         
         newStore.allPres[params.presid].slides.splice(curSlideNum, 1);
+        newStore.allPres[params.presid].fonts.splice(curSlideNum, 1);
         newStore.allPres[params.presid]['numSlides'] -=1;
         console.log(newStore.allPres);
         setStoreFn(newStore);
