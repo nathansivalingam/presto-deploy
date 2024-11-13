@@ -44,9 +44,9 @@ const Code = ({ num, input, height, width, fontSize, curStore, locationX, locati
     const [moveResizeable, setMoveResizeable] = React.useState(false);
 
     React.useEffect(() => {
-            console.log("HIT")
-            editCode();
-        }, [newLocationX, newLocationY, newWidth, newHeight])
+        console.log("HIT")
+        editCode();
+    }, [newLocationX, newLocationY, newWidth, newHeight])
     
 
     const handleDoubleClick = () => {

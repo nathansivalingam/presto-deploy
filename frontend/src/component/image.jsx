@@ -10,18 +10,28 @@ import { CurSlide,
     ThumbnailImg, 
     SlideNumberStyle } from '../styles/styledComponents';
 import { useParams } from 'react-router-dom';
+import MoveableElement from '../component/moveableElement';
+import hljs from 'highlight.js';
 
-const Image = ({ num, imgsrc, height, width, altTag, curStore, locationX, locationY, setStoreFn }) => {
+const Image = ({ num, imgsrc, height, width, altTag, curStore, locationX, locationY, setStoreFn, curSlideRef, curSlideNum, editable }) => {
     const params = useParams();
     const [clickTimeout, setClickTimeout] = useState(null);
     const [finalClickTime, setFinalClickTime] = useState(0);
     const [editImagePopup, setEditImagePopup] = React.useState(false);
     const [newHeight, setNewHeight] = React.useState(height);
-    const [newWidth, setnewWidth] = React.useState(width);
+    const [newWidth, setNewWidth] = React.useState(width);
     const [newImgSrc, setNewImgSrc] = React.useState(imgsrc);
     const [newImgAltTag, setNewImgAltTag] = React.useState(altTag);
     const [newLocationX, setNewLocationX] = React.useState(locationX);
     const [newLocationY, setNewLocationY] = React.useState(locationY);
+
+    const targetRef = React.useRef(null);
+    const [moveResizeable, setMoveResizeable] = React.useState(false);
+
+    React.useEffect(() => {
+        console.log("HIT")
+        editImage();
+    }, [newLocationX, newLocationY, newWidth, newHeight])
 
     const  fileToDataUrl = (event) => {
         const file = event.target.files[0];
@@ -51,7 +61,8 @@ const Image = ({ num, imgsrc, height, width, altTag, curStore, locationX, locati
             }
         } else {
             const timeout = setTimeout(() => {
-                setClickTimeout(null);
+                //setClickTimeout(null);
+                setMoveResizeable(!moveResizeable);
             }, 500);
             setClickTimeout(timeout);
         }
@@ -59,14 +70,17 @@ const Image = ({ num, imgsrc, height, width, altTag, curStore, locationX, locati
     };
 
     const handleRightClick = () => {
+        if (!editable) {
+            return;
+        }
         const newStore = {...curStore};
-        newStore.allPres[params.presid].slides[params.editid].splice(num, 1);
+        newStore.allPres[params.presid].slides[curSlideNum].splice(num, 1);
         setStoreFn(newStore);
     }
 
     const editImage = () => {
         const newStore = {...curStore};
-        newStore.allPres[params.presid].slides[params.editid][num] = {
+        newStore.allPres[params.presid].slides[curSlideNum][num] = {
             'type': 'image',
             'imgsrc': newImgSrc,
             'height': newHeight,
@@ -76,32 +90,49 @@ const Image = ({ num, imgsrc, height, width, altTag, curStore, locationX, locati
             'locationY': newLocationY,
         }
         setStoreFn(newStore);
-        console.log(newStore.allPres[params.presid].slides[params.editid]);
+        //console.log(newStore.allPres[params.presid].slides[params.editid]);
         setEditImagePopup(false);
     }
     
     const MyImage = () => {
+        const customStyles = {
+            width: `${newWidth}%`,
+            height: `${newHeight}%`,
+            top: `${newLocationX}%`,
+            left: `${newLocationY}%`,
+            position: 'absolute',
+        };
+        
         return <>
             <img
+                ref={targetRef}
                 src={imgsrc}
                 alt={altTag}
                 onClick={handleDoubleClick}
                 onContextMenu={handleRightClick}
-                style={{
-                    width: `${width}%`,
-                    height: `${height}%`,
-                    top: `${locationY}%`,
-                    left: `${locationX}%`,
-                    position: 'absolute',
-                }}
+                style={customStyles}
                 />
+            {editable && moveResizeable &&
+                (<MoveableElement
+                    curSlideRef={curSlideRef}
+                    editable={editable}
+                    targetRef={targetRef}
+                    customStyles={customStyles}
+                    newLocationX={newLocationX}
+                    newLocationY={newLocationY}
+                    setNewLocationX={setNewLocationX}
+                    setNewLocationY={setNewLocationY}
+                    setNewHeight={setNewHeight}
+                    setNewWidth={setNewWidth}
+                />)
+            }
         </>
     }
 
     return <>
         <MyImage></MyImage>
 
-        {editImagePopup && (
+        {editable && editImagePopup && (
             <>
                 <NewPresPopupStyle>
                     <NewPresPopupStyle>
@@ -113,7 +144,7 @@ const Image = ({ num, imgsrc, height, width, altTag, curStore, locationX, locati
                         <div>
                             Width {'[0 < % < 100]'}:
                         </div>
-                        <InputForLogReg type="number" value={newWidth} onChange={e => setnewWidth(e.target.value)} /><br />
+                        <InputForLogReg type="number" value={newWidth} onChange={e => setNewWidth(e.target.value)} /><br />
                         <div>
                             Image Source
                         </div>
