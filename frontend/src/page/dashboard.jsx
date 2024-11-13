@@ -39,7 +39,7 @@ const Dashboard = function({ token, curStore, setStoreFn }) {
     const showPresentations = (presentations) => {
         console.log(presentations);
         if (!presentations || Object.keys(presentations).length === 0) {
-            return <p>No presentations available.</p>; 
+            return <p data-testid="no-presentations-available">No presentations available.</p>; 
         }
     
         return Object.entries(presentations).map(([key, presentation]) => (
