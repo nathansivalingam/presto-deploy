@@ -150,7 +150,7 @@ const Edit = function ({ token, curStore, setStoreFn, darkMode }) {
         {addTextPopup && (
             <>
                 <NewPresPopUpDiv>
-                    <NewPresPopupStyle>
+                    <NewPresPopupStyle darkMode={darkMode}>
                         <div><u>ADD TEXT BOX</u></div>
                         <div>
                             Textarea Size Height {'[0 < % < 100]'}:
@@ -183,7 +183,7 @@ const Edit = function ({ token, curStore, setStoreFn, darkMode }) {
         {addImagePopup && (
             <>
                 <NewPresPopUpDiv>
-                    <NewPresPopupStyle>
+                    <NewPresPopupStyle darkMode={darkMode}>
                         <div>ADD IMAGE</div>
                         <div>
                             Image Height {'[0 < % < 100]'}:
@@ -212,7 +212,7 @@ const Edit = function ({ token, curStore, setStoreFn, darkMode }) {
         {addVideoPopup && (
             <>
                 <NewPresPopUpDiv>
-                    <NewPresPopupStyle>
+                    <NewPresPopupStyle darkMode={darkMode}>
                         <div><u>ADD VIDEO</u></div>
                         <div>
                             Video Height {'[0 < % < 100]'}:
@@ -241,7 +241,7 @@ const Edit = function ({ token, curStore, setStoreFn, darkMode }) {
         {addCodePopup && (
             <>
                 <NewPresPopUpDiv>
-                    <NewPresPopupStyle>
+                    <NewPresPopupStyle darkMode={darkMode}>
                         <div><u>ADD Code</u></div>
                         <div>
                             Code Size Height {'[0 < % < 100]'}:

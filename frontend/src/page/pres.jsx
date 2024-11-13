@@ -172,7 +172,7 @@ const Pres = function ({ token, curStore, setStoreFn, darkMode }) {
         {deletePresPopup && (
             <>
                 <NewPresPopUpDiv>
-                    <NewPresPopupStyle>
+                    <NewPresPopupStyle darkMode={darkMode}>
                         <div>WARNING: Are you sure you want to delete Your Presentation?</div>
                         <YesNoBtnStyle>
                             <StyledButton onClick={() => deletePres()}>Yes</StyledButton>
@@ -186,7 +186,7 @@ const Pres = function ({ token, curStore, setStoreFn, darkMode }) {
         {editThumbnailPopup && (
                 <>
                     <NewPresPopUpDiv>
-                        <NewPresPopupStyle>
+                        <NewPresPopupStyle darkMode={darkMode}>
                             <div>Select a Thumbnail:</div>
                             <div>
                                 <input type="file" onChange={fileToDataUrl}/><br />
@@ -208,7 +208,7 @@ const Pres = function ({ token, curStore, setStoreFn, darkMode }) {
         {editTitlePopup && (
                 <>
                     <NewPresPopUpDiv>
-                        <NewPresPopupStyle>
+                        <NewPresPopupStyle darkMode={darkMode}>
                             <div>Enter new title:</div>
                             <div>
                                 <InputForLogReg type="text" value={title} onChange={e => setTitle(e.target.value)} /><br />
