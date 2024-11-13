@@ -8,6 +8,9 @@ import { NewPresPopupStyle,
     DashboardCardTopHalf, 
     TrailOff, 
     TrailOffWrap,
+    StyledButton,
+    StyledHr,
+    Subheading,
     PresentationBtnHeadingStyle, ThumbnailImg } from '../styles/styledComponents';
 
 const Dashboard = function({ token, curStore, setStoreFn }) {
@@ -61,16 +64,20 @@ const Dashboard = function({ token, curStore, setStoreFn }) {
 
     return <>
         <>
-            <PresentationBtnHeadingStyle>
+        
+            <PresentationBtnHeadingStyle style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
+                <Subheading>All Presentations</Subheading>
                 <div>
-                    <button onClick={() => setNewPresPopup(!newPresPopup)}>New Presentation</button>
+                    <StyledButton onClick={() => setNewPresPopup(!newPresPopup)}>New Presentation +</StyledButton>
                 </div>
-                <div>All Presentations</div>
+
             </PresentationBtnHeadingStyle>
+            <StyledHr/>
             <ShowPresentationList>
                 {showPresentations(curStore['allPres'])}
             </ShowPresentationList>
         </>
+        <StyledHr/>
         {newPresPopup && (
             <>
                 <NewPresPopUpDiv>
@@ -88,7 +95,7 @@ const Dashboard = function({ token, curStore, setStoreFn }) {
                 </NewPresPopUpDiv>
             </>
         )}
-            
+        
           
     </>;
 };

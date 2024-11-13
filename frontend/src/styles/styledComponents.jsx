@@ -37,6 +37,7 @@ export const LabelsForLogReg = styled.div(() => ({
 export const GlobalBodyStyle = createGlobalStyle`
     body{
         margin: 0px;
+        font-family: 'Arial';
     }
 `;
 
@@ -186,4 +187,35 @@ export const BackDeleteBtnPagePosStyle = styled.div(() => ({
 export const YesNoBtnStyle = styled.div(() => ({
     display: 'flex',
     gap: '10px',
+}));
+
+
+export const StyledButton = styled.button(() => ({
+    backgroundColor: 'lightblue',
+    color: 'white',
+    border: 'none',
+    padding: '10px 20px',
+    cursor: 'pointer',
+    borderRadius: '5px',
+    transition: 'background-color 0.3s ease',
+
+    '&:hover': {
+        backgroundColor: 'deepskyblue',
+    },
+}));
+
+export const StyledHr = styled.hr(() => ({
+    border: 'none',
+    borderTop: '2px solid deepskyblue',
+    margin: '10px 80px',
+    width: 'auto',
+}));
+
+export const Subheading = styled.h3(() => ({
+    fontSize: '1.5em',
+    fontWeight: '600',
+    margin: '5px 0',
+    color: '#4A628A',
+    textAlign: 'left',
+    textTransform: 'uppercase',
 }));

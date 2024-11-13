@@ -128,7 +128,7 @@ const Edit = function ({ token, curStore, setStoreFn }) {
 
     return <>
         <BackDeleteBtnPagePosStyle>
-            <div>Currently editing slide: {parseInt(params.editid + 1)}</div>
+            <div>Currently editing slide: {parseInt(params.editid) + 1}</div>
         </BackDeleteBtnPagePosStyle>
         <BackDeleteBtnPagePosStyle>
             <button onClick={() => navigate('/Dashboard')}>Back to Dashboard</button>

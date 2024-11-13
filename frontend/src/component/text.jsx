@@ -11,7 +11,7 @@ import { CurSlide,
     SlideNumberStyle } from '../styles/styledComponents';
 import { useParams } from 'react-router-dom';
 import MoveableElement from '../component/moveableElement';
-import hljs from 'highlight.js';;
+// import hljs from 'highlight.js';;
 
 const Text = ({ num, input, height, width, fontSize, colour, curStore, locationX, locationY, setStoreFn, curSlideRef, curSlideNum, editable }) => {
     const params = useParams();
