@@ -3,6 +3,7 @@ import { describe, it } from 'vitest'
 import Login from '../page/login'
 import { MemoryRouter } from 'react-router-dom';
 import axios from 'axios';
+import axiosMockAdapter from 'axios-mock-adapter';
 
 // Mock axios module
 jest.mock('axios');
