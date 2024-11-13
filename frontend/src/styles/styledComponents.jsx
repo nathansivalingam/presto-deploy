@@ -69,6 +69,7 @@ export const NewPresPopupStyle = styled.div(({darkMode}) => ({
     flexDirection: 'column',
     position: 'fixed',
     width: '70%',
+    maxWidth: '400px',
     justifyContent: 'center',
     alignItems: 'center',
     top: '100px',
