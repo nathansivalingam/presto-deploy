@@ -10,18 +10,28 @@ import { CurSlide,
     ThumbnailImg, 
     SlideNumberStyle } from '../styles/styledComponents';
 import { useParams } from 'react-router-dom';
+import MoveableElement from '../component/moveableElement';
+import hljs from 'highlight.js';
 
-const VideoElement = ({ num, videoURL, height, width, autoPlay, curStore, locationX, locationY, setStoreFn }) => {
+const VideoElement = ({ num, videoURL, height, width, autoPlay, curStore, locationX, locationY, setStoreFn, curSlideRef, curSlideNum, editable }) => {
     const params = useParams();
     const [clickTimeout, setClickTimeout] = useState(null);
     const [finalClickTime, setFinalClickTime] = useState(0);
     const [editVideoPopup, setEditVideoPopup] = React.useState(false);
     const [newHeight, setNewHeight] = React.useState(height);
-    const [newWidth, setnewWidth] = React.useState(width);
+    const [newWidth, setNewWidth] = React.useState(width);
     const [newVideoURL, setNewVideoURL] = React.useState(videoURL);
     const [newAutoPlay, setNewAutoPlay] = React.useState(autoPlay);
     const [newLocationX, setNewLocationX] = React.useState(locationX);
     const [newLocationY, setNewLocationY] = React.useState(locationY);
+    
+    const [moveResizeable, setMoveResizeable] = React.useState(false);
+    const targetRef = React.useRef(null);
+    
+    React.useEffect(() => {
+        console.log("HIT")
+        editVideo();
+    }, [newLocationX, newLocationY, newWidth, newHeight])
 
     const handleDoubleClick = () => {
         const currentTime = Date.now();
@@ -33,7 +43,8 @@ const VideoElement = ({ num, videoURL, height, width, autoPlay, curStore, locati
             }
         } else {
             const timeout = setTimeout(() => {
-                setClickTimeout(null);
+                // setClickTimeout(null);
+                setMoveResizeable(!moveResizeable);
             }, 500);
             setClickTimeout(timeout);
         }
@@ -41,14 +52,17 @@ const VideoElement = ({ num, videoURL, height, width, autoPlay, curStore, locati
     };
 
     const handleRightClick = () => {
+        if (!editable) {
+            return;
+        }
         const newStore = {...curStore};
-        newStore.allPres[params.presid].slides[params.editid].splice(num, 1);
+        newStore.allPres[params.presid].slides[curSlideNum].splice(num, 1);
         setStoreFn(newStore);
     }
 
     const editVideo = () => {
         const newStore = {...curStore};
-        newStore.allPres[params.presid].slides[params.editid][num] = {
+        newStore.allPres[params.presid].slides[curSlideNum][num] = {
             'type': 'video',
             'url': newVideoURL,
             'height': newHeight,
@@ -58,23 +72,25 @@ const VideoElement = ({ num, videoURL, height, width, autoPlay, curStore, locati
             'locationY': newLocationY,
         }
         setStoreFn(newStore);
-        console.log(newStore.allPres[params.presid].slides[params.editid]);
+        //console.log(newStore.allPres[params.presid].slides[params.editid]);
         setEditVideoPopup(false);
     }
     
     const MyVideo = () => {
         const autoplayParam = newAutoPlay ? "1" : "0";
         console.log(autoplayParam);
+        const customStyles = {
+            width: `${newWidth}%`,
+            height: `${newHeight}%`,
+            top: `${newLocationX}%`,
+            left: `${newLocationY}%`,
+            position: 'absolute',
+            backgroundColor: 'black',
+            display: 'flex'
+        };
+        
         return <>
-            <div style={{
-                        width: `${width}%`,
-                        height: `${height}%`,
-                        top: `${locationX}%`,
-                        left: `${locationY}%`,
-                        position: 'absolute',
-                        backgroundColor: 'black',
-                        display: 'flex'
-                    }}>
+            <div ref={targetRef} style={customStyles}>
                 <iframe 
                     src={`${videoURL}&autoplay=${autoplayParam}&mute=1`}
                     onClick={handleDoubleClick}
@@ -89,13 +105,27 @@ const VideoElement = ({ num, videoURL, height, width, autoPlay, curStore, locati
                 >
                 </iframe>
             </div>
+            {editable && moveResizeable &&
+                (<MoveableElement
+                    curSlideRef={curSlideRef}
+                    editable={editable}
+                    targetRef={targetRef}
+                    customStyles={customStyles}
+                    newLocationX={newLocationX}
+                    newLocationY={newLocationY}
+                    setNewLocationX={setNewLocationX}
+                    setNewLocationY={setNewLocationY}
+                    setNewHeight={setNewHeight}
+                    setNewWidth={setNewWidth}
+                />)
+            }
         </>
     }
 
     return <>
         <MyVideo/>
 
-        {editVideoPopup && (
+        {editable && editVideoPopup && (
             <>
                 <NewPresPopupStyle>
                     <NewPresPopupStyle>
@@ -107,7 +137,7 @@ const VideoElement = ({ num, videoURL, height, width, autoPlay, curStore, locati
                         <div>
                             Width {'[0 < % < 100]'}:
                         </div>
-                        <InputForLogReg type="number" value={newWidth} onChange={e => setnewWidth(e.target.value)} /><br />
+                        <InputForLogReg type="number" value={newWidth} onChange={e => setNewWidth(e.target.value)} /><br />
                         <div>
                             Video URL
                         </div>

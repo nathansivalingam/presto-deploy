@@ -7,7 +7,6 @@ import { useParams } from 'react-router-dom';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import hljs from 'highlight.js';
-import Moveable from "react-moveable";
 import styled, { createGlobalStyle } from 'styled-components';
 import MoveableElement from '../component/moveableElement';
 
