@@ -11,6 +11,7 @@ import { CurSlide,
     SlideNumberStyle } from '../styles/styledComponents';
 import { useParams } from 'react-router-dom';
 import MoveableElement from '../component/moveableElement';
+import hljs from 'highlight.js';;
 
 const Text = ({ num, input, height, width, fontSize, colour, curStore, locationX, locationY, setStoreFn, curSlideRef, curSlideNum, editable }) => {
     const params = useParams();
@@ -76,10 +77,6 @@ const Text = ({ num, input, height, width, fontSize, colour, curStore, locationX
     }
     
     const MyText = () => {
-        console.log(width);
-        console.log(editable);
-        console.log(moveResizeable)
-
         const customStyles = {
             width: `${newWidth}%`,
             height: `${newHeight}%`,
@@ -90,20 +87,23 @@ const Text = ({ num, input, height, width, fontSize, colour, curStore, locationX
             borderWidth: '1px',
             borderColor: 'lightgrey',
             borderStyle: 'solid',
-            overflow: 'hidden',
+            // overflow: 'hidden',
             position: 'absolute',
+            marginTop: '0px',
         };
 
-        return <>
-            <div
-                ref={targetRef}
-                onClick={handleDoubleClick}
-                onContextMenu={handleRightClick}
-                style={customStyles}
-                >
-                {input}
-            </div>
-            {editable && moveResizeable &&
+        return (
+            <>
+                <div
+                    ref={targetRef}
+                    onClick={handleDoubleClick}
+                    onContextMenu={handleRightClick}
+                    style={customStyles}
+                    >
+                    {input}
+                </div>
+                
+             {editable && moveResizeable &&
                 (<MoveableElement
                     curSlideRef={curSlideRef}
                     editable={editable}
@@ -114,8 +114,10 @@ const Text = ({ num, input, height, width, fontSize, colour, curStore, locationX
                     setNewLocationX={setNewLocationX}
                     setNewLocationY={setNewLocationY}
                 />)
-            }
-        </>
+                
+                }
+            </>
+        );
     }
 
     return <>

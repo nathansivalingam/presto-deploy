@@ -12,7 +12,7 @@ import styled, { createGlobalStyle } from 'styled-components';
 
 
 
-const MoveableElement = ({ curSlideRef, editable, targetRef, customStyles, newLocationX, newLocationY, setNewLocationX, setNewLocationY }) => { 
+const MoveableElement = ({ curSlideRef, editable, targetRef, customStyles, newLocationX, newLocationY, setNewLocationX, setNewLocationY, setNewHeight, setNewWidth }) => { 
 
     
     const handleDrag = (e) => {
@@ -31,12 +31,12 @@ const MoveableElement = ({ curSlideRef, editable, targetRef, customStyles, newLo
         console.log(curSlideRef.current.offsetLeft)
         console.log(e)
 
-        // const y = parseInt(result[1]);
-        // const x = parseInt(result[2]);
+        const y = parseInt(result[1]);
+        const x = parseInt(result[2]);
         // const x = e.lastEvent.top;
         // const y = e.lastEvent.left;
-        const y = 1*(e.lastEvent.beforeTranslate[0]);
-        const x = 1*(e.lastEvent.beforeTranslate[1]);
+        // const y = 1*(e.lastEvent.beforeTranslate[0]);
+        // const x = 1*(e.lastEvent.beforeTranslate[1]);
         console.log(x)
         console.log(y)
 
@@ -80,7 +80,7 @@ const MoveableElement = ({ curSlideRef, editable, targetRef, customStyles, newLo
     return <>
         <Moveable
             style={customStyles}
-            target={targetRef.current}
+            target={targetRef}
             draggable={editable}
             throttleDrag={1}
             edgeDraggable={false}

@@ -77,7 +77,6 @@ const Code = ({ num, input, height, width, fontSize, curStore, locationX, locati
     }
 
     const editCode = () => {
-        //console.log('Hi');
         const newStore = {...curStore};
         newStore.allPres[params.presid].slides[curSlideNum][num] = {
             'type': 'code',
@@ -128,6 +127,7 @@ const Code = ({ num, input, height, width, fontSize, curStore, locationX, locati
                     >
                         {input}
                     </SyntaxHighlighter>
+                    {input}
                 </div>
                 {editable && moveResizeable &&
                     (<MoveableElement
@@ -139,6 +139,8 @@ const Code = ({ num, input, height, width, fontSize, curStore, locationX, locati
                         newLocationY={newLocationY}
                         setNewLocationX={setNewLocationX}
                         setNewLocationY={setNewLocationY}
+                        setNewHeight={setNewHeight}
+                        setNewWidth={setNewWidth}
                     />)
                 }
             </>
