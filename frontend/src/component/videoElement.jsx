@@ -89,11 +89,13 @@ const VideoElement = ({ num, videoURL, height, width, autoPlay, curStore, locati
         };
         
         return <>
-            <div ref={targetRef} style={customStyles}>
+           
+                <div  ref={targetRef} style={customStyles}>
                 <iframe 
                     src={`${videoURL}&autoplay=${autoplayParam}&mute=1`}
                     onClick={handleDoubleClick}
                     onContextMenu={handleRightClick}
+                    frameborder={1}
                     style={{
                         maxHeight: '100%',
                         maxWidth: '100%',
@@ -102,8 +104,10 @@ const VideoElement = ({ num, videoURL, height, width, autoPlay, curStore, locati
                     }}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 >
+                    
                 </iframe>
-            </div>
+                </div>
+            
             {editable && moveResizeable &&
                 (<MoveableElement
                     curSlideRef={curSlideRef}
@@ -128,7 +132,7 @@ const VideoElement = ({ num, videoURL, height, width, autoPlay, curStore, locati
             <>
                 <NewPresPopupStyle>
                     <NewPresPopupStyle>
-                        <div><u>EDIT IMAGE</u></div>
+                        <div><u>EDIT VIDEO</u></div>
                         <div>
                             Height {'[0 < % < 100]'}:
                         </div>
