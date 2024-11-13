@@ -29,7 +29,7 @@ const MoveableElement = ({ curSlideRef, editable, targetRef, customStyles, newLo
         // console.log(slideHeight)
         // console.log(e.clientY)
         // console.log(curSlideRef.current.offsetLeft)
-        // console.log(e)
+        console.log(e)
 
         const y = parseInt(result[1]);
         const x = parseInt(result[2]);
@@ -37,11 +37,11 @@ const MoveableElement = ({ curSlideRef, editable, targetRef, customStyles, newLo
         // const y = e.lastEvent.left;
         // const y = 1*(e.lastEvent.beforeTranslate[0]);
         // const x = 1*(e.lastEvent.beforeTranslate[1]);
-        // console.log(x)
-        // console.log(y)
+        console.log(x)
+        console.log(y)
 
-        let xPercentage = Math.round((x / slideWidth) * 100, 0) + parseInt(newLocationX);
-        let yPercentage = Math.round((y / slideHeight) * 100, 0) + parseInt(newLocationY);
+        let xPercentage = Math.round((x / slideWidth) * 100, 0) *2 + parseInt(newLocationX);
+        let yPercentage = Math.round((y / slideHeight) * 100, 0) /2 + parseInt(newLocationY);
         // let xPercentage = Math.round((x / slideWidth) * 100, 0) ;
         // let yPercentage = Math.round((y / slideHeight) * 100, 0);
         // console.log(xPercentage)
@@ -90,7 +90,7 @@ const MoveableElement = ({ curSlideRef, editable, targetRef, customStyles, newLo
                 e.target.style.transform = e.transform;
             }}
             onDragEnd={e => {
-                handleDrag(e);
+               handleDrag(e);
             }}
             resizable={editable}
             keepRatio={false}

@@ -10,10 +10,13 @@ import { CurSlide,
     ThumbnailStyle, 
     ThumbnailImg, 
     StyledButton,
+    InvertStyledButton,
     StyledHeader,
     MainHeading,
-    SubHeading,
-    SlideNumberStyle } from '../styles/styledComponents';
+    Subheading,
+    StyledHr,
+    SlideNumberStyle, 
+    MainBody} from '../styles/styledComponents';
 import Slide from '../component/slide'
 
 const Pres = function ({ token, curStore, setStoreFn }) {
@@ -127,21 +130,31 @@ const Pres = function ({ token, curStore, setStoreFn }) {
 
 
     return <>  
+        
         <StyledHeader>
-            <SubHeading>Presentation Details</SubHeading>
-            <ThumbnailStyle>
-                {thumbnail && <ThumbnailImg src={thumbnail}></ThumbnailImg>} 
-            </ThumbnailStyle>
-            <div>{title}</div>
+            <Subheading>Details:</Subheading>
+            <div style={{display: "flex", gap: '5px'}}>
+                <div  style={{display: "flex", flexDirection: "column", alignItems: 'center', gap: "3px"}}>
+                <ThumbnailStyle>
+                    {thumbnail && <ThumbnailImg src={thumbnail}></ThumbnailImg>} 
+                </ThumbnailStyle>
+                
+                </div>
+                <div  style={{display: "flex", flexDirection: "column", alignItems: 'center', gap: "3px"}}>
+                        <div style={{height: '50px'}}>
+                            <MainBody>{title}</MainBody>
+                        </div>
+                        
+                </div>
+            </div>
         </StyledHeader>
         <BackDeleteBtnPagePosStyle>
-            <StyledButton onClick={() => navigate('/Dashboard')}>Back to Dashboard</StyledButton>
-            <StyledButton onClick={() => setDeletePresPopup(true)}>Delete Presentation</StyledButton>
+            <InvertStyledButton onClick={() => navigate('/Dashboard')}>Back to Dashboard</InvertStyledButton>
+            <InvertStyledButton onClick={() => setDeletePresPopup(true)}>Delete Presentation</InvertStyledButton>
+            <InvertStyledButton onClick={() => setEditTitlePopup(true)}>Edit Title</InvertStyledButton>
+            <InvertStyledButton onClick={() => setEditThumbnailPopup(true)}>Edit Thumbnail</InvertStyledButton>
         </BackDeleteBtnPagePosStyle>
-        <BackDeleteBtnPagePosStyle>
-            <button onClick={() => setEditThumbnailPopup(true)}>Edit Thumbnail</button>
-            <button onClick={() => setEditTitlePopup(true)}>Edit Title</button>
-        </BackDeleteBtnPagePosStyle>
+
         <PresPage>
             <Slide curStore={curStore} setStoreFn={setStoreFn} editable={false} curSlideNum={curSlideNum}/>
         </PresPage>
@@ -161,8 +174,8 @@ const Pres = function ({ token, curStore, setStoreFn }) {
                     <NewPresPopupStyle>
                         <div>WARNING: Are you sure you want to delete Your Presentation?</div>
                         <YesNoBtnStyle>
-                            <button onClick={() => deletePres()}>Yes</button>
-                            <button onClick={() => setDeletePresPopup(false)}>No</button>
+                            <StyledButton onClick={() => deletePres()}>Yes</StyledButton>
+                            <StyledButton onClick={() => setDeletePresPopup(false)}>No</StyledButton>
                         </YesNoBtnStyle>
                     </NewPresPopupStyle> 
                 </NewPresPopUpDiv>
@@ -178,13 +191,13 @@ const Pres = function ({ token, curStore, setStoreFn }) {
                                 <input type="file" onChange={fileToDataUrl}/><br />
                             </div>
                             <YesNoBtnStyle>
-                                <button onClick={() => modifyPresThumbnail()}>Submit</button>
-                                <button onClick={() => {
+                                <StyledButton onClick={() => modifyPresThumbnail()}>Submit</StyledButton>
+                                <StyledButton onClick={() => {
                                     setEditThumbnailPopup(false);
                                     setThumbnail((curStore.allPres)[params.presid]['thumbnail']);
                                 }}>
                                     Cancel
-                                </button>
+                                </StyledButton>
                             </YesNoBtnStyle>
                         </NewPresPopupStyle> 
                     </NewPresPopUpDiv>
@@ -200,14 +213,14 @@ const Pres = function ({ token, curStore, setStoreFn }) {
                                 <InputForLogReg type="text" value={title} onChange={e => setTitle(e.target.value)} /><br />
                             </div>
                             <YesNoBtnStyle>
-                                <button onClick={() => modifyPresDetails()}>Submit</button>
-                                <button onClick={() => {
+                                <StyledButton onClick={() => modifyPresDetails()}>Submit</StyledButton>
+                                <StyledButton onClick={() => {
                                     setEditTitlePopup(false);
                                     setTitle((curStore.allPres)[params.presid]['title']);
                                     console.log((curStore.allPres)[params.presid]['title']);
                                 }}>
                                     Cancel
-                                </button>
+                                </StyledButton>
                             </YesNoBtnStyle>
                         </NewPresPopupStyle> 
                     </NewPresPopUpDiv>

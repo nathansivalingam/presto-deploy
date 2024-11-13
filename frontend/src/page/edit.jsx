@@ -9,7 +9,10 @@ import { CurSlide,
     InputForLogReg, 
     ThumbnailStyle, 
     ThumbnailImg,
+    Subheading,
     CodeInputTextArea,
+    StyledButton,
+    InvertStyledButton,
     SlideNumberStyle } from '../styles/styledComponents';
 import Slide from '../component/slide';
 
@@ -128,20 +131,20 @@ const Edit = function ({ token, curStore, setStoreFn }) {
 
     return <>
         <BackDeleteBtnPagePosStyle>
-            <div>Currently editing slide: {parseInt(params.editid) + 1}</div>
+            <Subheading>Currently editing slide: {parseInt(params.editid) + 1}</Subheading>
         </BackDeleteBtnPagePosStyle>
         <BackDeleteBtnPagePosStyle>
-            <button onClick={() => navigate('/Dashboard')}>Back to Dashboard</button>
-            <button onClick={() => navigate(`/Pres/${params.presid}`)}>Back to Presentation</button>
+            <InvertStyledButton onClick={() => navigate('/Dashboard')}>Back to Dashboard</InvertStyledButton>
+            <InvertStyledButton onClick={() => navigate(`/Pres/${params.presid}`)}>Back to Presentation</InvertStyledButton>
         </BackDeleteBtnPagePosStyle>
         <PresPage>
             <Slide curStore={curStore} setStoreFn={setStoreFn} editable={true} curSlideNum={params.editid}/>
         </PresPage>
         <BackDeleteBtnPagePosStyle>
-            <button onClick={() => setAddTextPopup(true)}>Add Text Box</button>
-            <button onClick={() => setAddImagePopup(true)}>Add Image</button>
-            <button onClick={() => setAddVideoPopup(true)}>Add Video</button>
-            <button onClick={() => setAddCodePopup(true)}>Add Code</button>
+            <StyledButton onClick={() => setAddTextPopup(true)}>Add Text Box</StyledButton>
+            <StyledButton onClick={() => setAddImagePopup(true)}>Add Image</StyledButton>
+            <StyledButton onClick={() => setAddVideoPopup(true)}>Add Video</StyledButton>
+            <StyledButton onClick={() => setAddCodePopup(true)}>Add Code</StyledButton>
         </BackDeleteBtnPagePosStyle>
 
         {addTextPopup && (
@@ -170,8 +173,8 @@ const Edit = function ({ token, curStore, setStoreFn }) {
                         </div>
                         <InputForLogReg type="color" onChange={e => setTextColour(e.target.value)} /><br />
                         <YesNoBtnStyle>
-                            <button onClick={() => addText()}>Submit</button>
-                            <button onClick={() => setAddTextPopup(false)}>Cancel</button>
+                            <StyledButton onClick={() => addText()}>Submit</StyledButton>
+                            <StyledButton onClick={() => setAddTextPopup(false)}>Cancel</StyledButton>
                         </YesNoBtnStyle>
                     </NewPresPopupStyle> 
                 </NewPresPopUpDiv>
@@ -181,7 +184,7 @@ const Edit = function ({ token, curStore, setStoreFn }) {
             <>
                 <NewPresPopUpDiv>
                     <NewPresPopupStyle>
-                        <div><u>ADD IMAGE</u></div>
+                        <div>ADD IMAGE</div>
                         <div>
                             Image Height {'[0 < % < 100]'}:
                         </div>
@@ -199,8 +202,8 @@ const Edit = function ({ token, curStore, setStoreFn }) {
                         </div>
                         <InputForLogReg type="text" onChange={e => setimageAltTag(e.target.value)} /><br />
                         <YesNoBtnStyle>
-                            <button onClick={() => addImage()}>Submit</button>
-                            <button onClick={() => setAddImagePopup(false)}>Cancel</button>
+                            <StyledButton onClick={() => addImage()}>Submit</StyledButton>
+                            <StyledButton onClick={() => setAddImagePopup(false)}>Cancel</StyledButton>
                         </YesNoBtnStyle>
                     </NewPresPopupStyle> 
                 </NewPresPopUpDiv>
@@ -228,8 +231,8 @@ const Edit = function ({ token, curStore, setStoreFn }) {
                         </div>
                         <InputForLogReg type="checkbox" onChange={e => setAutoPlay(e.target.checked)} /><br />
                         <YesNoBtnStyle>
-                            <button onClick={() => addVideo()}>Submit</button>
-                            <button onClick={() => setAddVideoPopup(false)}>Cancel</button>
+                            <StyledButton onClick={() => addVideo()}>Submit</StyledButton>
+                            <StyledButton onClick={() => setAddVideoPopup(false)}>Cancel</StyledButton>
                         </YesNoBtnStyle>
                     </NewPresPopupStyle> 
                 </NewPresPopUpDiv>
@@ -239,7 +242,7 @@ const Edit = function ({ token, curStore, setStoreFn }) {
             <>
                 <NewPresPopUpDiv>
                     <NewPresPopupStyle>
-                        <div><u>ADD TEXT BOX</u></div>
+                        <div><u>ADD Code</u></div>
                         <div>
                             Code Size Height {'[0 < % < 100]'}:
                         </div>
@@ -257,8 +260,8 @@ const Edit = function ({ token, curStore, setStoreFn }) {
                         </div>
                         <InputForLogReg type="number" onChange={e => setCodeFontSize(e.target.value)} />
                         <YesNoBtnStyle>
-                            <button onClick={() => addCode()}>Submit</button>
-                            <button onClick={() => setAddCodePopup(false)}>Cancel</button>
+                            <StyledButton onClick={() => addCode()}>Submit</StyledButton>
+                            <StyledButton onClick={() => setAddCodePopup(false)}>Cancel</StyledButton>
                         </YesNoBtnStyle>
                     </NewPresPopupStyle> 
                 </NewPresPopUpDiv>

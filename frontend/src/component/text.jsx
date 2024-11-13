@@ -113,6 +113,8 @@ const Text = ({ num, input, height, width, fontSize, colour, curStore, locationX
                     newLocationY={newLocationY}
                     setNewLocationX={setNewLocationX}
                     setNewLocationY={setNewLocationY}
+                    setNewHeight={setNewHeight}
+                    setNewWidth={setNewWidth}
                 />)
                 
                 }

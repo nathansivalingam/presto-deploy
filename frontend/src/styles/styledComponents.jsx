@@ -41,6 +41,7 @@ export const GlobalBodyStyle = createGlobalStyle`
     body{
         margin: 0px;
         font-family: 'Arial';
+        color: '#4A628A';
     }
 `;
 
@@ -69,6 +70,7 @@ export const NewPresPopUpDiv = styled.div(() => ({
 export const NewPresPopupStyle = styled.div(() => ({
     border: '10px',
     backgroundColor: 'white',
+    colour: '#4A628A',
     display: 'flex',
     flexDirection: 'column',
     position: 'fixed',
@@ -79,11 +81,13 @@ export const NewPresPopupStyle = styled.div(() => ({
     borderRadius: '10px',
     padding: '20px',
     gap: '10px',
-    borderWidth: '1px',
-    borderColor: 'black',
+    borderWidth: '2px',
+    borderColor: '#4A628A',
     borderStyle: 'solid',
     zIndex: '1',
 }));
+
+
 
 export const CodeInputTextArea = styled.textarea(() => ({
     width: '100%',
@@ -151,8 +155,8 @@ export const CurSlide = styled.div(() => ({
     height: '100%',
     width: '80%',
     display: 'flex',
-    borderWidth: '1px',
-    borderColor: 'black',
+    borderWidth: '2px',
+    borderColor: '#4A628A',
     borderStyle: 'solid',
     backgroundColor: 'white',
     position: 'relative',
@@ -209,6 +213,21 @@ export const StyledButton = styled.button(() => ({
     cursor: 'pointer',
     borderRadius: '5px',
     transition: 'background-color 0.3s ease',
+
+    '&:hover': {
+        backgroundColor: 'deepskyblue',
+    },
+}));
+
+export const InvertStyledButton = styled.button(() => ({
+    backgroundColor: 'white',
+    color: '#4A628A',
+    border: 'none',
+    padding: '10px 20px',
+    cursor: 'pointer',
+    borderRadius: '5px',
+    transition: 'background-color 0.3s ease',
+    border: "1px solid #4A628A",
 
     '&:hover': {
         backgroundColor: 'deepskyblue',
@@ -273,10 +292,12 @@ export const MainBody = styled.div(() => ({
     gap: "7px"
 }));
 export const StyledHeader = styled.div(() => ({
-    backgroundColor: "lightGrey",
+    backgroundColor: "white",
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
-    gap: "5px",
-    padding: "10px 0px"
+    gap: "25px",
+    padding: "10px 0px",
+    flexWrap: "wrap",
+    padding: "4px 0px",
 }));
