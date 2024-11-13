@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, useLocation, Routes, Route, Link } from 'react-router-dom';
-import { NavBar, NavBarBtn, GlobalBodyStyle, Logo } from './styles/styledComponents';
+import styled, { ThemeProvider } from 'styled-components';
+import { NavBar, NavBarBtn, GlobalBodyStyle, Logo, StyledButton, DarkGlobalBodyStyle, darkTheme, lightTheme } from './styles/styledComponents';
 import { BACKEND_PORT } from '../backend.config.json';
 
 import Register from './page/register';
@@ -17,6 +18,7 @@ function Router() {
   const navigate = useNavigate();
   const location = useLocation();
   const [store, setStore] = React.useState({});
+  const [darkMode, setDarkMode] = React.useState(false);
 
   const setStoreAll = (newStore) => {
       axios.put(
@@ -63,7 +65,7 @@ function Router() {
         navigate('/');
       }
   }, [token, location.pathname])
-
+  console.log(darkMode)
   return (
     <>
         <div>
@@ -76,19 +78,24 @@ function Router() {
                 <NavBarBtn>
                   <Logout token={token} setToken={setToken} />
                 </NavBarBtn>
+                <NavBarBtn>
+                  <StyledButton onClick={() => {setDarkMode(!darkMode)}}>Dark Mode</StyledButton>
+                </NavBarBtn>
               </NavBar>
             </>
           )}
         </div>
+        {/* {darkMode ? (<DarkGlobalBodyStyle/>) : (<GlobalBodyStyle/>)} */}
         <GlobalBodyStyle/>
         <Routes>
           <Route path="/" element={<Landingpage />} />
-          <Route path="/dashboard" element={<Dashboard token={token} curStore={store} setStoreFn={setStoreAll} />} />
+          <Route path="/dashboard" element={<Dashboard token={token} curStore={store} setStoreFn={setStoreAll} darkMode={darkMode} />} />
           <Route path="/pres/:presid" element={<Pres token={token} curStore={store} setStoreFn={setStoreAll} />} />
           <Route path="/register" element={<Register handleSuccess={handleNewToken}/>} />
           <Route path="/login" element={<Login handleSuccess={handleNewToken}/>} />
           <Route path="/pres/:presid/edit/:editid" element={<Edit token={token} curStore={store} setStoreFn={setStoreAll} />} />
         </Routes>
+
     </>
   )
 }

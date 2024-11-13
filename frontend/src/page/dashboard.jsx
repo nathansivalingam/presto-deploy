@@ -11,9 +11,14 @@ import { NewPresPopupStyle,
     StyledButton,
     StyledHr,
     Subheading,
+    DarkGlobalBodyStyle,
+    GlobalBodyStyle,
+    darkTheme,
+    lightTheme,
     PresentationBtnHeadingStyle, ThumbnailImg } from '../styles/styledComponents';
+import styled, { ThemeProvider } from 'styled-components';
 
-const Dashboard = function({ token, curStore, setStoreFn }) {
+const Dashboard = function({ token, curStore, setStoreFn, darkMode }) {
     
     const [newPresPopup, setNewPresPopup] = React.useState(false);
     const [newPresName, setNewPresName] = React.useState('');
@@ -64,7 +69,6 @@ const Dashboard = function({ token, curStore, setStoreFn }) {
 
     return <>
         <>
-        
             <PresentationBtnHeadingStyle style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', flexWrap: 'wrap'}}>
                 <Subheading>All Presentations</Subheading>
                 <div>
@@ -77,6 +81,7 @@ const Dashboard = function({ token, curStore, setStoreFn }) {
                 {showPresentations(curStore['allPres'])}
             </ShowPresentationList>
         </>
+        
         <StyledHr/>
         {newPresPopup && (
             <>
@@ -89,7 +94,7 @@ const Dashboard = function({ token, curStore, setStoreFn }) {
                             <input type="text" value={newPresName} onChange={e => setNewPresName(e.target.value)} /><br />
                         </div>
                         <div>
-                            <button onClick={() => newPres()}>Create</button>
+                            <StyledButton onClick={() => newPres()}>Create</StyledButton>
                         </div>
                     </NewPresPopupStyle> 
                 </NewPresPopUpDiv>

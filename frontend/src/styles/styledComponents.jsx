@@ -303,3 +303,27 @@ export const StyledHeader = styled.div(() => ({
     flexWrap: "wrap",
     padding: "4px 0px",
 }));
+
+
+
+export const DarkGlobalBodyStyle = createGlobalStyle`
+    body{
+        margin: 0px;
+        font-family: 'Arial';
+        color: 'white';
+        backgroundColour:'#4A628A';
+    }
+`;
+export const lightTheme = {
+    background: "#ffffff",
+    text: "#000000",
+    buttonBackground: "#e0e0e0",
+    buttonText: "#000000",
+  };
+  
+  export const darkTheme = {
+    background: "#000000",
+    text: "#ffffff",
+    buttonBackground: "#333333",
+    buttonText: "#ffffff",
+  };
