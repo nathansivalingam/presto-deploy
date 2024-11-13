@@ -104,8 +104,8 @@ export const DashboardCardStyleDiv = styled.div(() => ({
     borderRadius: '10px',
 
     '@media (min-width: 750px)': {
-        height: '150px',    // Increase height when screen width is above 800px
-        width: '300px',     // Increase width when screen width is above 800px
+        height: '150px',
+        width: '300px',
     }
 }));
 
@@ -181,6 +181,10 @@ export const PresPage = styled.div(() => ({
     justifyContent: 'center',
     height: '400px',
     marginTop: '10px',
+    '@media (min-width: 750px)': {
+        height: '700px',    // Increase height when screen width is above 800px
+    // Increase width when screen width is above 800px
+    }
 }));
 
 export const PresentationBtnHeadingStyle = styled.div(() => ({
