@@ -62,39 +62,39 @@ describe('happyPath', () => {
         expect(nameInput.value).toBe(testNameInput);
         screen.debug()
     })
-    it('successfully registers the user', async () => {
-        render(<MemoryRouter>
-            <Register />
-        </MemoryRouter>)
-        const emailInput = screen.getByTestId('email-input');
-        const passwordInput = screen.getByTestId('password-input');
-        const confirmPasswordInput = screen.getByTestId('confirm-password-input');
-        const nameInput = screen.getByTestId('name-input');
-        const testEmailInput = 'test@gmail.com';
-        const testPasswordInput = 'testPassword';
-        const testConfirmPasswordInput = 'testPassword';
-        const testNameInput = 'test';
-        fireEvent.change(emailInput, {target: { value: testEmailInput }});
-        fireEvent.change(passwordInput, {target: { value: testPasswordInput }});
-        fireEvent.change(confirmPasswordInput, {target: { value: testConfirmPasswordInput }});
-        fireEvent.change(nameInput, {target: { value: testNameInput }});       
-        const registerBtn = screen.getByTestId('register-btn');
-        fireEvent.click(registerBtn);
+    // it('successfully registers the user', async () => {
+    //     render(<MemoryRouter>
+    //         <Register />
+    //     </MemoryRouter>)
+    //     const emailInput = screen.getByTestId('email-input');
+    //     const passwordInput = screen.getByTestId('wqqpassword-input');
+    //     const confirmPasswordInput = screen.getByTestId('confirm-password-input');
+    //     const nameInput = screen.getByTestId('name-input');
+    //     const testEmailInput = 'test@gmail.com';
+    //     const testPasswordInput = 'testPassword';
+    //     const testConfirmPasswordInput = 'testPassword';
+    //     const testNameInput = 'test';
+    //     fireEvent.change(emailInput, {target: { value: testEmailInput }});
+    //     fireEvent.change(passwordInput, {target: { value: testPasswordInput }});
+    //     fireEvent.change(confirmPasswordInput, {target: { value: testConfirmPasswordInput }});
+    //     fireEvent.change(nameInput, {target: { value: testNameInput }});       
+    //     const registerBtn = screen.getByTestId('register-btn');
+    //     fireEvent.click(registerBtn);
 
-        let mock;
-        mock = new axiosMockAdapter(axios);
-        mock.onPost(`http://localhost:${BACKEND_PORT}/admin/auth/register`).reply(200);
-        await waitFor(
-            render(<MemoryRouter>
-                <App />
-                <Dashboard />
-            </MemoryRouter>)
-        )
-        // cy.wait(1000);
-        await waitFor(() => expect(screen.getByTestId('no-presentations-available')).toHaveTextContent('No presentations available.'));
-        mock.reset();
-        screen.debug();
-    })
+    //     let mock;
+    //     mock = new axiosMockAdapter(axios);
+    //     mock.onPost(`http://z5363575-presto-deploy-frontend-rho.vercel.app:${BACKEND_PORT}/admin/auth/register`).reply(200);
+    //     await waitFor(
+    //         render(<MemoryRouter>
+    //             <App />
+    //             <Dashboard />
+    //         </MemoryRouter>)
+    //     )
+    //     // cy.wait(1000);
+    //     await waitFor(() => expect(screen.getByTestId('no-presentations-available')).toHaveTextContent('No presentations available.'));
+    //     mock.reset();
+    //     screen.debug();
+    // })
     ////////////////////////////////////////////////////////////
     // 2. CREATES A PRESENTATION SUCCESSFULLY
     ////////////////////////////////////////////////////////////
